@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Header from './components/Header'
 import {Chart} from "react-google-charts";
+import Table from "react-bootstrap/Table";
 
 class App extends Component {
 
@@ -120,6 +121,42 @@ class App extends Component {
                             rootProps={{'data-testid': '2'}}
                         />
                     </Col>
+                </Row>
+                <Row>
+                    <Table striped bordered hover>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Job Profile</th>
+                            <th>Referred By</th>
+                            <th>View Profile</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>FrontEnd Developer</td>
+                            <td>Ruben</td>
+                            <td><a href="#">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jacob</td>
+                            <td>Backend Developer</td>
+                            <td>Martha</td>
+                            <td><a href="#">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td >Jey</td>
+                            <td>FrontEnd Developer</td>
+                            <td>Mariya</td>
+                            <td><a href="#">View</a></td>
+                        </tr>
+                        </tbody>
+                    </Table>
                 </Row>
             </Container>
         );

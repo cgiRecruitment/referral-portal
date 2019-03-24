@@ -1,12 +1,20 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Header from './components/Header'
 import {Chart} from "react-google-charts";
-import Table from "react-bootstrap/Table";
+import ProfilesTable from "./components/ProfilesTable";
 
-class App extends Component {
+
+class App extends React.Component {
+
+    componentWillMount() {
+        fetch("api/profiles.json").then(data => data.json()).then(response => {
+            this.props.setProfiles(response)
+        } )
+    }
+
 
     render() {
         const pieOptions = {
@@ -123,40 +131,7 @@ class App extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Table striped bordered hover>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Job Profile</th>
-                            <th>Referred By</th>
-                            <th>View Profile</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>FrontEnd Developer</td>
-                            <td>Ruben</td>
-                            <td><a href="#">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Backend Developer</td>
-                            <td>Martha</td>
-                            <td><a href="#">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td >Jey</td>
-                            <td>FrontEnd Developer</td>
-                            <td>Mariya</td>
-                            <td><a href="#">View</a></td>
-                        </tr>
-                        </tbody>
-                    </Table>
+              <ProfilesTable profiles={this.props.profiles}/>
                 </Row>
             </Container>
         );

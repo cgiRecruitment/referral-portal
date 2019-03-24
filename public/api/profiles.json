@@ -1,0 +1,26 @@
+[
+  {
+    "id": "44602b17-8c13-44d1-bd01-a90244e49e12",
+    "received_date": "43440.0",
+    "name": "Raja Ramzan",
+    "in_nl": null,
+    "referral": "No",
+    "referred_by": "IT Carrieredagen",
+    "skill": null,
+    "status": "Rejected CGI",
+    "comments": "Geen NL ervaring, geen bancaire ervaring",
+    "id_from_excel": "103.0"
+  },
+  {
+    "id": "40287795-d5da-4a9b-b55c-c2b556c2a5cf",
+    "received_date": "43468.0",
+    "name": "Sreejit Menon",
+    "in_nl": "Y",
+    "referral": "Yes",
+    "referred_by": "Rameshkumar Radhakrishnan",
+    "skill": "DB",
+    "status": "In progress",
+    "comments": null,
+    "id_from_excel": "141.0"
+  }
+]

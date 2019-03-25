@@ -14,7 +14,7 @@ class Header extends React.Component{
                     <Nav className="mr-auto">
                         <Nav.Link href="#/">Dashboard</Nav.Link>
                         <Nav.Link href="#/profiles">View Profiles</Nav.Link>
-                        <Nav.Link href="#link">Add Profiles</Nav.Link>
+                        <Nav.Link href="#/add-profile">Add Profiles</Nav.Link>
                     </Nav>
                 </NavBar.Collapse>
             </NavBar>

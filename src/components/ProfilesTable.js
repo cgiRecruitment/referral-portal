@@ -82,6 +82,14 @@ class CustomTable extends React.Component {
                                                 {this.state.selectedProfile[0]['referred_by']}
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                               Received Date
+                                            </td>
+                                            <td>
+                                                {this.state.selectedProfile[0]['received_date']}
+                                            </td>
+                                        </tr>
                                         </tbody>
 
                                     </Table>
@@ -105,7 +113,7 @@ class CustomTable extends React.Component {
                                                 Comment
                                             </td>
                                             <td>
-                                                {this.state.selectedProfile[0]['comment']}
+                                                {this.state.selectedProfile[0]['comments']}
                                             </td>
                                         </tr>
                                         <tr>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, HashRouter} from "react-router-dom";
 import Dashboard from './components/Dashboard'
 import ViewProfiles from './containers/viewProfiles'
+import AddProfile from './containers/addProfile'
 import Header from "./components/Header";
 import Container from "react-bootstrap/Container";
 
@@ -21,6 +22,7 @@ class App extends React.Component {
                 <HashRouter>
                     <Route path="/" exact render={() => (<Dashboard profiles={this.props.profiles}/>)}/>
                     <Route exact path="/profiles/" render={() => (<ViewProfiles />)}/>
+                    <Route exact path="/add-profile/" render={() => (<AddProfile />)}/>
                 </HashRouter>
             </Container>
 

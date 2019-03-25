@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
+import Status from './Status'
 
 class CustomTable extends React.Component {
 
@@ -22,7 +23,7 @@ class CustomTable extends React.Component {
                             <td>{item.email}</td>
                             <td>{item.referred_by}</td>
                             <td>{item.skill}</td>
-                            <td>{item.status}</td>
+                            <td><Status>{item.status}</Status></td>
                             <td><a href={`/view/${item.id}`}> View Profile</a></td>
                         </tr>
                     ))

@@ -1,0 +1,18 @@
+.status {
+  padding: 0.5rem;
+  border: thin solid #ccc;
+  border-radius: .5rem;
+  background: #e9d613;
+  font-weight: bold;
+}
+
+.accepted {
+  background: #4d974d;
+  color: #fff;
+}
+
+.rejected {
+  background: #a52931;
+  color: #fff;
+}
+

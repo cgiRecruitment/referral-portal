@@ -17,14 +17,16 @@ class App extends React.Component {
 
     render() {
         return (
+            <React.Fragment>
+            <Header/>
             <Container>
-                <Header/>
                 <HashRouter>
                     <Route path="/" exact render={() => (<Dashboard profiles={this.props.profiles}/>)}/>
                     <Route exact path="/profiles/" render={() => (<ViewProfiles />)}/>
                     <Route exact path="/add-profile/" render={() => (<AddProfile />)}/>
                 </HashRouter>
             </Container>
+            </React.Fragment>
 
         );
     }

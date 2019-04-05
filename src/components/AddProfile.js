@@ -19,12 +19,15 @@ class AddProfile extends React.Component {
             comment:""
     }
     addProfile = () => {
+        const formData = new FormData();
+        Object.keys(this.state).forEach(key => formData.append(key,this.state[key]))
+        formData.append('file',this.state.file);
         fetch('/candidate',{
+            headers: {
+                'content-type': 'multipart/form-data'
+            },
             method:'POST',
-            body:JSON.stringify({receivedDate:new Date(), name:this.state.name, inNetherlands:this.state.inNl, referral:this.state.isReferred, referredBy:this.state.referredBy,status:this.state.status,skill:this.state.skillSet,comments:this.state.comment,phone:this.state.phone,emailAddress:this.state.email }),
-            headers:{
-                'Content-Type': 'application/json'
-            }
+            body:formData
         })
     }
 
@@ -85,6 +88,16 @@ class AddProfile extends React.Component {
                                             <Col sm="10">
                                                 <Form.Check inline label="Yes" type="radio" name={`inNL`} onChange={(e) => this.setState({inNL:true})}/>
                                                 <Form.Check inline label="No" type="radio" name={`inNL`}  onChange={(e) => this.setState({inNL:false})}/>
+                                            </Col>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="profilePhone" as={Row}>
+                                            <Form.Label column sm="8">Upload Resume</Form.Label>
+                                            <Col sm="10">
+                                                <Form.Control type="file" onChange={(e) => {
+                                                    this.setState({file: e.target.files[0]})
+                                                } }/>
                                             </Col>
                                         </Form.Group>
                                     </Col>

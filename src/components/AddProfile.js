@@ -45,25 +45,25 @@ class AddProfile extends React.Component {
                                 <hr />
                                 <Row>
 
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileName" as={Row}>
-                                            <Form.Label column sm="4">Name</Form.Label>
+                                            <Form.Label column sm="4" md="12">Name</Form.Label>
                                             <Col sm="10">
                                                 <Form.Control type="text" placeholder="Enter Name" onChange={(e) => this.setState({name:e.target.value})}/>
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileEmail" as={Row}>
-                                            <Form.Label column sm="4">Email</Form.Label>
+                                            <Form.Label column sm="4" md="12">Email</Form.Label>
                                             <Col sm="10">
                                                 <Form.Control type="email" placeholder="Enter email" onChange={(e) => this.setState({email:e.target.value})}/>
                                             </Col>
                                         </Form.Group>
-                                    </Col>
-                                    <Col>
+                                    </Col >
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profilePhone" as={Row}>
-                                            <Form.Label column sm="8">Phone Number</Form.Label>
+                                            <Form.Label column sm="8" md="12">Phone Number</Form.Label>
                                             <Col sm="10">
                                                 <Form.Control type="text" placeholder="Enter Phone number" onChange={(e) => this.setState({phone:e.target.value})}/>
                                             </Col>
@@ -71,9 +71,9 @@ class AddProfile extends React.Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileSkill" as={Row}>
-                                            <Form.Label column sm="4">Skill set</Form.Label>
+                                            <Form.Label column sm="4" md="12">Skill set</Form.Label>
                                             <Col sm="10">
                                                 <Form.Control as="select" onChange={(e) => this.setState({skillSet:e.target.value})}>
                                                     <option>Choose...</option>
@@ -82,18 +82,18 @@ class AddProfile extends React.Component {
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileInNetherlands" as={Row}>
-                                            <Form.Label column sm="8">Available in NL</Form.Label>
+                                            <Form.Label column sm="8" md="12">Available in NL</Form.Label>
                                             <Col sm="10">
                                                 <Form.Check inline label="Yes" type="radio" name={`inNL`} onChange={(e) => this.setState({inNL:true})}/>
                                                 <Form.Check inline label="No" type="radio" name={`inNL`}  onChange={(e) => this.setState({inNL:false})}/>
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profilePhone" as={Row}>
-                                            <Form.Label column sm="8">Upload Resume</Form.Label>
+                                            <Form.Label column sm="8" md="12">Upload Resume</Form.Label>
                                             <Col sm="10">
                                                 <Form.Control type="file" onChange={(e) => {
                                                     this.setState({file: e.target.files[0]})
@@ -105,18 +105,18 @@ class AddProfile extends React.Component {
                                 <h5>Referral Info</h5>
                                 <hr />
                                 <Row>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileReferral" as={Row}>
-                                            <Form.Label column sm="8">Is Referred</Form.Label>
+                                            <Form.Label column sm="8" md="12">Is Referred</Form.Label>
                                             <Col sm="10">
                                                 <Form.Check inline label="Yes" type="radio" name={`isReferral`} onChange={(e) => this.setState({isReferred:true})}/>
                                                 <Form.Check inline label="No" type="radio" name={`isReferral`} onChange={(e) => this.setState({isReferred:false})}/>
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileReferredBy" as={Row}>
-                                            <Form.Label column sm="8">Referred By</Form.Label>
+                                            <Form.Label column sm="8" md="12">Referred By</Form.Label>
                                             <Col sm="10">
                                                 <Form.Control type="text" placeholder="Enter Name" onChange={(e) => this.setState({referredBy:e.target.value})}/>
                                             </Col>
@@ -129,9 +129,9 @@ class AddProfile extends React.Component {
                                 <h5>Status Info</h5>
                                 <hr />
                                 <Row>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileStatus" as={Row}>
-                                            <Form.Label column sm="4">Status</Form.Label>
+                                            <Form.Label column sm="4" md="12">Status</Form.Label>
                                             <Col sm="10">
                                                 <Form.Control as="select" onChange={(e) => this.setState({status:e.target.value})}>
                                                     <option>Choose...</option>
@@ -140,16 +140,16 @@ class AddProfile extends React.Component {
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col xs="12" md="4">
                                         <Form.Group controlId="profileStatus" as={Row}>
-                                            <Form.Label column sm="4">Comment</Form.Label>
+                                            <Form.Label column sm="4" md="12" >Comment</Form.Label>
                                             <Form.Control as="textarea" rows="3" onChange={(e) => this.setState({comment:e.target.value})}/>
                                         </Form.Group>
                                     </Col>
                                 </Row>
                                 <Row>
 
-                                    <Col sm="2">
+                                    <Col sm="2" md="12" sm="12">
                                 <Button type="button" onClick={(e) => this.addProfile()}>Add Profile</Button>
                                     </Col>
                                     <Col sm="9"/>

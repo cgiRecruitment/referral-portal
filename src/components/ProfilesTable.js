@@ -132,7 +132,7 @@ class CustomTable extends React.Component {
                         </Modal.Body>
                     </Modal>
                 }
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
                 <thead>
                 <tr>
                     {

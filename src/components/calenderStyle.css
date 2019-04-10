@@ -1,0 +1,14 @@
+.availabilityPanel {
+  height: 100vh;
+  background: #f8f8f8;
+}
+
+.availabilityContainer {
+  padding: 0;
+}
+
+.availabilityPanelHeader {
+  padding: 1em 0;
+  text-align: center;
+  border-bottom: thin solid #282c34;
+}

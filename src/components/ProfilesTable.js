@@ -4,14 +4,37 @@ import Status from './Status'
 import Modal from "react-bootstrap/es/Modal";
 import {Row} from "react-bootstrap";
 import Col from "react-bootstrap/es/Col";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEye, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Form from "react-bootstrap/es/Form";
+import Button from "react-bootstrap/es/Button";
+library.add(faEye)
+library.add(faEdit)
 
 class CustomTable extends React.Component {
     state = {
-        showProfile:false
+        showProfile:false,
+        editProfile:false,
+        status:"" ,
+        comment:""
+    }
+
+    updateProfile = () => {
+        const {status, comment} = this.state
+        if(status && comment) {
+            fetch('/update/candidate',{
+                headers: {
+                    'content-type': 'application/json'
+                },
+                method:'POST',
+                body:JSON.stringify({status,comment})
+            })
+        }
     }
 
     render() {
-        const head = ["#","Name", "Email", "ReferredBy", "Skills","status","View"]
+        const head = ["#","Name", "Email", "ReferredBy", "Skills","Status","View","Edit"]
         return (
             <React.Fragment>
                 {this.state.selectedProfile &&
@@ -150,13 +173,69 @@ class CustomTable extends React.Component {
                             <td>{item.referred_by}</td>
                             <td>{item.skill}</td>
                             <td><Status>{item.status}</Status></td>
-                            <td><a href="javascript:void(0)" onClick={() => this.setState({showProfile:true, selectedProfile:this.props.profiles.filter(profile => profile.id === item.id )})}> View Profile</a></td>
+                            <td><a href="javascript:void(0)" onClick={() => this.setState({showProfile:true, selectedProfile:this.props.profiles.filter(profile => profile.id === item.id )})}>  <FontAwesomeIcon icon="eye" /></a> </td>
+                            <td><a href="javascript:void(0)" onClick={() => this.setState({editProfile:true, selectedProfile:this.props.profiles.filter(profile => profile.id === item.id )})}> <FontAwesomeIcon icon="edit" /></a></td>
                         </tr>
                     ))
                 }
 
                 </tbody>
-            </Table>
+            </Table>{
+                this.state.selectedProfile &&
+                <Modal
+                    size="lg"
+                    show={this.state.editProfile}
+                    onHide={() => this.setState({editProfile: false})}
+                    aria-labelledby="example-modal-sizes-title-lg"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                            {this.state.selectedProfile[0]['name']}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Row>
+                            <Col>
+                                <h5>Status Update</h5>
+                                <Table striped bordered hover>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            Status
+                                        </td>
+                                        <td>
+                                            <Form.Control as="select" onChange={(e) => this.setState({status:e.target.value})}>
+                                            <option>Choose...</option>
+                                            <option>...</option>
+                                        </Form.Control>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Comment
+                                        </td>
+                                        <td>
+                                            <Form.Group controlId="profileStatus" as={Row}>
+                                                <Form.Control as="textarea" rows="3" onChange={(e) => this.setState({comment:e.target.value})}/>
+                                            </Form.Group>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </Table>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm="9"/>
+                            <Col sm="3" >
+                                <Button type="button" onClick={(e) => this.updateProfile()}>Update Profile</Button>
+                            </Col>
+
+                        </Row>
+                    </Modal.Body>
+                </Modal>
+            }
+
             </React.Fragment>
         );
     }

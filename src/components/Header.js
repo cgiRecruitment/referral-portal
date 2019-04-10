@@ -18,6 +18,7 @@ class Header extends React.Component{
                         <Nav.Link href="#/">Dashboard</Nav.Link>
                         <Nav.Link href="#/profiles">View Profiles</Nav.Link>
                         <Nav.Link href="#/add-profile">Add Profiles</Nav.Link>
+                        <Nav.Link href="#/calender">Interview Calender</Nav.Link>
                     </Nav>
                 </NavBar.Collapse>
                 </Container>

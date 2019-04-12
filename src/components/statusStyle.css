@@ -1,7 +1,7 @@
 .status {
   padding: 0.5rem;
   border: thin solid #ccc;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background: #e9d613;
   font-weight: bold;
 }
@@ -15,4 +15,3 @@
   background: #a52931;
   color: #fff;
 }
-

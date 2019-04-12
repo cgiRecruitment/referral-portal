@@ -1,21 +1,20 @@
-import { SET_PROFILES } from '../actions/profileActions'
+import { SET_PROFILES } from "../actions/profileActions";
 
 const initialState = {
-    profiles: false
-}
+  profiles: false
+};
 
 function profileReducer(state = initialState, action) {
-    switch (action.type) {
-        case SET_PROFILES:
-            return {
-                ...state,
-                profiles: action.data
-            }
-        default: {
-            return state
-        }
+  switch (action.type) {
+    case SET_PROFILES:
+      return {
+        ...state,
+        profiles: action.data
+      };
+    default: {
+      return state;
     }
-
+  }
 }
 
-export default profileReducer
+export default profileReducer;

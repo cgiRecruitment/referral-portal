@@ -5,12 +5,10 @@ import ViewProfiles from "./containers/viewProfiles";
 import AddProfile from "./containers/addProfile";
 import Calender from "./containers/calender";
 import Header from "./components/Header";
-import { getAvailabilityOverview } from "./actions/calenderActions";
 
 class App extends React.Component {
   componentWillMount() {
     this.props.getProfiles();
-    this.props.getAvailabilityOverview();
   }
 
   render() {

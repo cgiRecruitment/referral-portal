@@ -18,6 +18,12 @@ class AddProfile extends React.Component {
     status: "",
     comment: ""
   };
+
+  componentDidMount() {
+    this.props.getSkillSetList();
+    this.props.getStatusList()
+  }
+
   addProfile = () => {
     const formData = new FormData();
     Object.keys(this.state).forEach(key =>
@@ -109,7 +115,9 @@ class AddProfile extends React.Component {
                           }
                         >
                           <option>Choose...</option>
-                          <option>...</option>
+                          {this.props.skillSets.map(skill => (
+                            <option value={skill.key}>{skill.value}</option>
+                          ))}
                         </Form.Control>
                       </Col>
                     </Form.Group>
@@ -215,7 +223,9 @@ class AddProfile extends React.Component {
                           }
                         >
                           <option>Choose...</option>
-                          <option>...</option>
+                          {this.props.statusList.map(status => (
+                              <option value={status.key}>{status.value}</option>
+                          ))}
                         </Form.Control>
                       </Col>
                     </Form.Group>
@@ -236,7 +246,7 @@ class AddProfile extends React.Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col sm="2" md="12" sm="12">
+                  <Col sm="2" md="12">
                     <Button type="button" onClick={e => this.addProfile()}>
                       Add Profile
                     </Button>

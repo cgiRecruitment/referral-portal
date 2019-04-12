@@ -213,7 +213,9 @@ class CustomTable extends React.Component {
                             }
                           >
                             <option>Choose...</option>
-                            <option>...</option>
+                            {this.props.statusList.map(status => (
+                                <option value={status.key}>{status.value}</option>
+                            ))}
                           </Form.Control>
                         </td>
                       </tr>

@@ -1,0 +1,22 @@
+[
+  {
+    "key": "FE",
+    "value": "FrontEnd"
+  },
+  {
+    "key": "BE",
+    "value": "BackendEnd"
+  },
+  {
+    "key": "FS",
+    "value": "FullStack"
+  },
+  {
+    "key": "BA",
+    "value": "Business Analyst"
+  },
+  {
+    "key": "BI",
+    "value": "Business Intelligence"
+  }
+]

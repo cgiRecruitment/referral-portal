@@ -1,0 +1,30 @@
+[
+  {
+    "key": "open",
+    "value": "Open"
+  },
+  {
+    "key": "viewed",
+    "value": "Viewed"
+  },
+  {
+    "key": "reviewed",
+    "value": "Reviewed"
+  },
+  {
+    "key": "scheduled",
+    "value": "Scheduled"
+  },
+  {
+    "key": "inProgress",
+    "value": "In Progress"
+  },
+  {
+    "key": "selected",
+    "value": "Selected"
+  },
+  {
+    "key": "rejected",
+    "value": "Rejected"
+  }
+]

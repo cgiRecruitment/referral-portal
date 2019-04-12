@@ -4,12 +4,16 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 import { getProfile } from "./middleware/getProfile";
 import { getAvailabilityOverview } from "./middleware/getAvailabilityOverview";
+import { getSkillSetList } from "./middleware/getSkillsets";
+import { getStatusList } from "./middleware/getStatusList";
 
 const initialState = {};
 const enhancers = [];
 const middleware = [
   getProfile,
   getAvailabilityOverview,
+  getSkillSetList,
+  getStatusList,
   thunk,
   routerMiddleware()
 ];

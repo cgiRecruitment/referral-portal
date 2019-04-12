@@ -7,6 +7,10 @@ import Table from "react-bootstrap/Table";
 class AddProfile extends React.Component {
   state = {};
 
+  componentWillMount() {
+    this.props.getAvailabilityOverview();
+  }
+
   render() {
     return (
       <Container fluid={true} className="availabilityContainer">

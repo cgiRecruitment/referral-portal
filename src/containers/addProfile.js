@@ -1,12 +1,15 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import AddProfile from "../components/AddProfile";
+import { getSkillSetList, getStatusList } from "../actions/prefillActions";
 
 const mapStateToProps = state => ({
-  profiles: state.profileReducer.profiles
+  skillSets: state.prefillReducer.skillSet,
+  statusList: state.prefillReducer.status
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getSkillSetList,getStatusList }, dispatch);
 
 export default connect(
   mapStateToProps,

@@ -2,10 +2,14 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
+import { getProfile } from './middleware/getProfile'
+import { getAvailabilityOverview } from './middleware/getAvailabilityOverview'
 
 const initialState = {}
 const enhancers = []
 const middleware = [
+    getProfile,
+    getAvailabilityOverview,
     thunk,
     routerMiddleware(),
 ]

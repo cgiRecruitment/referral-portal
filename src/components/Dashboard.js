@@ -123,7 +123,10 @@ class Dashboard extends React.Component {
           </Col>
         </Row>
         <Row>
-          <ProfilesTable profiles={this.props.profiles} />
+          <ProfilesTable
+            profiles={this.props.profiles}
+            statusList={this.props.statusList}
+          />
         </Row>
       </Container>
     );

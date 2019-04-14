@@ -1,7 +1,11 @@
-import { STORE_AVAILABILITY_OVERVIEW } from "../actions/calenderActions";
+import {
+  STORE_AVAILABILITY_OVERVIEW,
+  STORE_SCHEDULE_FOR_DATE
+} from "../actions/calenderActions";
 
 const initialState = {
-  availabilityOverview: []
+  availabilityOverview: [],
+  schedule: []
 };
 
 function calenderReducer(state = initialState, action) {
@@ -10,6 +14,11 @@ function calenderReducer(state = initialState, action) {
       return {
         ...state,
         availabilityOverview: action.data
+      };
+    case STORE_SCHEDULE_FOR_DATE:
+      return {
+        ...state,
+        schedule: action.data
       };
     default: {
       return state;

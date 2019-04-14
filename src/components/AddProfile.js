@@ -16,27 +16,37 @@ class AddProfile extends React.Component {
     inNL: true,
     skillSet: "",
     status: "",
-    comment: ""
+    comment: "",
+    validated: false
   };
 
   componentDidMount() {
     this.props.getSkillSetList();
-    this.props.getStatusList()
+    this.props.getStatusList();
   }
 
-  addProfile = () => {
-    const formData = new FormData();
-    Object.keys(this.state).forEach(key =>
-      formData.append(key, this.state[key])
-    );
-    formData.append("file", this.state.file);
-    fetch("/candidate", {
-      headers: {
-        "content-type": "multipart/form-data"
-      },
-      method: "POST",
-      body: formData
-    });
+  addProfile = e => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+      const formData = new FormData();
+      Object.keys(this.state).forEach(key =>
+        formData.append(key, this.state[key])
+      );
+      formData.append("file", this.state.file);
+      fetch("/candidate", {
+        headers: {
+          "content-type": "multipart/form-data"
+        },
+        method: "POST",
+        body: formData
+      });
+    }
+    this.setState({ validated: true });
   };
 
   render() {
@@ -48,7 +58,11 @@ class AddProfile extends React.Component {
         <Row>
           <Card style={{ width: "100%" }}>
             <Card.Body>
-              <Form>
+              <Form
+                noValidate
+                validated={this.state.validated}
+                onSubmit={e => this.addProfile(e)}
+              >
                 <h5>Personal Info</h5>
                 <hr />
                 <Row>
@@ -61,6 +75,7 @@ class AddProfile extends React.Component {
                         <Form.Control
                           type="text"
                           placeholder="Enter Name"
+                          required
                           onChange={e =>
                             this.setState({ name: e.target.value })
                           }
@@ -76,6 +91,7 @@ class AddProfile extends React.Component {
                       <Col sm="10">
                         <Form.Control
                           type="email"
+                          required
                           placeholder="Enter email"
                           onChange={e =>
                             this.setState({ email: e.target.value })
@@ -92,6 +108,7 @@ class AddProfile extends React.Component {
                       <Col sm="10">
                         <Form.Control
                           type="text"
+                          required
                           placeholder="Enter Phone number"
                           onChange={e =>
                             this.setState({ phone: e.target.value })
@@ -110,6 +127,7 @@ class AddProfile extends React.Component {
                       <Col sm="10">
                         <Form.Control
                           as="select"
+                          required
                           onChange={e =>
                             this.setState({ skillSet: e.target.value })
                           }
@@ -129,6 +147,7 @@ class AddProfile extends React.Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Check
+                          required
                           inline
                           label="Yes"
                           type="radio"
@@ -136,6 +155,7 @@ class AddProfile extends React.Component {
                           onChange={e => this.setState({ inNL: true })}
                         />
                         <Form.Check
+                          required
                           inline
                           label="No"
                           type="radio"
@@ -152,6 +172,7 @@ class AddProfile extends React.Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control
+                          required
                           type="file"
                           onChange={e => {
                             this.setState({ file: e.target.files[0] });
@@ -171,6 +192,7 @@ class AddProfile extends React.Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Check
+                          required
                           inline
                           label="Yes"
                           type="radio"
@@ -179,6 +201,7 @@ class AddProfile extends React.Component {
                         />
                         <Form.Check
                           inline
+                          required
                           label="No"
                           type="radio"
                           name={`isReferral`}
@@ -194,6 +217,7 @@ class AddProfile extends React.Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control
+                          required
                           type="text"
                           placeholder="Enter Name"
                           onChange={e =>
@@ -217,6 +241,7 @@ class AddProfile extends React.Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control
+                          required
                           as="select"
                           onChange={e =>
                             this.setState({ status: e.target.value })
@@ -224,7 +249,7 @@ class AddProfile extends React.Component {
                         >
                           <option>Choose...</option>
                           {this.props.statusList.map(status => (
-                              <option value={status.key}>{status.value}</option>
+                            <option value={status.key}>{status.value}</option>
                           ))}
                         </Form.Control>
                       </Col>
@@ -236,6 +261,7 @@ class AddProfile extends React.Component {
                         Comment
                       </Form.Label>
                       <Form.Control
+                        required
                         as="textarea"
                         rows="3"
                         onChange={e =>
@@ -247,9 +273,7 @@ class AddProfile extends React.Component {
                 </Row>
                 <Row>
                   <Col sm="2" md="12">
-                    <Button type="button" onClick={e => this.addProfile()}>
-                      Add Profile
-                    </Button>
+                    <Button type="submit">Add Profile</Button>
                   </Col>
                   <Col sm="9" />
                 </Row>

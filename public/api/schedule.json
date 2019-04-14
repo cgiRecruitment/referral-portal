@@ -1,0 +1,37 @@
+{
+  "date": "02-04-2019",
+  "interviews": [
+    {
+      "meetingRoom": "someRoom1",
+      "interviewer": "Ruben",
+      "schedules": [
+        {
+          "time": "10:00",
+          "candidate": "Mike",
+          "referal": "true"
+        },
+        {
+          "time": "12:00",
+          "candidate": "Yogesh",
+          "referal": "false"
+        }
+      ]
+    },
+    {
+      "meetingRoom": "someRoom2",
+      "interviewer": "Mirella",
+      "schedules": [
+        {
+          "time": "12:00",
+          "candidate": "Ramya",
+          "referal": "false"
+        },
+        {
+          "time": "12:00",
+          "candidate": "Yogesh",
+          "referal": "false"
+        }
+      ]
+    }
+  ]
+}

@@ -2,20 +2,21 @@ import React from "react";
 import ProfileTable from "./ProfilesTable";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import {getStatusList} from "../actions/prefillActions";
+import { getStatusList } from "../actions/prefillActions";
 class ViewProfiles extends React.Component {
+  componentWillMount() {
+    this.props.getStatusList();
+  }
 
-
-componentWillMount() {
-    this.props.getStatusList()
-}
-
-    render() {
+  render() {
     return (
       <Container>
         <Row>
           <h1>Profiles</h1>
-          <ProfileTable profiles={this.props.profiles} statusList={this.props.statusList}/>
+          <ProfileTable
+            profiles={this.props.profiles}
+            statusList={this.props.statusList}
+          />
         </Row>
       </Container>
     );

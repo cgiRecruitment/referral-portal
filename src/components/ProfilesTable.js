@@ -17,20 +17,30 @@ class CustomTable extends React.Component {
     showProfile: false,
     editProfile: false,
     status: "",
-    comment: ""
+    comment: "",
+    validated: false
   };
 
-  updateProfile = () => {
-    const { status, comment } = this.state;
-    if (status && comment) {
-      fetch("/update/candidate", {
-        headers: {
-          "content-type": "application/json"
-        },
-        method: "POST",
-        body: JSON.stringify({ status, comment })
-      });
+  updateProfile = e => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+      const { status, comment } = this.state;
+      if (status && comment) {
+        fetch("/update/candidate", {
+          headers: {
+            "content-type": "application/json"
+          },
+          method: "POST",
+          body: JSON.stringify({ status, comment })
+        });
+      }
     }
+    this.setState({ validated: true });
   };
 
   render() {
@@ -201,48 +211,57 @@ class CustomTable extends React.Component {
               <Row>
                 <Col>
                   <h5>Status Update</h5>
-                  <Table striped bordered hover>
-                    <tbody>
-                      <tr>
-                        <td>Status</td>
-                        <td>
-                          <Form.Control
-                            as="select"
-                            onChange={e =>
-                              this.setState({ status: e.target.value })
-                            }
-                          >
-                            <option>Choose...</option>
-                            {this.props.statusList.map(status => (
-                                <option value={status.key}>{status.value}</option>
-                            ))}
-                          </Form.Control>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Comment</td>
-                        <td>
-                          <Form.Group controlId="profileStatus" as={Row}>
+                  <Form
+                    noValidate
+                    validated={this.state.validated}
+                    onSubmit={e => this.updateProfile(e)}
+                  >
+                    <Table striped bordered hover>
+                      <tbody>
+                        <tr>
+                          <td>Status</td>
+                          <td>
                             <Form.Control
-                              as="textarea"
-                              rows="3"
+                              as="select"
                               onChange={e =>
-                                this.setState({ comment: e.target.value })
+                                this.setState({ status: e.target.value })
                               }
-                            />
-                          </Form.Group>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm="9" />
-                <Col sm="3">
-                  <Button type="button" onClick={e => this.updateProfile()}>
-                    Update Profile
-                  </Button>
+                              required
+                            >
+                              <option>Choose...</option>
+                              {this.props.statusList &&
+                                this.props.statusList.map(status => (
+                                  <option value={status.key}>
+                                    {status.value}
+                                  </option>
+                                ))}
+                            </Form.Control>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Comment</td>
+                          <td>
+                            <Form.Group controlId="profileStatus" as={Row}>
+                              <Form.Control
+                                as="textarea"
+                                rows="3"
+                                required
+                                onChange={e =>
+                                  this.setState({ comment: e.target.value })
+                                }
+                              />
+                            </Form.Group>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                    <Row>
+                      <Col sm="9" />
+                      <Col sm="3">
+                        <Button type="submit">Update Profile</Button>
+                      </Col>
+                    </Row>
+                  </Form>
                 </Col>
               </Row>
             </Modal.Body>

@@ -1,6 +1,7 @@
 .availabilityPanel {
   height: 100vh;
-  background: #f8f8f8;
+  background: #fbfbfb;
+  float: left;
 }
 
 .availabilityContainer {
@@ -11,4 +12,12 @@
   padding: 1em 0;
   text-align: center;
   border-bottom: thin solid #282c34;
+}
+
+.calender {
+  border-left: thin solid #cdcbce;
+  background: #fff;
+  height: 100vh;
+  float: right;
+  overflow-x: scroll;
 }

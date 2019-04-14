@@ -6,6 +6,7 @@ import { getProfile } from "./middleware/getProfile";
 import { getAvailabilityOverview } from "./middleware/getAvailabilityOverview";
 import { getSkillSetList } from "./middleware/getSkillsets";
 import { getStatusList } from "./middleware/getStatusList";
+import { getScheduleByDate } from "./middleware/getScheduleByDate";
 
 const initialState = {};
 const enhancers = [];
@@ -14,6 +15,7 @@ const middleware = [
   getAvailabilityOverview,
   getSkillSetList,
   getStatusList,
+  getScheduleByDate,
   thunk,
   routerMiddleware()
 ];

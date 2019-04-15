@@ -1,4 +1,5 @@
 import { LOGIN_USER, loginLogoutStatus } from "../actions/userActions";
+import { setGeneralError } from "../actions/errorActions";
 
 const loginUser = store => next => async action => {
   next(action);
@@ -17,9 +18,13 @@ const loginUser = store => next => async action => {
       });
 
     if (data) {
+      if (data.loginStatus) {
+        sessionStorage.setItem("referralPortal-loginStatus", data.loginStatus);
+        window.location = "/";
+      }else {
+        dispatch(setGeneralError(data.comment))
+      }
       dispatch(loginLogoutStatus(data.loginStatus));
-      sessionStorage.setItem("referralPortal-loginStatus", data.loginStatus);
-      window.location = "/";
     }
   } catch (e) {
     console.error(e);

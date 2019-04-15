@@ -6,7 +6,8 @@ import AddProfile from "./containers/addProfile";
 import Calender from "./containers/calender";
 import Header from "./components/Header";
 import Login from "./containers/login";
-
+import Alert from "react-bootstrap/Alert";
+import Container from "react-bootstrap/Container";
 
 class App extends React.Component {
   componentWillMount() {
@@ -18,6 +19,11 @@ class App extends React.Component {
     return (
       <React.Fragment>
         {this.props.loginStatus && <Header logout={this.props.logout} />}
+        {this.props.generalError &&  <Alert key={0} variant={"danger"}>
+          <Container>
+            <p style={{ textAlign: "center" }}>{this.props.generalError}.</p>
+          </Container>
+        </Alert> }
 
         {this.props.loginStatus ? (
           <HashRouter>

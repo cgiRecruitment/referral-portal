@@ -7,7 +7,7 @@ const initialState = {
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_LOGOUT_USER:
-     /* if (action.loginStatus !== false) {
+      /* if (action.loginStatus !== false) {
         window.location.hash = "/";
       } else {
         window.location.hash = "dashboard";

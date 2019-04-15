@@ -10,7 +10,8 @@ checkStatus();
 const mapStateToProps = state => ({
   profiles: state.profileReducer.profiles,
   statusList: state.prefillReducer.status,
-  loginStatus: state.userReducer.loginStatus
+  loginStatus: state.userReducer.loginStatus,
+  generalError: state.errorReducer.generalError
 });
 
 const mapDispatchToProps = dispatch =>

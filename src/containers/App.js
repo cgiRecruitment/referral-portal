@@ -3,11 +3,14 @@ import { connect } from "react-redux";
 import App from "../App";
 import { setProfiles, getProfiles } from "../actions/profileActions";
 import { getStatusList } from "../actions/prefillActions";
+import { logout } from "../actions/userActions";
+import { checkStatus } from "../utility/checkLoginStatus";
+checkStatus();
 
 const mapStateToProps = state => ({
   profiles: state.profileReducer.profiles,
   statusList: state.prefillReducer.status,
-  loginStatus: true
+  loginStatus: state.userReducer.loginStatus
 });
 
 const mapDispatchToProps = dispatch =>
@@ -15,7 +18,8 @@ const mapDispatchToProps = dispatch =>
     {
       getProfiles,
       setProfiles,
-      getStatusList
+      getStatusList,
+      logout
     },
     dispatch
   );

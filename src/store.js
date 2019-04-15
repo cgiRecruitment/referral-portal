@@ -7,6 +7,7 @@ import { getAvailabilityOverview } from "./middleware/getAvailabilityOverview";
 import { getSkillSetList } from "./middleware/getSkillsets";
 import { getStatusList } from "./middleware/getStatusList";
 import { getScheduleByDate } from "./middleware/getScheduleByDate";
+import { loginUser } from "./middleware/loginUser";
 
 const initialState = {};
 const enhancers = [];
@@ -16,6 +17,7 @@ const middleware = [
   getSkillSetList,
   getStatusList,
   getScheduleByDate,
+  loginUser,
   thunk,
   routerMiddleware()
 ];
@@ -32,6 +34,7 @@ const composedEnhancers = compose(
   applyMiddleware(...middleware),
   ...enhancers
 );
+
 const store = createStore(rootReducer, initialState, composedEnhancers);
 
 export default store;

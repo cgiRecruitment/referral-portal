@@ -16,7 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.loginStatus && <Header />}
+        {this.props.loginStatus && <Header logout={this.props.logout} />}
 
         {this.props.loginStatus ? (
           <HashRouter>

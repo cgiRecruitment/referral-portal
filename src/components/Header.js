@@ -20,6 +20,11 @@ class Header extends React.Component {
               <Nav.Link href="#/add-profile">Add Profiles</Nav.Link>
               <Nav.Link href="#/calender">Interview Calender</Nav.Link>
             </Nav>
+            <Nav>
+              <a href="javascript:void(0)" onClick={() => this.props.logout()}>
+                Logout
+              </a>
+            </Nav>
           </NavBar.Collapse>
         </Container>
       </NavBar>

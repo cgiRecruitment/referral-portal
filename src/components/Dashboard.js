@@ -4,8 +4,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Chart } from "react-google-charts";
 import ProfilesTable from "./ProfilesTable";
+import { checkStatus } from "../utility/checkLoginStatus";
 
 class Dashboard extends React.Component {
+  componentWillMount() {
+    checkStatus();
+  }
+
   render() {
     const pieOptions = {
       title: "Referral Status",

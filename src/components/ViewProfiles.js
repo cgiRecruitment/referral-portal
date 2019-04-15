@@ -2,7 +2,6 @@ import React from "react";
 import ProfileTable from "./ProfilesTable";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { getStatusList } from "../actions/prefillActions";
 class ViewProfiles extends React.Component {
   componentWillMount() {
     this.props.getStatusList();

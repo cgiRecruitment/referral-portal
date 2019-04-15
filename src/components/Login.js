@@ -12,6 +12,22 @@ class Login extends React.Component {
     password: ""
   };
 
+  login = e => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+      this.props.login({
+        email: this.state.email,
+        password: this.state.password
+      });
+    }
+    this.setState({ validated: true });
+  };
+
   render() {
     return (
       <Container>
@@ -26,29 +42,37 @@ class Login extends React.Component {
               />
               <Card.Body>
                 <Card.Title>Login</Card.Title>
-                <Form.Group controlId="username" as={Row}>
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Ex: user@cgi.com"
-                    required
-                    onChange={e => this.setState({ name: e.target.value })}
-                  />
-                </Form.Group>
-                <Form.Group controlId="username" as={Row}>
-                  <Form.Label column sm="4" md="12">
-                    Password
-                  </Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    required
-                    onChange={e => this.setState({ name: e.target.value })}
-                  />
-                </Form.Group>
-                <Button type="submit" variant="danger" block>
-                  Login
-                </Button>
+                <Form
+                  noValidate
+                  validated={this.state.validated}
+                  onSubmit={e => this.login(e)}
+                >
+                  <Form.Group controlId="username" as={Row}>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      type="email"
+                      placeholder="Ex: user@cgi.com"
+                      required
+                      onChange={e => this.setState({ email: e.target.value })}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="username" as={Row}>
+                    <Form.Label column sm="4" md="12">
+                      Password
+                    </Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      required
+                      onChange={e =>
+                        this.setState({ password: e.target.value })
+                      }
+                    />
+                  </Form.Group>
+                  <Button type="submit" variant="danger" block>
+                    Login
+                  </Button>
+                </Form>
               </Card.Body>
             </Card>
           </Col>

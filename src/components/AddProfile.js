@@ -132,7 +132,7 @@ class AddProfile extends React.Component {
                             this.setState({ skillSet: e.target.value })
                           }
                         >
-                          <option>Choose...</option>
+                          <option/>
                           {this.props.skillSets.map(skill => (
                             <option value={skill.key}>{skill.value}</option>
                           ))}
@@ -247,7 +247,7 @@ class AddProfile extends React.Component {
                             this.setState({ status: e.target.value })
                           }
                         >
-                          <option>Choose...</option>
+                          <option/>
                           {this.props.statusList.map(status => (
                             <option value={status.key}>{status.value}</option>
                           ))}

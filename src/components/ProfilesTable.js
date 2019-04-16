@@ -231,7 +231,7 @@ class CustomTable extends React.Component {
                               }
                               required
                             >
-                              <option>Choose...</option>
+                              <option/>
                               {this.props.statusList &&
                                 this.props.statusList.map(status => (
                                   <option value={status.key}>
@@ -268,7 +268,7 @@ class CustomTable extends React.Component {
                                 }
                                 required
                             >
-                              <option>Choose...</option>
+                              <option/>
                               {this.props.meetingRooms &&
                               this.props.meetingRooms.map(room => (
                                   <option value={room.key}>
@@ -288,7 +288,7 @@ class CustomTable extends React.Component {
                                 }
                                 required
                             >
-                              <option>Choose...</option>
+                              <option/>
                               {this.props.interviewers &&
                               this.props.interviewers.map(interviewer => (
                                   <option value={interviewer.key}>

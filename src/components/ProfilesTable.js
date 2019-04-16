@@ -18,7 +18,10 @@ class CustomTable extends React.Component {
     editProfile: false,
     status: "",
     comment: "",
-    validated: false
+    validated: false,
+    meetingRoom: "",
+    interviewer: "",
+    date: ""
   };
 
   updateProfile = e => {
@@ -29,14 +32,14 @@ class CustomTable extends React.Component {
     } else {
       e.preventDefault();
       e.stopPropagation();
-      const { status, comment } = this.state;
+      const { status, comment, meetingRoom, interviewer, date } = this.state;
       if (status && comment) {
         fetch("/update/candidate", {
           headers: {
             "content-type": "application/json"
           },
           method: "POST",
-          body: JSON.stringify({ status, comment })
+          body: JSON.stringify({ status, comment, ...(status === "scheduled" ? {meetingRoom,interviewer,date} : {}) })
         });
       }
     }
@@ -52,7 +55,7 @@ class CustomTable extends React.Component {
       "Skills",
       "Status",
       "View",
-      "Edit"
+        ...(this.props.editUser ? ["Edit"] : [])
     ];
     return (
       <React.Fragment>
@@ -175,7 +178,7 @@ class CustomTable extends React.Component {
                       <FontAwesomeIcon icon="eye" />
                     </a>{" "}
                   </td>
-                  <td>
+                  { this.props.editUser && <td>
                     <a
                       href="javascript:void(0)"
                       onClick={() =>
@@ -190,7 +193,7 @@ class CustomTable extends React.Component {
                       {" "}
                       <FontAwesomeIcon icon="edit" />
                     </a>
-                  </td>
+                  </td> }
                 </tr>
               ))}
           </tbody>
@@ -253,8 +256,64 @@ class CustomTable extends React.Component {
                             </Form.Group>
                           </td>
                         </tr>
+                        { this.state.status === "scheduled" &&
+                        <React.Fragment>
+                        <tr>
+                          <td>Meeting Rooms</td>
+                          <td>
+                            <Form.Control
+                                as="select"
+                                onChange={e =>
+                                    this.setState({ meetingRoom: e.target.value })
+                                }
+                                required
+                            >
+                              <option>Choose...</option>
+                              {this.props.meetingRooms &&
+                              this.props.meetingRooms.map(room => (
+                                  <option value={room.key}>
+                                    {room.value}
+                                  </option>
+                              ))}
+                            </Form.Control>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Interviewer</td>
+                          <td>
+                            <Form.Control
+                                as="select"
+                                onChange={e =>
+                                    this.setState({ interviewer: e.target.value })
+                                }
+                                required
+                            >
+                              <option>Choose...</option>
+                              {this.props.interviewers &&
+                              this.props.interviewers.map(interviewer => (
+                                  <option value={interviewer.key}>
+                                    {interviewer.value}
+                                  </option>
+                              ))}
+                            </Form.Control>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Date</td>
+                          <td>
+                            <Form.Control
+                                type="date"
+                                onChange={e =>
+                                    this.setState({ date: e.target.value })
+                                }
+                                required
+                            />
+                          </td>
+                        </tr>
+                        </React.Fragment>}
                       </tbody>
                     </Table>
+
                     <Row>
                       <Col sm="9" />
                       <Col sm="3">

@@ -8,6 +8,8 @@ import { getSkillSetList } from "./middleware/getSkillsets";
 import { getStatusList } from "./middleware/getStatusList";
 import { getScheduleByDate } from "./middleware/getScheduleByDate";
 import { loginUser } from "./middleware/loginUser";
+import {getMeetinRoomList} from "./middleware/getMeetingRoomList";
+import {getInterviewerList} from "./middleware/getInterviewerList";
 
 const initialState = {};
 const enhancers = [];
@@ -18,6 +20,8 @@ const middleware = [
   getStatusList,
   getScheduleByDate,
   loginUser,
+  getMeetinRoomList,
+  getInterviewerList,
   thunk,
   routerMiddleware()
 ];

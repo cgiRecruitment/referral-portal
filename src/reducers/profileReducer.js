@@ -14,7 +14,8 @@ function profileReducer(state = initialState, action) {
             profile.status == "Application Received" ||
             profile.status == "Interview Scheduled" ||
             profile.status == "Offer Made" ||
-            profile.status == "On Hold")
+            profile.status == "On Hold"),
+        allButRejectedProfiles: action.data.filter(profile => profile.status != "Rejected")
       };
     default: {
       return state;

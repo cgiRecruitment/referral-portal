@@ -9,7 +9,12 @@ function profileReducer(state = initialState, action) {
     case SET_PROFILES:
       return {
         ...state,
-        profiles: action.data
+        profiles: action.data,
+        activeProfiles: action.data.filter(profile =>
+            profile.status == "Application Received" ||
+            profile.status == "Interview Scheduled" ||
+            profile.status == "Offer Made" ||
+            profile.status == "On Hold")
       };
     default: {
       return state;

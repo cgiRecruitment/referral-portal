@@ -12,6 +12,7 @@ import Button from "react-bootstrap/es/Button";
 library.add(faEye);
 library.add(faEdit);
 
+
 class CustomTable extends React.Component {
   state = {
     showProfile: false,

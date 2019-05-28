@@ -32,7 +32,7 @@ class App extends React.Component {
               exact
               render={() => (
                 <Dashboard
-                  profiles={this.props.profiles}
+                  profiles={this.props.activeProfiles}
                   statusList={this.props.statusList}
                 />
               )}

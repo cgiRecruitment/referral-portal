@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import App from "../App";
 import {setProfiles, getProfiles} from "../actions/profileActions";
 import {getStatusList} from "../actions/prefillActions";
+import {createProfile} from "../actions/profileActions";
 import {logout} from "../actions/userActions";
 import {checkStatus} from "../utility/checkLoginStatus";
 
@@ -22,6 +23,7 @@ const mapDispatchToProps = dispatch =>
             getProfiles,
             setProfiles,
             getStatusList,
+            createProfile,
             logout
         },
         dispatch

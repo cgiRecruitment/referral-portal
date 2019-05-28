@@ -1,42 +1,44 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import { routerMiddleware } from "react-router-redux";
+import {createStore, applyMiddleware, compose} from "redux";
+import {routerMiddleware} from "react-router-redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
-import { getProfile } from "./middleware/getProfile";
-import { getAvailabilityOverview } from "./middleware/getAvailabilityOverview";
-import { getSkillSetList } from "./middleware/getSkillsets";
-import { getStatusList } from "./middleware/getStatusList";
-import { getScheduleByDate } from "./middleware/getScheduleByDate";
-import { loginUser } from "./middleware/loginUser";
+import {getProfile} from "./middleware/getProfile";
+import {getAvailabilityOverview} from "./middleware/getAvailabilityOverview";
+import {getSkillSetList} from "./middleware/getSkillsets";
+import {getStatusList} from "./middleware/getStatusList";
+import {createProfile} from "./middleware/createProfile";
+import {getScheduleByDate} from "./middleware/getScheduleByDate";
+import {loginUser} from "./middleware/loginUser";
 import {getMeetinRoomList} from "./middleware/getMeetingRoomList";
 import {getInterviewerList} from "./middleware/getInterviewerList";
 
 const initialState = {};
 const enhancers = [];
 const middleware = [
-  getProfile,
-  getAvailabilityOverview,
-  getSkillSetList,
-  getStatusList,
-  getScheduleByDate,
-  loginUser,
-  getMeetinRoomList,
-  getInterviewerList,
-  thunk,
-  routerMiddleware()
+    getProfile,
+    getAvailabilityOverview,
+    getSkillSetList,
+    getStatusList,
+    getScheduleByDate,
+    loginUser,
+    getMeetinRoomList,
+    createProfile,
+    getInterviewerList,
+    thunk,
+    routerMiddleware()
 ];
 
 if (process.env.NODE_ENV === "development") {
-  const devToolsExtension = window.devToolsExtension;
+    const devToolsExtension = window.devToolsExtension;
 
-  if (typeof devToolsExtension === "function") {
-    enhancers.push(devToolsExtension());
-  }
+    if (typeof devToolsExtension === "function") {
+        enhancers.push(devToolsExtension());
+    }
 }
 
 const composedEnhancers = compose(
-  applyMiddleware(...middleware),
-  ...enhancers
+    applyMiddleware(...middleware),
+    ...enhancers
 );
 
 const store = createStore(rootReducer, initialState, composedEnhancers);

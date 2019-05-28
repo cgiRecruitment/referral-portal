@@ -34,20 +34,17 @@ class AddProfile extends React.Component {
     } else {
       e.preventDefault();
       e.stopPropagation();
-      let formData = JSON.stringify(this.state);
-     //// Object.keys(this.state).forEach(key =>
-      //  formData.push(key, this.state[key])
-      //);
-    //  formData.append("file", this.state.file);
-    //  formData = JSON.stringify(formData);
-      fetch("http://localhost:8087/candidates/", {
-        headers: {
-           "Content-Type": "application/json"
-        },
-        method: "POST",
-        body: formData,
+      this.props.createProfile();
 
-      });
+      // let formData = JSON.stringify(this.state);
+      // fetch("http://localhost:8087/candidates/", {
+      //   headers: {
+      //      "Content-Type": "application/json"
+      //   },
+      //   method: "POST",
+      //   body: formData,
+      //
+      // });
     }
     this.setState({ validated: true });
   };

@@ -1,3 +1,3 @@
 export const constants = {
-    host:"http://localhost:8087"
+    host:"https://manage-candidates.cfapps.io"
 }

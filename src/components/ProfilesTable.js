@@ -12,6 +12,7 @@ import Button from "react-bootstrap/es/Button";
 library.add(faEye);
 library.add(faEdit);
 
+
 class CustomTable extends React.Component {
   state = {
     showProfile: false,
@@ -32,17 +33,16 @@ class CustomTable extends React.Component {
     } else {
       e.preventDefault();
       e.stopPropagation();
-      const { status, comment, meetingRoom, interviewer, date } = this.state;
-      if (status && comment) {
-        fetch("/update/candidate", {
+      let formData = JSON.stringify(this.state);
+        fetch("http://localhost:8087/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
           headers: {
-            "content-type": "application/json"
+            "Content-Type": "application/json"
           },
-          method: "POST",
-          body: JSON.stringify({ status, comment, ...(status === "scheduled" ? {meetingRoom,interviewer,date} : {}) })
+          method: "PUT",
+          body: formData
         });
       }
-    }
+
     this.setState({ validated: true });
   };
 
@@ -83,7 +83,7 @@ class CustomTable extends React.Component {
                       </tr>
                       <tr>
                         <td>In Netherlands</td>
-                        <td>{this.state.selectedProfile[0]["in_nl"]}</td>
+                        <td>{this.state.selectedProfile[0]["inNL"] ? 'Yes' : 'No'}</td>
                       </tr>
                       <tr>
                         <td>Skills</td>
@@ -99,17 +99,17 @@ class CustomTable extends React.Component {
                   <Table striped bordered hover>
                     <tbody>
                       <tr>
-                        <td>Is Referral</td>
-                        <td>{this.state.selectedProfile[0]["referral"]}</td>
+                        <td>Has been referred</td>
+                        <td>{this.state.selectedProfile[0]["referred"] ? 'Yes' : 'No'}</td>
                       </tr>
                       <tr>
-                        <td>Referred By</td>
-                        <td>{this.state.selectedProfile[0]["referred_by"]}</td>
+                        <td>Referred by</td>
+                        <td>{this.state.selectedProfile[0]["referredBy"]}</td>
                       </tr>
                       <tr>
                         <td>Received Date</td>
                         <td>
-                          {this.state.selectedProfile[0]["received_date"]}
+                          {this.state.selectedProfile[0]["receivedDate"]}
                         </td>
                       </tr>
                     </tbody>
@@ -130,9 +130,9 @@ class CustomTable extends React.Component {
                         <td>{this.state.selectedProfile[0]["comments"]}</td>
                       </tr>
                       <tr>
-                        <td>ID from Excel</td>
+                        <td>Last update</td>
                         <td>
-                          {this.state.selectedProfile[0]["id_from_excel"]}
+                          {this.state.selectedProfile[0]["statusLastUpdated"]}
                         </td>
                       </tr>
                     </tbody>
@@ -146,18 +146,18 @@ class CustomTable extends React.Component {
           <thead>
             <tr>
               {head.map(head => (
-                <th>{head}</th>
+                <th key={head}>{head}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {this.props.profiles &&
               this.props.profiles.map((item, i) => (
-                <tr>
+                <tr key={item.id}>
                   <td>{i + 1}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
-                  <td>{item.referred_by}</td>
+                  <td>{item.referredBy}</td>
                   <td>{item.skill}</td>
                   <td>
                     <Status>{item.status}</Status>
@@ -234,23 +234,25 @@ class CustomTable extends React.Component {
                               <option/>
                               {this.props.statusList &&
                                 this.props.statusList.map(status => (
-                                  <option value={status.key}>
-                                    {status.value}
+                                  <option selected={this.state.selectedProfile[0]["status"]}
+                                          value={status}>
+                                    {status}
                                   </option>
                                 ))}
                             </Form.Control>
                           </td>
                         </tr>
                         <tr>
-                          <td>Comment</td>
+                          <td>Comments</td>
                           <td>
                             <Form.Group controlId="profileStatus" as={Row}>
                               <Form.Control
                                 as="textarea"
                                 rows="3"
+                                placeholder={this.state.selectedProfile[0]["comments"]}
                                 required
                                 onChange={e =>
-                                  this.setState({ comment: e.target.value })
+                                  this.setState({ comments: e.target.value })
                                 }
                               />
                             </Form.Group>

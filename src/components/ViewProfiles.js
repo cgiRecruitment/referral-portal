@@ -18,7 +18,7 @@ class ViewProfiles extends React.Component {
           <ProfileTable
             interviewers={this.props.interviewers}
             meetingRooms={this.props.meetingRooms}
-            profiles={this.props.profiles}
+            profiles={this.props.allButRejectedProfiles}
             statusList={this.props.statusList}
             editUser={true}
           />

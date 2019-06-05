@@ -5,6 +5,7 @@ import { getStatusList, getMeetingRoomList, getInterviewerList } from "../action
 
 const mapStateToProps = state => ({
   profiles: state.profileReducer.profiles,
+  allButRejectedProfiles: state.profileReducer.allButRejectedProfiles,
   statusList: state.prefillReducer.status,
   meetingRooms: state.prefillReducer.meetingRooms,
   interviewers: state.prefillReducer.interviewers

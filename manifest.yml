@@ -1,0 +1,6 @@
+---
+applications:
+- name: referral-portal
+  memory: 1024M
+  command: npm start
+  timeout: 60

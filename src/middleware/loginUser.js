@@ -1,5 +1,6 @@
 import { LOGIN_USER, loginLogoutStatus } from "../actions/userActions";
 import { setGeneralError } from "../actions/errorActions";
+import {constants} from "../utility/constants";
 
 const loginUser = store => next => async action => {
   next(action);
@@ -11,7 +12,14 @@ const loginUser = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch("api/loginStatus.json")
+
+    const data = await fetch(constants.host + "/login", {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify(action.user),
+    })
       .then(data => data.json())
       .then(response => {
         return response;

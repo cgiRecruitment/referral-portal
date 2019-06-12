@@ -15,3 +15,23 @@
   background: #a52931;
   color: #fff;
 }
+
+.received{
+  background: #3079ff;
+  color: #fff;
+}
+
+.offer{
+  background: #56ff56;
+  color: #000;
+}
+
+.hold{
+  background: #807f7f;
+  color: #fff;
+}
+
+.declined{
+  background: #ff631b;
+  color: #fff;
+}

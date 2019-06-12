@@ -1,16 +1,22 @@
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 import Login from "../components/Login";
-import { login } from "../actions/userActions";
+import {login, logout} from "../actions/userActions";
+import {createProfile, getProfiles, setProfiles} from "../actions/profileActions";
+import {getStatusList} from "../actions/prefillActions";
+import {setGeneralError} from "../actions/errorActions";
 
 const mapStateToProps = state => ({
-  skillSets: state.prefillReducer.skillSet,
-  statusList: state.prefillReducer.status
+    skillSets: state.prefillReducer.skillSet,
+    statusList: state.prefillReducer.status,
+    generalError: state.errorReducer.generalError
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({login, setGeneralError}, dispatch);
+
+
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Login);

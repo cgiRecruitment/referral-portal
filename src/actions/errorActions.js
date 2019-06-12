@@ -1,3 +1,4 @@
+
 export const GENERAL_ERROR = "GENERAL_ERROR";
 
 

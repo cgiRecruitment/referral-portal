@@ -11,6 +11,9 @@ checkStatus();
 
 const mapStateToProps = state => ({
     profiles: state.profileReducer.profiles,
+    rejectedCount: state.profileReducer.rejectedCount,
+    joinedCount: state.profileReducer.joinedCount,
+    activeCount: state.profileReducer.activeProfiles,
     activeProfiles: state.profileReducer.activeProfiles,
     statusList: state.prefillReducer.status,
     loginStatus: state.userReducer.loginStatus,

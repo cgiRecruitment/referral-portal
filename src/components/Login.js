@@ -12,8 +12,10 @@ class Login extends React.Component {
     password: ""
   };
 
+
   login = e => {
     const form = e.currentTarget;
+    let hash = require('object-hash')
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
@@ -22,7 +24,7 @@ class Login extends React.Component {
       e.stopPropagation();
       this.props.login({
         email: this.state.email,
-        password: this.state.password
+        password: hash(this.state.password)
       });
     }
     this.setState({ validated: true });

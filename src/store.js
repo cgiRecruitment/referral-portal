@@ -7,10 +7,12 @@ import {getAvailabilityOverview} from "./middleware/getAvailabilityOverview";
 import {getSkillSetList} from "./middleware/getSkillsets";
 import {getStatusList} from "./middleware/getStatusList";
 import {createProfile} from "./middleware/createProfile";
+import {createInterview} from "./middleware/createInterview";
 import {getScheduleByDate} from "./middleware/getScheduleByDate";
 import {loginUser} from "./middleware/loginUser";
 import {getMeetinRoomList} from "./middleware/getMeetingRoomList";
 import {getInterviewerList} from "./middleware/getInterviewerList";
+import {getInterview} from "./middleware/getInterviews";
 
 const initialState = {};
 const enhancers = [];
@@ -24,6 +26,8 @@ const middleware = [
     getMeetinRoomList,
     createProfile,
     getInterviewerList,
+    getInterview,
+    createInterview,
     thunk,
     routerMiddleware()
 ];

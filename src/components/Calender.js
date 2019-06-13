@@ -7,6 +7,8 @@ import Row from "react-bootstrap/es/Row";
 import Form from "react-bootstrap/es/Form";
 import Tabs from "react-bootstrap/es/Tabs";
 import Tab from "react-bootstrap/Tab";
+import InterviewsTable from "./InterviewsTable";
+import Button from "react-bootstrap/es/Button";
 
 class AddProfile extends React.Component {
   componentWillMount() {
@@ -14,7 +16,26 @@ class AddProfile extends React.Component {
   }
 
   state = {
-    key: ""
+    key: "",
+    candidateId: "",
+    date:"",
+    time: "",
+    interviewer: "",
+    location: "",
+  };
+
+  addInterview = e => {
+    const form = e.currentTarget;
+    console.log(form.checkValidity());
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+      this.props.createInterview(JSON.stringify(this.state));
+    }
+    this.setState({validated: true});
   };
 
   render() {
@@ -44,22 +65,80 @@ class AddProfile extends React.Component {
           ))}
         </Col>
         <Col md={9} className="calender">
+          <Form
+              noValidate
+              validated={this.state.validated}
+              onSubmit={e => this.addInterview(e)}
+          >
           <Row>
             <Col md="2" />
             <Col md="2">
               <Form.Label column sm="4" md="12">
-                Select a date:
+                Candidate
+              </Form.Label>
+              <Form.Label column sm="4" md="12">
+                Date:
+              </Form.Label>
+              <Form.Label column sm="4" md="12">
+                Time
+              </Form.Label>
+              <Form.Label column sm="4" md="12">
+                Interviewers
+              </Form.Label>
+              <Form.Label column sm="4" md="12">
+                Location
               </Form.Label>
             </Col>
             <Col md="3">
               <Form.Control
+                  as="select"
+                  required
+                  onChange={e =>
+                      this.setState({candidateId: e.target.value})
+                  }
+              >
+                {this.props.activeProfiles &&
+                this.props.activeProfiles.map((profiles) =>(
+                    <option value={profiles.id}>{profiles.name}</option>
+                ))}
+              </Form.Control>
+              <Form.Control
                 type="date"
-                onChange={e => this.props.getScheduleByDate(e.target.value)}
+                onChange={e =>
+                    this.setState({date: e.target.value})
+                }
+              />
+              <Form.Control
+                  type="time"
+                  onChange={e =>
+                      this.setState({time: e.target.value})
+                  }
+              />
+              <Form.Control
+                  type="text"
+                  onChange={e =>
+                      this.setState({interviewer: e.target.value})
+                  }
+              />
+              <Form.Control
+                  type="text"
+                  onChange={e =>
+                      this.setState({location: e.target.value})
+                  }
               />
             </Col>
+            <Col md="3">
+              <Button type="submit">Schedule Interview</Button>
+            </Col>
           </Row>
+          </Form>
           <hr />
           <Row>
+              <InterviewsTable
+                  interviews={this.props.interviews}
+                  statusList={this.props.statusList}
+                  editInterview={true}
+              />
             <Col>
               {this.props.schedules && this.props.schedules.interviews && (
                 <Tabs
@@ -105,6 +184,7 @@ class AddProfile extends React.Component {
             </Col>
           </Row>
         </Col>
+
       </Container>
     );
   }

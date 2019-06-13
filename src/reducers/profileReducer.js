@@ -14,7 +14,7 @@ function profileReducer(state = initialState, action) {
                 profiles: action.data,
                 activeProfiles: action.data.filter(profile =>
                     activeProfile.includes(profile.status)),
-                allButRejectedProfiles: action.data.filter(profile => profile.status != "Rejected CGI")
+                allButRejectedProfiles: action.data.filter(profile => profile.status != "Rejected")
             }
 
         case CREATE_PROFILE:

@@ -9,6 +9,7 @@ import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
+import {constants} from "../utility/constants";
 library.add(faEye);
 library.add(faEdit);
 
@@ -34,7 +35,7 @@ class CustomTable extends React.Component {
       e.preventDefault();
       e.stopPropagation();
       let formData = JSON.stringify(this.state);
-        fetch("http://localhost:8087/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
+        fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
           headers: {
             "Content-Type": "application/json"
           },

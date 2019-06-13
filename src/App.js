@@ -12,6 +12,7 @@ import Container from "react-bootstrap/Container";
 class App extends React.Component {
     componentWillMount() {
         this.props.getProfiles();
+        this.props.getInterviews();
         this.props.getStatusList();
     }
 
@@ -39,7 +40,10 @@ class App extends React.Component {
                         />
                         <Route exact path="/profiles/" render={() => <ViewProfiles/>}/>
                         <Route exact path="/add-profile/" render={() => <AddProfile/>}/>
-                        <Route exact path="/calender/" render={() => <Calender/>}/>
+                        <Route exact path="/calender/" render={() => <Calender
+                            activeProfiles={this.props.activeProfiles}
+                            interviews={this.props.interviews}
+                        />}/>
                         <Route exact path="/login/" render={() => <Login/>}/>
                     </HashRouter>
                 ) : (

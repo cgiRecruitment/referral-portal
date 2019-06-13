@@ -2,6 +2,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import App from "../App";
 import {setProfiles, getProfiles} from "../actions/profileActions";
+import {setInterviews, getInterviews, createInterview} from "../actions/interviewActions";
 import {getStatusList} from "../actions/prefillActions";
 import {createProfile} from "../actions/profileActions";
 import {logout} from "../actions/userActions";
@@ -14,7 +15,8 @@ const mapStateToProps = state => ({
     activeProfiles: state.profileReducer.activeProfiles,
     statusList: state.prefillReducer.status,
     loginStatus: state.userReducer.loginStatus,
-    generalError: state.errorReducer.generalError
+    generalError: state.errorReducer.generalError,
+    interviews: state.interviewReducer.interviews
 });
 
 const mapDispatchToProps = dispatch =>
@@ -22,6 +24,9 @@ const mapDispatchToProps = dispatch =>
         {
             getProfiles,
             setProfiles,
+            getInterviews,
+            setInterviews,
+            createInterview,
             getStatusList,
             createProfile,
             logout

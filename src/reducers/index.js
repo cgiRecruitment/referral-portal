@@ -5,6 +5,7 @@ import calenderReducer from "./calenderReducer";
 import prefillReducer from "./prefillReducer";
 import userReducer from "./userReducer";
 import errorReducer from "./errorReducer";
+import interviewReducer from "./interviewReducer"
 
 export default combineReducers({
   routing: routerReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   prefillReducer,
   userReducer,
   errorReducer,
+  interviewReducer
 });

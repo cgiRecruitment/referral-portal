@@ -7,7 +7,7 @@ class CustomTable extends React.Component {
   };
 
   componentWillReceiveProps(nextProps, nextContext) {
-    this.setState({ profiles: nextProps.tableData });
+    this.setState({ profiles: nextProps.tableData, interviews: nextProps.tableData });
   }
 
   render() {
@@ -31,6 +31,17 @@ class CustomTable extends React.Component {
               </tr>
             ))}
         </tbody>
+          <tbody>
+          {this.state.interviews &&
+          this.state.interviews.body &&
+          this.state.interviews.body.map(item => (
+              <tr>
+                  {item.map(data => (
+                      <td>{data}</td>
+                  ))}
+              </tr>
+          ))}
+          </tbody>
       </Table>
     );
   }

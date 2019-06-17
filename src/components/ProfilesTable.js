@@ -5,13 +5,14 @@ import Modal from "react-bootstrap/es/Modal";
 import { Row } from "react-bootstrap";
 import Col from "react-bootstrap/es/Col";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEdit, faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
 import {constants} from "../utility/constants";
 library.add(faEye);
 library.add(faEdit);
+library.add(faCalendarPlus)
 
 
 class CustomTable extends React.Component {
@@ -19,14 +20,18 @@ class CustomTable extends React.Component {
     showProfile: false,
     editProfile: false,
     status: "",
-    comment: "",
     validated: false,
     meetingRoom: "",
     interviewer: "",
-    date: ""
+    date: "",
+    candidateId:""
   };
 
-  updateProfile = e => {
+  componentWillMount() {
+
+  }
+
+  update = e => {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.preventDefault();
@@ -35,16 +40,32 @@ class CustomTable extends React.Component {
       e.preventDefault();
       e.stopPropagation();
       let formData = JSON.stringify(this.state);
-        fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
-          headers: {
-            "Content-Type": "application/json"
-          },
-          method: "PUT",
-          body: formData
-        });
+      this.props.updateProfile(formData)
+     //    fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
+     //      headers: {
+     //        "Content-Type": "application/json"
+     //      },
+     //      method: "PUT",
+     //      body: formData
+     //    });
       }
-
     this.setState({ validated: true });
+  };
+
+  addInterview = e => {
+    const form = e.currentTarget;
+    console.log(form.checkValidity());
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+      {this.setState({candidateId: this.state.selectedProfile[0]["id"]})};
+      console.log(this.state.candidateId)
+      this.props.createInterview(JSON.stringify(this.state));
+    }
+    this.setState({validated: true});
   };
 
   render() {
@@ -55,7 +76,8 @@ class CustomTable extends React.Component {
       "ReferredBy",
       "Skills",
       "Status",
-      "View",
+     // "View",
+        ...(this.props.scheduleInterview ? ["Schedule Interview"] :[]),
         ...(this.props.editUser ? ["Edit"] : [])
     ];
     return (
@@ -127,10 +149,6 @@ class CustomTable extends React.Component {
                         <td>{this.state.selectedProfile[0]["status"]}</td>
                       </tr>
                       <tr>
-                        <td>Comment</td>
-                        <td>{this.state.selectedProfile[0]["comments"]}</td>
-                      </tr>
-                      <tr>
                         <td>Last update</td>
                         <td>
                           {this.state.selectedProfile[0]["statusLastUpdated"]}
@@ -140,6 +158,41 @@ class CustomTable extends React.Component {
                   </Table>
                 </Col>
               </Row>
+              <Row>
+                <Col>
+                  <h5>Comments</h5>
+                  <Table striped bordered hover>
+                    <tbody>
+                    {this.state.selectedProfile[0].comments &&
+                    this.state.selectedProfile[0].comments.map(details =>
+                        <tr>
+                          <td>{details.comment}</td>
+                          <td>{details.memberName}</td>
+                          <td>{details.date}</td>
+                        </tr>
+                    )}
+                    </tbody>
+                  </Table>
+                </Col>
+              </Row>
+                <Row>
+                    <Col>
+                        <h5>Interview Info</h5>
+                        <Table striped bordered hover>
+                            <tbody>
+                            {this.state.selectedProfile[0].interviews &&
+                            this.state.selectedProfile[0].interviews.map(interview =>
+                                <tr>
+                                    <td>{interview.date}</td>
+                                    <td>{interview.type}</td>
+                                    <td>{interview.interviewer}</td>
+                                    {/*<td>{interview.comments}</td>*/}
+                                </tr>
+                            )}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
             </Modal.Body>
           </Modal>
         )}
@@ -156,29 +209,59 @@ class CustomTable extends React.Component {
               this.props.profiles.map((item, i) => (
                 <tr key={item.id}>
                   <td>{i + 1}</td>
-                  <td>{item.name}</td>
+                  <td>
+                    <a
+                        href="javascript:void(0)"
+                        onClick={() =>
+                            this.setState({
+                              showProfile: true,
+                              selectedProfile: this.props.profiles.filter(
+                                  profile => profile.id === item.id
+                              )
+                            })
+                        }
+                    >{" "}
+                      {item.name}
+                </a>{" "}
+                  </td>
                   <td>{item.email}</td>
                   <td>{item.referredBy}</td>
                   <td>{item.skill}</td>
                   <td>
                     <Status>{item.status}</Status>
                   </td>
-                  <td>
-                    <a
-                      href="javascript:void(0)"
-                      onClick={() =>
-                        this.setState({
-                          showProfile: true,
-                          selectedProfile: this.props.profiles.filter(
-                            profile => profile.id === item.id
-                          )
-                        })
-                      }
-                    >
-                      {" "}
-                      <FontAwesomeIcon icon="eye" />
-                    </a>{" "}
-                  </td>
+                  {/*<td>*/}
+                  {/*  <a*/}
+                  {/*    href="javascript:void(0)"*/}
+                  {/*    onClick={() =>*/}
+                  {/*      this.setState({*/}
+                  {/*        showProfile: true,*/}
+                  {/*        selectedProfile: this.props.profiles.filter(*/}
+                  {/*          profile => profile.id === item.id*/}
+                  {/*        )*/}
+                  {/*      })*/}
+                  {/*    }*/}
+                  {/*  >*/}
+                  {/*    {" "}*/}
+                  {/*    <FontAwesomeIcon icon="eye" />*/}
+                  {/*  </a>{" "}*/}
+                  {/*</td>*/}
+                    {this.props.scheduleInterview && <td>
+                      <a
+                          href="javascript:void(0)"
+                          onClick={() =>
+                              this.setState({
+                                makeAppointment: true,
+                                selectedProfile: this.props.profiles.filter(
+                                    profile => profile.id === item.id
+                                )
+                              })
+                          }
+                          >
+                        {" "}
+                    <FontAwesomeIcon icon="calendar-plus" />
+                      </a>
+                  </td> }
                   { this.props.editUser && <td>
                     <a
                       href="javascript:void(0)"
@@ -214,14 +297,81 @@ class CustomTable extends React.Component {
             <Modal.Body>
               <Row>
                 <Col>
-                  <h5>Status Update</h5>
+                  <h5>Edit Candidate</h5>
                   <Form
                     noValidate
                     validated={this.state.validated}
-                    onSubmit={e => this.updateProfile(e)}
+                    onSubmit={e => this.update(e)}
                   >
                     <Table striped bordered hover>
                       <tbody>
+                      <tr>
+                        <td>Name</td>
+                        <td>
+                          <Form.Group controlId="profileStatus" as={Row}>
+                            <Form.Control
+                                as="textarea"
+                                rows="1"
+                                defaultValue={this.state.selectedProfile[0]["name"]}
+                                required
+                                onChange={e =>
+                                    this.setState({ name: e.target.value })
+                                }
+                            />
+                          </Form.Group>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td>
+                          <Form.Group controlId="profileStatus" as={Row}>
+                            <Form.Control
+                                as="textarea"
+                                rows="1"
+                                defaultValue={this.state.selectedProfile[0]["email"]}
+                                required
+                                onChange={e =>
+                                    this.setState({ email: e.target.value })
+                                }
+                            />
+                          </Form.Group>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Phone</td>
+                        <td>
+                          <Form.Group controlId="profileStatus" as={Row}>
+                            <Form.Control
+                                as="textarea"
+                                rows="1"
+                                defaultValue={this.state.selectedProfile[0]["phone"]}
+                                required
+                                onChange={e =>
+                                    this.setState({ phone: e.target.value })
+                                }
+                            />
+                          </Form.Group>
+                        </td>
+                      </tr>
+                      <tr>
+                      <td>Skills</td>
+                      <Form.Group controlId="profileStatus" as={Row}>
+                          <Form.Control
+                              as="select"
+                              required
+                              defaultValue={this.state.selectedProfile[0]["skill"]}
+                              onChange={e =>
+                                  this.setState({skill: e.target.value})
+                              }
+                          >
+                            <option/>
+                            {this.props.skillSets &&
+                            this.props.skillSets.map(skill => (
+                                <option value={skill}>{skill}</option>
+                            ))}
+                          </Form.Control>
+                      </Form.Group>
+                      </tr>
                         <tr>
                           <td>Status</td>
                           <td>
@@ -243,22 +393,22 @@ class CustomTable extends React.Component {
                             </Form.Control>
                           </td>
                         </tr>
-                        <tr>
-                          <td>Comments</td>
-                          <td>
-                            <Form.Group controlId="profileStatus" as={Row}>
-                              <Form.Control
-                                as="textarea"
-                                rows="3"
-                                placeholder={this.state.selectedProfile[0]["comments"]}
-                                required
-                                onChange={e =>
-                                  this.setState({ comments: e.target.value })
-                                }
-                              />
-                            </Form.Group>
-                          </td>
-                        </tr>
+                        {/*<tr>*/}
+                        {/*  <td>Comments</td>*/}
+                        {/*  <td>*/}
+                        {/*    <Form.Group controlId="profileStatus" as={Row}>*/}
+                        {/*      <Form.Control*/}
+                        {/*        as="textarea"*/}
+                        {/*        rows="3"*/}
+                        {/*        defaultValue={this.state.selectedProfile[0]["comments"]}*/}
+                        {/*        required*/}
+                        {/*        onChange={e =>*/}
+                        {/*          this.setState({ comments: e.target.value })*/}
+                        {/*        }*/}
+                        {/*      />*/}
+                        {/*    </Form.Group>*/}
+                        {/*  </td>*/}
+                        {/*</tr>*/}
                         { this.state.status === "scheduled" &&
                         <React.Fragment>
                         <tr>
@@ -328,6 +478,101 @@ class CustomTable extends React.Component {
               </Row>
             </Modal.Body>
           </Modal>
+        )}
+        {this.state.selectedProfile && (
+            <Modal
+                size="lg"
+                show={this.state.makeAppointment}
+                onHide={() => this.setState({ makeAppointment: false })}
+                aria-labelledby="example-modal-sizes-title-lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="example-modal-sizes-title-lg">
+                  Schedule Interview
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Row>
+                  <Col>
+                    <h5>{this.state.selectedProfile[0]["name"]}</h5>
+                    <Form
+                        noValidate
+                        validated={this.state.validated}
+                        onSubmit={e => this.addInterview(e)}
+                    >
+                      <Table striped bordered hover>
+                        <tbody>
+                        <tr>
+                          <td>Date</td>
+                          <td>
+                            <Form.Group controlId="profileStatus" as={Row}>
+                              <Form.Control
+                                  type="date"
+                                  onChange={e =>
+                                      this.setState({date: e.target.value})
+                                  }
+                              />
+                            </Form.Group>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Time</td>
+                          <td>
+                            <Form.Group controlId="profileStatus" as={Row}>
+                              <Form.Control
+                                  type="time"
+                                  onChange={e =>
+                                      this.setState({time: e.target.value})
+                                  }
+                              />
+                            </Form.Group>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Interviewers</td>
+                            <Form.Control
+                                type="text"
+                                onChange={e =>
+                                    this.setState({interviewer: e.target.value})
+                                }
+                            />
+                        </tr>
+                        <tr>
+                          <td>Location</td>
+                          <td>
+                            <Form.Control
+                                type="text"
+                                onChange={e =>
+                                    this.setState({location: e.target.value})
+                                }
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Comments</td>
+                          <td>
+                            <Form.Control
+                                type="text"
+                                onChange={e =>
+                                    this.setState({comment: e.target.value})
+                                }
+                            />
+                          </td>
+                        </tr>
+                        </tbody>
+                      </Table>
+
+                      <Row>
+                        <Col sm="9" />
+                        <Col sm="3">
+                          <Button type="submit">Schedule Interview</Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </Col>
+                </Row>
+              </Modal.Body>
+            </Modal>
         )}
       </React.Fragment>
     );

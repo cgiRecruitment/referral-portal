@@ -6,6 +6,8 @@ import AddProfile from "./containers/addProfile";
 import Calender from "./containers/calender";
 import Header from "./components/Header";
 import Login from "./containers/login";
+import ProfileTable from "./components/ProfilesTable"
+import ProfilesTable from "./containers/profilesTable"
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
 
@@ -45,6 +47,7 @@ class App extends React.Component {
                             interviews={this.props.interviews}
                         />}/>
                         <Route exact path="/login/" render={() => <Login/>}/>
+                        <Route exact path="/add-profile/" component={ProfileTable} render={() => <ProfilesTable/>}/>
                     </HashRouter>
                 ) : (
                     <HashRouter>
@@ -55,6 +58,7 @@ class App extends React.Component {
                                 />
                             )}
                         />
+
                     </HashRouter>
                 )}
             </React.Fragment>

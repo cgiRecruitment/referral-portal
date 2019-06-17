@@ -8,6 +8,8 @@ class ViewProfiles extends React.Component {
     this.props.getStatusList();
     this.props.getMeetingRoomList();
     this.props.getInterviewerList();
+    this.props.updateProfile();
+    this.props.createInterview();
   }
 
   render() {
@@ -20,7 +22,11 @@ class ViewProfiles extends React.Component {
             meetingRooms={this.props.meetingRooms}
             profiles={this.props.allButRejectedProfiles}
             statusList={this.props.statusList}
+            skillSets={this.props.skillSets}
             editUser={true}
+            scheduleInterview={true}
+            createInterview={this.props.createInterview}
+            updateProfile={this.props.updateProfile}
           />
         </Row>
       </Container>

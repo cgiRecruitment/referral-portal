@@ -1,4 +1,4 @@
-import {CREATE_PROFILE, SET_PROFILES} from "../actions/profileActions";
+import {CREATE_PROFILE, SET_PROFILES, UPDATE_PROFILE} from "../actions/profileActions";
 
 const initialState = {
     profiles: false
@@ -9,15 +9,26 @@ const activeProfile = ["Application Received", "Interview Scheduled", "Offer Mad
 function profileReducer(state = initialState, action) {
     switch (action.type) {
         case SET_PROFILES:
+
+            const activeProfiles = action.data.filter(profile =>
+                activeProfile.includes(profile.status));
+            const allButRejectedProfiles = action.data.filter(profile => profile.status != "Rejected");
+
             return {
                 ...state,
-                profiles: action.data,
-                activeProfiles: action.data.filter(profile =>
-                    activeProfile.includes(profile.status)),
-                allButRejectedProfiles: action.data.filter(profile => profile.status != "Rejected")
+                activeProfiles: activeProfiles,
+                allButRejectedProfiles: allButRejectedProfiles,
+                profiles: action.data
             }
 
+
         case CREATE_PROFILE:
+            return {
+                ...state,
+                profile: action.data
+            }
+
+        case UPDATE_PROFILE:
             return {
                 ...state,
                 profile: action.data

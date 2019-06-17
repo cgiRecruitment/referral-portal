@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import App from "../App";
-import {setProfiles, getProfiles} from "../actions/profileActions";
+import {setProfiles, getProfiles, updateProfile} from "../actions/profileActions";
 import {setInterviews, getInterviews, createInterview} from "../actions/interviewActions";
 import {getStatusList} from "../actions/prefillActions";
 import {createProfile} from "../actions/profileActions";
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch =>
             getInterviews,
             setInterviews,
             createInterview,
+            updateProfile,
             getStatusList,
             createProfile,
             logout

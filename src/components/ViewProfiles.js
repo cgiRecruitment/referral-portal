@@ -6,10 +6,12 @@ import Row from "react-bootstrap/Row";
 class ViewProfiles extends React.Component {
   componentWillMount() {
     this.props.getStatusList();
+    this.props.getSkillSetList();
     this.props.getMeetingRoomList();
     this.props.getInterviewerList();
     this.props.updateProfile();
     this.props.createInterview();
+    this.props.getInterviewTypeList();
   }
 
   render() {
@@ -27,6 +29,7 @@ class ViewProfiles extends React.Component {
             scheduleInterview={true}
             createInterview={this.props.createInterview}
             updateProfile={this.props.updateProfile}
+            interviewTypes={this.props.interviewTypes}
           />
         </Row>
       </Container>

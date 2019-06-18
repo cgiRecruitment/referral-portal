@@ -1,4 +1,6 @@
 import { GET_MEETING_ROOM_LIST, setMeetingRoomList } from "../actions/prefillActions";
+import {constants} from "../utility/constants";
+
 
 const getMeetinRoomList = store => next => async action => {
   next(action);
@@ -10,7 +12,7 @@ const getMeetinRoomList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch("api/meetingRooms.json")
+    const data = await fetch(constants.host+"/interviews/locations")
       .then(data => data.json())
       .then(response => {
         return response;

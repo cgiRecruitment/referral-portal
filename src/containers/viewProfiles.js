@@ -1,7 +1,13 @@
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import ViewProfiles from "../components/ViewProfiles";
-import {getStatusList, getMeetingRoomList, getInterviewerList, getSkillSetList} from "../actions/prefillActions";
+import {
+    getStatusList,
+    getMeetingRoomList,
+    getInterviewerList,
+    getSkillSetList,
+    getInterviewTypeList
+} from "../actions/prefillActions";
 import {updateProfile} from "../actions/profileActions";
 import {createInterview} from "../actions/interviewActions";
 
@@ -11,11 +17,12 @@ const mapStateToProps = state => ({
     statusList: state.prefillReducer.status,
     meetingRooms: state.prefillReducer.meetingRooms,
     interviewers: state.prefillReducer.interviewers,
-    skillSets: state.prefillReducer.skillSets
+    skillSets: state.prefillReducer.skillSet,
+    interviewTypes: state.prefillReducer.interviewTypes
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({createInterview, getSkillSetList, getStatusList, getMeetingRoomList, getInterviewerList, updateProfile}, dispatch);
+    bindActionCreators({getInterviewTypeList, createInterview, getSkillSetList, getStatusList, getMeetingRoomList, getInterviewerList, updateProfile}, dispatch);
 
 export default connect(
     mapStateToProps,

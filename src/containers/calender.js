@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
     schedules: state.calenderReducer.schedule,
     interviews: state.interviewReducer.interviews,
     activeProfiles: state.profileReducer.activeProfiles,
+    interviewTypes: state.prefillReducer.interviewTypes
 });
 
 const mapDispatchToProps = dispatch =>
@@ -22,7 +23,7 @@ const mapDispatchToProps = dispatch =>
             getScheduleByDate,
             getInterviews,
             createInterview,
-            getProfiles
+            getProfiles,
         },
         dispatch
     );

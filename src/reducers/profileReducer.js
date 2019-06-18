@@ -12,13 +12,16 @@ function profileReducer(state = initialState, action) {
 
             const activeProfiles = action.data.filter(profile =>
                 activeProfile.includes(profile.status));
-            const allButRejectedProfiles = action.data.filter(profile => profile.status != "Rejected");
+            const allButRejectedProfiles = action.data.filter(profile => profile.status !== "Rejected");
+
+            const activeProfilesCount =  action.data.filter(profile => profile.status !== "Rejected").length;
 
             return {
                 ...state,
                 activeProfiles: activeProfiles,
                 allButRejectedProfiles: allButRejectedProfiles,
-                profiles: action.data
+                profiles: action.data,
+                activeProfilesCount: activeProfilesCount
             }
 
 

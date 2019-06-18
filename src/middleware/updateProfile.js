@@ -1,7 +1,6 @@
 import {UPDATE_PROFILE} from "../actions/profileActions";
 import {constants} from "../utility/constants";
-import {setGeneralError} from "../actions/errorActions";
-import {loginLogoutStatus} from "../actions/userActions";
+
 
 const updateProfile = store => next => async action => {
     next(action);
@@ -21,9 +20,9 @@ const updateProfile = store => next => async action => {
             body: action.profile,
 
         })
-            .then(() => {
-                window.location = "/";
-            });
+            // .then(() => {
+            //     this.setState({ editProfile: false })
+            // });
 
     } catch (e) {
         console.error(e);

@@ -40,14 +40,17 @@ class CustomTable extends React.Component {
       e.preventDefault();
       e.stopPropagation();
       let formData = JSON.stringify(this.state);
-      this.props.updateProfile(formData)
-     //    fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
-     //      headers: {
-     //        "Content-Type": "application/json"
-     //      },
-     //      method: "PUT",
-     //      body: formData
-     //    });
+    // this.props.updateProfile(formData)
+        fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          method: "PUT",
+          body: formData
+        })
+       .then(() => {
+           this.setState({ editProfile: false })
+       });
       }
     this.setState({ validated: true });
   };
@@ -65,7 +68,33 @@ class CustomTable extends React.Component {
       console.log(this.state.candidateId)
       this.props.createInterview(JSON.stringify(this.state));
     }
-    this.setState({validated: true});
+    this.setState({validated: true,
+      scheduleInterview: false});
+  };
+
+  addCandidateComment = e => {
+    const form = e.currentTarget;
+    console.log(form.checkValidity());
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+      let formData = JSON.stringify(this.state);
+      // this.props.updateProfile(formData)
+      fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/comments", {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: formData
+      })
+          .then(() => {
+            this.setState({ addComment: false })
+          });
+    }
+    this.setState({ validated: true });
   };
 
   render() {
@@ -193,8 +222,109 @@ class CustomTable extends React.Component {
                         </Table>
                     </Col>
                 </Row>
+              <Row>
+                <Col sm="9" />
+                <Col sm="3">
+                  <a
+                      href="javascript:void(0)"
+                      onClick={() =>
+                        this.setState({
+                          showProfile: false,
+                          addComment: true
+                      })
+                      }
+                    >
+                  <Button>Add comment</Button>
+                  </a>
+                </Col>
+              </Row>
             </Modal.Body>
           </Modal>
+        )}
+        {this.state.selectedProfile && (
+            <Modal
+                size="lg"
+                show={this.state.addComment}
+                onHide={() => this.setState({ addComment: false })}
+                aria-labelledby="example-modal-sizes-title-lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="example-modal-sizes-title-lg">
+                  {this.state.selectedProfile[0]["name"]}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Row>
+                <Col>
+                  <h5>Earlier Comments</h5>
+                  <Table striped bordered hover>
+                    <tbody>
+                    {this.state.selectedProfile[0].comments &&
+                    this.state.selectedProfile[0].comments.map(details =>
+                        <tr>
+                          <td>{details.comment}</td>
+                          <td>{details.memberName}</td>
+                          <td>{details.date}</td>
+                        </tr>
+                    )}
+                    </tbody>
+                  </Table>
+                </Col>
+                </Row>
+                <Form
+                    noValidate
+                    validated={this.state.validated}
+                    onSubmit={e => this.addCandidateComment(e)}
+                >
+                <Row>
+                  <Col>
+                    <h4>Comment:</h4>
+                <tr>
+                  <td>
+                    <Form.Group controlId="profileStatus" as={Row}>
+                      <Form.Control
+                          as="textarea"
+                          rows="2"
+                          cols="250"
+                          required
+                          onChange={e =>
+                              this.setState({ comment: e.target.value })
+                          }
+                      />
+                    </Form.Group>
+                  </td>
+                </tr>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <h4>From:</h4>
+                    <tr>
+                      <td>
+                        <Form.Group controlId="profileStatus" as={Row}>
+                          <Form.Control
+                              as="textarea"
+                              rows="2"
+                              cols="250"
+                              required
+                              onChange={e =>
+                                  this.setState({ memberName: e.target.value })
+                              }
+                          />
+                        </Form.Group>
+                      </td>
+                    </tr>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm="9" />
+                  <Col sm="3">
+                    <Button type="submit">Add comment</Button>
+                  </Col>
+                </Row>
+                </Form>
+              </Modal.Body>
+            </Modal>
         )}
         <Table striped bordered hover responsive>
           <thead>
@@ -354,29 +484,32 @@ class CustomTable extends React.Component {
                         </td>
                       </tr>
                       <tr>
-                      <td>Skills</td>
-                      <Form.Group controlId="profileStatus" as={Row}>
+                        <td>Skill</td>
+                        <td>
                           <Form.Control
                               as="select"
-                              required
                               defaultValue={this.state.selectedProfile[0]["skill"]}
                               onChange={e =>
-                                  this.setState({skill: e.target.value})
+                                  this.setState({ skill: e.target.value })
                               }
+                              required
                           >
                             <option/>
                             {this.props.skillSets &&
                             this.props.skillSets.map(skill => (
-                                <option value={skill}>{skill}</option>
+                                <option value={skill}>
+                                  {skill}
+                                </option>
                             ))}
                           </Form.Control>
-                      </Form.Group>
+                        </td>
                       </tr>
                         <tr>
                           <td>Status</td>
                           <td>
                             <Form.Control
                               as="select"
+                              defaultValue={this.state.selectedProfile[0]["status"]}
                               onChange={e =>
                                 this.setState({ status: e.target.value })
                               }
@@ -391,24 +524,64 @@ class CustomTable extends React.Component {
                                   </option>
                                 ))}
                             </Form.Control>
+
                           </td>
                         </tr>
-                        {/*<tr>*/}
-                        {/*  <td>Comments</td>*/}
-                        {/*  <td>*/}
-                        {/*    <Form.Group controlId="profileStatus" as={Row}>*/}
-                        {/*      <Form.Control*/}
-                        {/*        as="textarea"*/}
-                        {/*        rows="3"*/}
-                        {/*        defaultValue={this.state.selectedProfile[0]["comments"]}*/}
-                        {/*        required*/}
-                        {/*        onChange={e =>*/}
-                        {/*          this.setState({ comments: e.target.value })*/}
-                        {/*        }*/}
-                        {/*      />*/}
-                        {/*    </Form.Group>*/}
-                        {/*  </td>*/}
-                        {/*</tr>*/}
+                      <tr>
+                        <td>In NL</td>
+                        <td>
+                          <Form.Check
+                              inline
+                              label="Yes"
+                              type="radio"
+                              name={`isReferral`}
+                              onChange={e => this.setState({referred: true})}
+                          />
+                          <Form.Check
+                              inline
+                              label="No"
+                              type="radio"
+                              name={`isReferral`}
+                              onChange={e => this.setState({referred: false})}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Referred</td>
+                        <td>
+                      <Form.Check
+                          inline
+                          label="Yes"
+                          type="radio"
+                          name={`isReferral`}
+                          onChange={e => this.setState({referred: true})}
+                      />
+                      <Form.Check
+                          inline
+                          label="No"
+                          type="radio"
+                          name={`isReferral`}
+                          onChange={e => this.setState({referred: false})}
+                      />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Referred by</td>
+                        <td>
+                          <Form.Group controlId="profileStatus" as={Row}>
+                            <Form.Control
+                                required
+                                type="text"
+                                defaultValue={this.state.selectedProfile[0]["referredBy"]}
+                                onChange={e =>
+                                    this.setState({referredBy: e.target.value})
+                                }
+                            />
+                          </Form.Group>
+                        </td>
+                      </tr>
+
+
                         { this.state.status === "scheduled" &&
                         <React.Fragment>
                         <tr>
@@ -471,6 +644,22 @@ class CustomTable extends React.Component {
                       <Col sm="9" />
                       <Col sm="3">
                         <Button type="submit">Update Profile</Button>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col sm="9" />
+                      <Col sm="3">
+                        <a
+                            href="javascript:void(0)"
+                            onClick={() =>
+                                this.setState({
+                                  editProfile: false,
+                                  addComment: true
+                                })
+                            }
+                        >
+                          <Button>Add comment</Button>
+                        </a>
                       </Col>
                     </Row>
                   </Form>
@@ -538,27 +727,57 @@ class CustomTable extends React.Component {
                             />
                         </tr>
                         <tr>
+                          <td>Interview type</td>
+                          <td>
+                            <Form.Control
+                                as="select"
+                                onChange={e =>
+                                    this.setState({ type: e.target.value })
+                                }
+                                required
+                            >
+                              <option/>
+                              {this.props.interviewTypes &&
+                              this.props.interviewTypes.map(type => (
+                                  <option value={type}>
+                                    {type}
+                                  </option>
+                              ))}
+                            </Form.Control>
+                          </td>
+                        </tr>
+
+                        <tr>
                           <td>Location</td>
                           <td>
                             <Form.Control
-                                type="text"
+                                as="select"
                                 onChange={e =>
-                                    this.setState({location: e.target.value})
+                                    this.setState({ location: e.target.value })
                                 }
-                            />
+                                required
+                            >
+                              <option/>
+                              {this.props.meetingRooms &&
+                              this.props.meetingRooms.map(room => (
+                                  <option value={room}>
+                                    {room}
+                                  </option>
+                              ))}
+                            </Form.Control>
                           </td>
                         </tr>
-                        <tr>
-                          <td>Comments</td>
-                          <td>
-                            <Form.Control
-                                type="text"
-                                onChange={e =>
-                                    this.setState({comment: e.target.value})
-                                }
-                            />
-                          </td>
-                        </tr>
+                        {/*<tr>*/}
+                        {/*  <td>Comments</td>*/}
+                        {/*  <td>*/}
+                        {/*    <Form.Control*/}
+                        {/*        type="text"*/}
+                        {/*        onChange={e =>*/}
+                        {/*            this.setState({comment: e.target.value})*/}
+                        {/*        }*/}
+                        {/*    />*/}
+                        {/*  </td>*/}
+                        {/*</tr>*/}
                         </tbody>
                       </Table>
 

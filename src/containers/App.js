@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
     statusList: state.prefillReducer.status,
     loginStatus: state.userReducer.loginStatus,
     generalError: state.errorReducer.generalError,
-    interviews: state.interviewReducer.interviews
+    interviews: state.interviewReducer.interviews,
+    activeProfilesCount: state.profileReducer.activeProfilesCount
 });
 
 const mapDispatchToProps = dispatch =>

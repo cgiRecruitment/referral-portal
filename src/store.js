@@ -14,6 +14,8 @@ import {getMeetinRoomList} from "./middleware/getMeetingRoomList";
 import {getInterviewerList} from "./middleware/getInterviewerList";
 import {getInterview} from "./middleware/getInterviews";
 import {updateProfile} from "./middleware/updateProfile";
+import {getInterviewTypes} from "./middleware/getInterviewTypes";
+
 
 const initialState = {};
 const enhancers = [];
@@ -30,6 +32,7 @@ const middleware = [
     getInterview,
     createInterview,
     updateProfile,
+    getInterviewTypes,
     thunk,
     routerMiddleware()
 ];

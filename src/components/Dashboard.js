@@ -13,18 +13,20 @@ class Dashboard extends React.Component {
 
 
     render() {
+        const {joinerCount, inProgressProfilesCount, offerProfilesCount} = this.props.stats.pieChart
+        const {referralCount, notReferralCount} = this.props.stats.refChart
         const pieOptions = {
             title: "Referral Status",
             pieHole: 0.6,
             slices: [
                 {
-                    color: "#2BB673"
+                    color: "#4d974d"
                 },
                 {
-                    color: "#d91e48"
+                    color: "#3079ff"
                 },
                 {
-                    color: "#007fad"
+                    color: "#e9d613"
                 },
                 {
                     color: "#e9a227"
@@ -57,64 +59,47 @@ class Dashboard extends React.Component {
                             chartType="PieChart"
                             data={[
                                 ["status", "count"],
-                                ["Active", 12],
-                                ["Joined", 12],
-                                ["Rejected", 12]
+                                ["Joined", joinerCount],                               
+                                ["Offer Made", offerProfilesCount],
+                                ["In Progress", inProgressProfilesCount]
                             ]}
                             options={pieOptions}
                             graph_id="PieChart"
-                            width={"100%"}
+                            width={"90%"}
                             height={"400px"}
                             legend_toggle
                         />
                     </Col>
                     <Col>
                         <Chart
-                            width={"100%"}
+                            width={"90%"}
                             height={"400px"}
-                            chartType="LineChart"
+                            chartType="PieChart"
                             loader={<div>Loading Chart</div>}
                             data={[
-                                ["Year", "Referral", "New Employees"],
-                                ["2012", 0, 10],
-                                ["2013", 10, 8],
-                                ["2014", 23, 20],
-                                ["2015", 17, 45],
-                                ["2016", 18, 44],
-                                ["2017", 9, 55],
-                                ["2018", 11, 34],
-                                ["2019", 27, 54]
+                                ["Type of Application", "count"],
+                                ["Referral", referralCount],
+                                ["New Employees", notReferralCount],
                             ]}
-                            options={{
-                                title: "Referral Chart",
-                                hAxis: {
-                                    title: "Year"
-                                },
-                                vAxis: {
-                                    title: "Referral Count"
-                                },
-                                series: {
-                                    0: {curveType: "function"},
-                                    1: {curveType: "function"}
-                                }
-                            }}
-                            rootProps={{"data-testid": "1"}}
+                            options={pieOptions}
+                            legend_toggle
+                            //rootProps={{"data-testid": "1"}}
                         />
                     </Col>
                     <Col>
                         <Chart
-                            width={"100%"}
+                            width={"110%"}
                             height={"400px"}
                             chartType="Bar"
                             loader={<div>Loading Chart</div>}
                             data={[
-                                ["Year", "Referer"],
-                                ["2014", 10],
-                                ["2015", 11],
-                                ["2016", 6],
-                                ["2017", 10],
-                                ["2018", 13],
-                                ["2019", 4]
+                                ["Month", "Applications","Offers","Joiners"],
+                                ["Jan", 50,10,5],
+                                ["Feb", 47,15,9],
+                                ["Mar", 8,3,0],
+                                ["Apr", 18,5,2],
+                                ["May", 29,9,6],
+                                ["Jun", 43,12,8]
                             ]}
                             options={{
                                 title: "Referer Chart",

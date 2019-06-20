@@ -1,5 +1,3 @@
-import { SET_STATUS_LIST } from "./prefillActions";
-
 export const SET_PROFILES = "SET_PROFILES";
 export const GET_PROFILES = "GET_PROFILES";
 export const CREATE_PROFILE = "CREATE_PROFILE";
@@ -24,10 +22,3 @@ export const createProfile = profile => {
         profile
     };
 };
-
-export const calculateStats = data =>{
-    return{
-        type : SET_STATUS_LIST,
-        data
-    }
-}

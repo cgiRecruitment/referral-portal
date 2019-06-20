@@ -52,18 +52,6 @@ function profileReducer(state = initialState, action) {
                 profile: action.data
             }
 
-        // case SET_STATS:
-        //     return {
-        //         ...state,
-        //         stats:data.reduce((stats, c) => {
-        //             var status = c.status;
-        //             if (!stats.hasOwnProperty(status)) {
-        //               stats[status] = 0;
-        //             }
-        //             stats[status]++;
-        //             return stats;
-        //           }, {});
-        //     }
         default: {
             return state;
         }

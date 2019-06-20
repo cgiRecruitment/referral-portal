@@ -21,6 +21,7 @@ class ViewProfiles extends React.Component {
             profiles={this.props.allButRejectedProfiles}
             statusList={this.props.statusList}
             editUser={true}
+			paginationList={true}
           />
         </Row>
       </Container>

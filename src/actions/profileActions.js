@@ -1,6 +1,7 @@
 export const SET_PROFILES = "SET_PROFILES";
 export const GET_PROFILES = "GET_PROFILES";
 export const CREATE_PROFILE = "CREATE_PROFILE";
+export const SET_STATS = "SET_STATS";
 
 export const setProfiles = data => {
     return {

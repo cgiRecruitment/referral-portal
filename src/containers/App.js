@@ -6,6 +6,7 @@ import {getStatusList} from "../actions/prefillActions";
 import {createProfile} from "../actions/profileActions";
 import {logout} from "../actions/userActions";
 import {checkStatus} from "../utility/checkLoginStatus";
+import { stat } from "fs";
 
 checkStatus();
 
@@ -17,7 +18,8 @@ const mapStateToProps = state => ({
     activeProfiles: state.profileReducer.activeProfiles,
     statusList: state.prefillReducer.status,
     loginStatus: state.userReducer.loginStatus,
-    generalError: state.errorReducer.generalError
+    generalError: state.errorReducer.generalError,
+    stats : state.profileReducer.stats
 });
 
 const mapDispatchToProps = dispatch =>

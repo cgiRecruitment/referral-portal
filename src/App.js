@@ -34,6 +34,8 @@ class App extends React.Component {
                                 <Dashboard
                                     profiles={this.props.activeProfiles}
                                     statusList={this.props.statusList}
+                                    stats={this.props.stats}
+                                    
                                 />
                             )}
                         />

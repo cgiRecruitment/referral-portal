@@ -8,7 +8,7 @@ import {
     getSkillSetList,
     getInterviewTypeList
 } from "../actions/prefillActions";
-import {updateProfile} from "../actions/profileActions";
+import {updateProfile, createComment} from "../actions/profileActions";
 import {createInterview} from "../actions/interviewActions";
 
 const mapStateToProps = state => ({
@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({getInterviewTypeList, createInterview, getSkillSetList, getStatusList, getMeetingRoomList, getInterviewerList, updateProfile}, dispatch);
+    bindActionCreators({createComment, getInterviewTypeList, createInterview, getSkillSetList, getStatusList, getMeetingRoomList, getInterviewerList, updateProfile}, dispatch);
 
 export default connect(
     mapStateToProps,

@@ -12,17 +12,15 @@ const updateProfile = store => next => async action => {
     const dispatch = store.dispatch;
 
     try {
-        const data = await fetch(constants.host+"/candidates/candidate/"+action.profile.id+"/status", {
+        console.log(action.profile.selectedProfile[0]["id"])
+        const data = await fetch(constants.host+"/candidates/candidate/"+action.profile.selectedProfile[0]["id"], {
             headers: {
                 "Content-Type": "application/json"
             },
-            method: "POST",
-            body: action.profile,
+            method: "PUT",
+            body: JSON.stringify(action.profile)
 
         })
-            // .then(() => {
-            //     this.setState({ editProfile: false })
-            // });
 
     } catch (e) {
         console.error(e);

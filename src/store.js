@@ -15,6 +15,7 @@ import {getInterviewerList} from "./middleware/getInterviewerList";
 import {getInterview} from "./middleware/getInterviews";
 import {updateProfile} from "./middleware/updateProfile";
 import {getInterviewTypes} from "./middleware/getInterviewTypes";
+import {createComment} from "./middleware/createComment";
 
 
 const initialState = {};
@@ -33,6 +34,7 @@ const middleware = [
     createInterview,
     updateProfile,
     getInterviewTypes,
+    createComment,
     thunk,
     routerMiddleware()
 ];

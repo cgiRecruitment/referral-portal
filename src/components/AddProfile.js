@@ -5,6 +5,7 @@ import Card from "react-bootstrap/es/Card";
 import Form from "react-bootstrap/es/Form";
 import Col from "react-bootstrap/es/Col";
 import Button from "react-bootstrap/es/Button";
+import { Redirect } from "react-router-dom";
 
 class AddProfile extends React.Component {
     state = {
@@ -14,10 +15,8 @@ class AddProfile extends React.Component {
         referred: false,
         referredBy: "",
         inNL: true,
-        skillSet: "",
         status: "",
-        comment: "",
-        validated: false
+        redirect:false
     };
 
     componentDidMount() {
@@ -34,14 +33,24 @@ class AddProfile extends React.Component {
         } else {
             e.preventDefault();
             e.stopPropagation();
-            this.props.createProfile(JSON.stringify(this.state));
+            const profile = JSON.stringify(this.state)
+            this.props.createProfile(profile);
         }
         this.setState({validated: true});
+        this.setState({redirect: true});
     };
+
+    renderRedirect = () => {
+        if (this.state.redirect){
+            return <Redirect to='/' />
+}
+    }
 
     render() {
         return (
+
             <Container>
+                {this.renderRedirect()}
                 <Row>
                     <h1>Add Profile</h1>
                 </Row>
@@ -245,21 +254,21 @@ class AddProfile extends React.Component {
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    <Col xs="12" md="4">
-                                        <Form.Group controlId="profileStatus" as={Row}>
-                                            <Form.Label column sm="4" md="12">
-                                                Comment
-                                            </Form.Label>
-                                            <Form.Control
-                                                required
-                                                as="textarea"
-                                                rows="3"
-                                                onChange={e =>
-                                                    this.setState({comments: e.target.value})
-                                                }
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                                    {/*<Col xs="12" md="4">*/}
+                                    {/*    <Form.Group controlId="profileStatus" as={Row}>*/}
+                                    {/*        <Form.Label column sm="4" md="12">*/}
+                                    {/*            Comment*/}
+                                    {/*        </Form.Label>*/}
+                                    {/*        <Form.Control*/}
+                                    {/*            required*/}
+                                    {/*            as="textarea"*/}
+                                    {/*            rows="3"*/}
+                                    {/*            onChange={e =>*/}
+                                    {/*                this.setState({comment: e.target.value})*/}
+                                    {/*            }*/}
+                                    {/*        />*/}
+                                    {/*    </Form.Group>*/}
+                                    {/*</Col>*/}
                                 </Row>
                                 <Row>
                                     <Col sm="2" md="12">

@@ -30,6 +30,8 @@ class ViewProfiles extends React.Component {
             createInterview={this.props.createInterview}
             updateProfile={this.props.updateProfile}
             interviewTypes={this.props.interviewTypes}
+            paginationList={true}
+            createComment={this.props.createComment}
           />
         </Row>
       </Container>

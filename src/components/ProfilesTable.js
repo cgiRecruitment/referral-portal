@@ -9,7 +9,6 @@ import { faEye, faEdit, faCalendarPlus } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
-import {constants} from "../utility/constants";
 library.add(faEye);
 library.add(faEdit);
 library.add(faCalendarPlus)
@@ -39,19 +38,11 @@ class CustomTable extends React.Component {
     } else {
       e.preventDefault();
       e.stopPropagation();
-      let formData = JSON.stringify(this.state);
-    // this.props.updateProfile(formData)
-        fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/status", {
-          headers: {
-            "Content-Type": "application/json"
-          },
-          method: "PUT",
-          body: formData
-        })
-       .then(() => {
-           this.setState({ editProfile: false })
-       });
+      this.props.updateProfile(this.state)
+          .then(() => {
+            this.setState({ editProfile: false })});
       }
+
     this.setState({ validated: true });
   };
 
@@ -64,12 +55,11 @@ class CustomTable extends React.Component {
     } else {
       e.preventDefault();
       e.stopPropagation();
-      {this.setState({candidateId: this.state.selectedProfile[0]["id"]})};
-      console.log(this.state.candidateId)
-      this.props.createInterview(JSON.stringify(this.state));
+      this.props.createInterview(this.state)
+          .then(() => {
+            this.setState({ makeAppointment: false })});
     }
-    this.setState({validated: true,
-      scheduleInterview: false});
+    this.setState({validated: true});
   };
 
   addCandidateComment = e => {
@@ -81,18 +71,9 @@ class CustomTable extends React.Component {
     } else {
       e.preventDefault();
       e.stopPropagation();
-      let formData = JSON.stringify(this.state);
-      // this.props.updateProfile(formData)
-      fetch(constants.host+"/candidates/candidate/"+this.state.selectedProfile[0]["id"]+"/comments", {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "POST",
-        body: formData
-      })
+      this.props.createComment(this.state)
           .then(() => {
-            this.setState({ addComment: false })
-          });
+        this.setState({ addComment: false })});
     }
     this.setState({ validated: true });
   };
@@ -101,13 +82,13 @@ class CustomTable extends React.Component {
     const head = [
       "#",
       "Name",
-      "Email",
-      "ReferredBy",
       "Skills",
+      "Received Date",
       "Status",
+      "Excel ID",
      // "View",
-        ...(this.props.scheduleInterview ? ["Schedule Interview"] :[]),
-        ...(this.props.editUser ? ["Edit"] : [])
+      ...(this.props.scheduleInterview ? ["Add Interview"] :[]),
+      ...(this.props.editUser ? ["Edit"] : [])
     ];
     return (
       <React.Fragment>
@@ -136,6 +117,10 @@ class CustomTable extends React.Component {
                       <tr>
                         <td>In Netherlands</td>
                         <td>{this.state.selectedProfile[0]["inNL"] ? 'Yes' : 'No'}</td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td>{this.state.selectedProfile[0]["email"]}</td>
                       </tr>
                       <tr>
                         <td>Skills</td>
@@ -278,7 +263,7 @@ class CustomTable extends React.Component {
                 >
                 <Row>
                   <Col>
-                    <h4>Comment:</h4>
+                    <h5>Comment:</h5>
                 <tr>
                   <td>
                     <Form.Group controlId="profileStatus" as={Row}>
@@ -298,7 +283,7 @@ class CustomTable extends React.Component {
                 </Row>
                 <Row>
                   <Col>
-                    <h4>From:</h4>
+                    <h5>From:</h5>
                     <tr>
                       <td>
                         <Form.Group controlId="profileStatus" as={Row}>
@@ -354,12 +339,12 @@ class CustomTable extends React.Component {
                       {item.name}
                 </a>{" "}
                   </td>
-                  <td>{item.email}</td>
-                  <td>{item.referredBy}</td>
                   <td>{item.skill}</td>
+                  <td>{item.receivedDate && item.receivedDate.substring(0,10)}</td>
                   <td>
                     <Status>{item.status}</Status>
                   </td>
+                  <td>{item.idFromExcel}</td>
                   {/*<td>*/}
                   {/*  <a*/}
                   {/*    href="javascript:void(0)"*/}
@@ -646,22 +631,22 @@ class CustomTable extends React.Component {
                         <Button type="submit">Update Profile</Button>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col sm="9" />
-                      <Col sm="3">
-                        <a
-                            href="javascript:void(0)"
-                            onClick={() =>
-                                this.setState({
-                                  editProfile: false,
-                                  addComment: true
-                                })
-                            }
-                        >
-                          <Button>Add comment</Button>
-                        </a>
-                      </Col>
-                    </Row>
+                    {/*<Row>*/}
+                    {/*  <Col sm="9" />*/}
+                    {/*  <Col sm="3">*/}
+                    {/*    <a*/}
+                    {/*        href="javascript:void(0)"*/}
+                    {/*        onClick={() =>*/}
+                    {/*            this.setState({*/}
+                    {/*              editProfile: false,*/}
+                    {/*              addComment: true*/}
+                    {/*            })*/}
+                    {/*        }*/}
+                    {/*    >*/}
+                    {/*      <Button>Add comment</Button>*/}
+                    {/*    </a>*/}
+                    {/*  </Col>*/}
+                    {/*</Row>*/}
                   </Form>
                 </Col>
               </Row>

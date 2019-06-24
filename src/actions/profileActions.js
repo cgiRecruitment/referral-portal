@@ -2,6 +2,7 @@ export const SET_PROFILES = "SET_PROFILES";
 export const GET_PROFILES = "GET_PROFILES";
 export const CREATE_PROFILE = "CREATE_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
+export const CREATE_COMMENT = "CREATE_COMMENT";
 
 export const setProfiles = data => {
     return {
@@ -30,3 +31,10 @@ export const updateProfile = profile => {
         profile
     };
 };
+
+export const createComment = comment => {
+    return {
+        type: CREATE_COMMENT,
+        comment
+    }
+}

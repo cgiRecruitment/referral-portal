@@ -11,13 +11,14 @@ const createProfile = store => next => async action => {
     const dispatch = store.dispatch;
 
     try {
-        const data = await fetch(constants.host + "/candidates/", {
+        console.log(action.profile)
+        const data = await fetch(constants.host +"/candidates", {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept" : "application/json"
             },
             method: "POST",
             body: action.profile,
-
         });
 
     } catch (e) {

@@ -17,7 +17,8 @@ const mapStateToProps = state => ({
     loginStatus: state.userReducer.loginStatus,
     generalError: state.errorReducer.generalError,
     interviews: state.interviewReducer.interviews,
-    activeProfilesCount: state.profileReducer.activeProfilesCount
+    activeProfilesCount: state.profileReducer.activeProfilesCount,
+    stats : state.profileReducer.stats
 });
 
 const mapDispatchToProps = dispatch =>

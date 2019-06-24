@@ -36,6 +36,7 @@ class App extends React.Component {
                                     profiles={this.props.activeProfiles}
                                     statusList={this.props.statusList}
                                     activeProfilesCount={this.props.activeProfilesCount}
+                                    stats={this.props.stats}
                                 />
                             )}
                         />

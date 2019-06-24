@@ -10,9 +10,12 @@ const getProfile = store => next => async action => {
   }
 
   const dispatch = store.dispatch;
+  let name = "test";
+  console.log(`${name} welcomes`);
 
   try {
-    const data = await fetch(constants.host+"/candidates/")
+    // eslint-disable-next-line no-template-curly-in-string
+    const data = await fetch(`${constants.host}/candidates/`)
       .then(data => data.json())
       .then(response => {
         return response;

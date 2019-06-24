@@ -127,9 +127,9 @@ class AddProfile extends React.Component {
                   }
               />
             </Col>
-            <Col md="3">
-              <Button type="submit">Schedule Interview</Button>
-            </Col>
+            {/*<Col md="3">*/}
+            {/*  <Button type="submit">Schedule Interview</Button>*/}
+            {/*</Col>*/}
           </Row>
           </Form>
           <hr />
@@ -137,7 +137,7 @@ class AddProfile extends React.Component {
               <InterviewsTable
                   interviews={this.props.interviews}
                   statusList={this.props.statusList}
-                  editInterview={true}
+                  editInterview={false}
               />
             <Col>
               {this.props.schedules && this.props.schedules.interviews && (

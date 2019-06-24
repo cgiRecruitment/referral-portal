@@ -1,7 +1,21 @@
-import {CREATE_PROFILE, SET_PROFILES, UPDATE_PROFILE} from "../actions/profileActions";
+import {CREATE_COMMENT, CREATE_PROFILE, SET_PROFILES, UPDATE_PROFILE} from "../actions/profileActions";
 
 const initialState = {
-    profiles: false
+    profiles: false,
+    stats: {
+        pieChart:{
+            offerProfilesCount: 0,
+            inProgressProfilesCount: 0,
+            joinerCount: 0,
+        },
+        refChart:{
+            referralCount : 0,
+            notReferralCount : 0
+        },
+        barChart:{
+
+        }
+    }
 };
 
 const activeProfile = ["Application Received", "Interview Scheduled", "Offer Made", "On Hold"]
@@ -12,16 +26,29 @@ function profileReducer(state = initialState, action) {
 
             const activeProfiles = action.data.filter(profile =>
                 activeProfile.includes(profile.status));
-            const allButRejectedProfiles = action.data.filter(profile => profile.status !== "Rejected");
+            const allButRejectedProfiles = action.data.filter(profile => profile.status !== "Rejected CGI");
 
-            const activeProfilesCount =  action.data.filter(profile => profile.status !== "Rejected").length;
 
             return {
                 ...state,
                 activeProfiles: activeProfiles,
                 allButRejectedProfiles: allButRejectedProfiles,
                 profiles: action.data,
-                activeProfilesCount: activeProfilesCount
+                stats:{
+                    pieChart:{
+                        offerProfilesCount: action.data.filter(profile => profile.status == "Offer Made").length,
+                        inProgressProfilesCount: action.data.filter(profile =>
+                            activeProfile.includes(profile.status) && profile.status != "Offer Made").length,
+                        joinerCount: action.data.filter(profile => profile.status == "Joined").length,
+                    },
+                    refChart:{
+                        referralCount : action.data.filter(profile => profile.referred).length,
+                        notReferralCount : action.data.filter(profile => !profile.referred).length
+                    },
+                    barChart:{
+
+                    }
+                }
             }
 
 
@@ -35,6 +62,12 @@ function profileReducer(state = initialState, action) {
             return {
                 ...state,
                 profile: action.data
+            }
+
+        case CREATE_COMMENT:
+            return {
+                ...state,
+                comment: action.data
             }
         default: {
             return state;

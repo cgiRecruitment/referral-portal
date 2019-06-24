@@ -12,14 +12,16 @@ const createInterview = store => next => async action => {
 
     try {
         console.log(action.interview)
-        const data = await fetch(constants.host + "/interviews/", {
+        action.interview.candidateId = action.interview.selectedProfile[0]["id"]
+        console.log(action.interview.candidateId)
+        const data = await fetch(constants.host+"/interviews", {
             headers: {
                 "Content-Type": "application/json"
             },
             method: "POST",
-            body: action.interview,
+            body: JSON.stringify(action.interview)
 
-        });
+        })
 
     } catch (e) {
         console.error(e);

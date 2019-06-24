@@ -6,7 +6,7 @@ import {createProfile, updateProfile} from "../actions/profileActions";
 
 const mapStateToProps = state => ({
   skillSets: state.prefillReducer.skillSet,
-  statusList: state.prefillReducer.status
+  statusList: state.prefillReducer.status,
 });
 
 const mapDispatchToProps = dispatch =>

@@ -16,7 +16,8 @@ class AddProfile extends React.Component {
         referredBy: "",
         inNL: true,
         status: "",
-        redirect:false
+        redirect:false,
+        memberId: sessionStorage.getItem("memberId")
     };
 
     componentDidMount() {
@@ -254,21 +255,21 @@ class AddProfile extends React.Component {
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    {/*<Col xs="12" md="4">*/}
-                                    {/*    <Form.Group controlId="profileStatus" as={Row}>*/}
-                                    {/*        <Form.Label column sm="4" md="12">*/}
-                                    {/*            Comment*/}
-                                    {/*        </Form.Label>*/}
-                                    {/*        <Form.Control*/}
-                                    {/*            required*/}
-                                    {/*            as="textarea"*/}
-                                    {/*            rows="3"*/}
-                                    {/*            onChange={e =>*/}
-                                    {/*                this.setState({comment: e.target.value})*/}
-                                    {/*            }*/}
-                                    {/*        />*/}
-                                    {/*    </Form.Group>*/}
-                                    {/*</Col>*/}
+                                    <Col xs="12" md="4">
+                                        <Form.Group controlId="profileStatus" as={Row}>
+                                            <Form.Label column sm="4" md="12">
+                                                Comment
+                                            </Form.Label>
+                                            <Form.Control
+                                                required
+                                                as="textarea"
+                                                rows="3"
+                                                onChange={e =>
+                                                    this.setState({comment: e.target.value})
+                                                }
+                                            />
+                                        </Form.Group>
+                                    </Col>
                                 </Row>
                                 <Row>
                                     <Col sm="2" md="12">

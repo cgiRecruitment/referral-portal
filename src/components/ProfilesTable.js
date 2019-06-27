@@ -153,11 +153,7 @@ class CustomTable extends React.Component {
           </thead>
           <tbody>
             {this.props.profiles &&
-<<<<<<< HEAD
                 this.props.profiles.map((item, i)=>(
-=======
-                this.props.profiles).map((item, i)=>(
->>>>>>> 66f2a41300899a8afed47702ee8ac4fe21ede7e0
                 <tr key={item.id}>
                   <td>{((this.props.startIndex*constants.pageSize)+i)+1}</td>
                   <td>{item.name}</td>

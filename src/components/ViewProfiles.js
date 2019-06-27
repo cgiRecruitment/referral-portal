@@ -2,6 +2,7 @@ import React from "react";
 import ProfileTable from "./ProfilesTable";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import PaginationComponent from "./PaginationComponent";
 
 class ViewProfiles extends React.Component {
   componentWillMount() {
@@ -18,10 +19,18 @@ class ViewProfiles extends React.Component {
           <ProfileTable
             interviewers={this.props.interviewers}
             meetingRooms={this.props.meetingRooms}
-            profiles={this.props.allButRejectedProfiles}
+            profiles={this.props.paginatedProfiles}
             statusList={this.props.statusList}
             editUser={true}
-			paginationList={true}
+            startIndex={this.props.startIndex}
+          />
+          <PaginationComponent
+            applyPagination={this.props.applyPagination}
+            activePage={this.props.startIndex + 1}
+            totalItemsCount={
+              this.props.allButRejectedProfiles &&
+              this.props.allButRejectedProfiles.length
+            }
           />
         </Row>
       </Container>

@@ -1,4 +1,6 @@
 import {CREATE_PROFILE, SET_PROFILES, SET_STATS} from "../actions/profileActions";
+import {APPLY_PAGINATION} from "../actions/paginationActions";
+import {constants} from "../utility/constants";
 
 const initialState = {
     profiles: false,
@@ -15,10 +17,19 @@ const initialState = {
         barChart:{
 
          }
-    }
+    },
+    paginatedProfiles:[],
+    startIndex:0
 };
 
-const activeProfile = ["Application Received", "Interview Scheduled", "Offer Made", "On Hold"]
+const getAllButRejectedProfiles = profiles => {
+    return profiles.filter(profile => profile.status !== constants.REJECTED);
+}
+
+const applyPagination = (activePage, profiles) => {
+    return getAllButRejectedProfiles(profiles).slice((activePage-1) * constants.pageSize,
+       (constants.pageSize * activePage))
+}
 
 function profileReducer(state = initialState, action) {
     switch (action.type) {
@@ -26,15 +37,16 @@ function profileReducer(state = initialState, action) {
         return {
             ...state,
             profiles: action.data,
+            paginatedProfiles : applyPagination(1,action.data),
             activeProfiles: action.data.filter(profile =>
-                activeProfile.includes(profile.status)),
-            allButRejectedProfiles: action.data.filter(profile => profile.status != "Rejected"),
+                constants.ACTIVE_PROFILES.includes(profile.status)),
+            allButRejectedProfiles: getAllButRejectedProfiles(action.data),
             stats:{
               pieChart:{                
-                offerProfilesCount: action.data.filter(profile => profile.status == "Offer Made").length,
+                offerProfilesCount: action.data.filter(profile => profile.status === constants.OFFER_MADE).length,
                 inProgressProfilesCount: action.data.filter(profile =>
-                    activeProfile.includes(profile.status) && profile.status != "Offer Made").length,
-                joinerCount: action.data.filter(profile => profile.status == "Joined").length,
+                    constants.ACTIVE_PROFILES.includes(profile.status) && profile.status !== constants.OFFER_MADE).length,
+                joinerCount: action.data.filter(profile => profile.status === constants.JOINED).length,
               },
               refChart:{
                 referralCount : action.data.filter(profile => profile.referred).length,
@@ -50,6 +62,13 @@ function profileReducer(state = initialState, action) {
             return {
                 ...state,
                 profile: action.data
+            }
+
+        case APPLY_PAGINATION:
+             return {
+                ...state,
+                startIndex:(action.payload)-1,
+                paginatedProfiles : applyPagination(action.payload,state.profiles)
             }
 
         default: {

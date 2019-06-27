@@ -9,8 +9,7 @@ import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
-import Pagination from "react-js-pagination";
-import styles from './pagination.css';
+import {constants} from "../utility/constants";
 library.add(faEye);
 library.add(faEdit);
 
@@ -24,10 +23,7 @@ class CustomTable extends React.Component {
     validated: false,
     meetingRoom: "",
     interviewer: "",
-    date: "",
-    activePage: 0,
-    pageSize:30,
-    pageNumber:0
+    date: ""
   };
 
   updateProfile = e => {
@@ -50,11 +46,6 @@ class CustomTable extends React.Component {
 
     this.setState({ validated: true });
   };
-  handlePageChange = pageNumber =>{
-    this.setState({
-      activePage: pageNumber-1},() => { console.log('state', this.state);
-    })
-  }
 
   render() {
     const head = [
@@ -162,9 +153,9 @@ class CustomTable extends React.Component {
           </thead>
           <tbody>
             {this.props.profiles &&
-                (this.props.paginationList ?this.props.profiles.slice(((this.state.activePage)*this.state.pageSize),this.state.pageSize*(this.state.activePage+1)):this.props.profiles).map((item, i)=>(
+                this.props.profiles.map((item, i)=>(
                 <tr key={item.id}>
-                  <td>{this.props.paginationList?((this.state.activePage)*this.state.pageSize)+i + 1:i+1}</td>
+                  <td>{((this.props.startIndex*constants.pageSize)+i)+1}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.referredBy}</td>
@@ -208,15 +199,6 @@ class CustomTable extends React.Component {
               ))}
           </tbody>
         </Table>
-		{ this.props.paginationList &&
-          <Pagination
-            activePage={this.state.activePage}
-            itemsCountPerPage={this.state.pageSize}
-            totalItemsCount={this.props.profiles && this.props.profiles.length}
-            pageRangeDisplayed={Math.ceil(this.props.profiles, this.state.pageSize)}
-            onChange={this.handlePageChange.bind(this)}>
-          </Pagination>
-        }
         {this.state.selectedProfile && (
           <Modal
             size="lg"

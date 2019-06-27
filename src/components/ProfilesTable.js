@@ -197,7 +197,6 @@ class CustomTable extends React.Component {
                                     <td>{interview.date}</td>
                                     <td>{interview.type}</td>
                                     <td>{interview.interviewer}</td>
-                                    {/*<td>{interview.comments}</td>*/}
                                 </tr>
                             )}
                             </tbody>
@@ -612,22 +611,6 @@ class CustomTable extends React.Component {
                         <Button type="submit">Update Profile</Button>
                       </Col>
                     </Row>
-                    {/*<Row>*/}
-                    {/*  <Col sm="9" />*/}
-                    {/*  <Col sm="3">*/}
-                    {/*    <a*/}
-                    {/*        href="javascript:void(0)"*/}
-                    {/*        onClick={() =>*/}
-                    {/*            this.setState({*/}
-                    {/*              editProfile: false,*/}
-                    {/*              addComment: true*/}
-                    {/*            })*/}
-                    {/*        }*/}
-                    {/*    >*/}
-                    {/*      <Button>Add comment</Button>*/}
-                    {/*    </a>*/}
-                    {/*  </Col>*/}
-                    {/*</Row>*/}
                   </Form>
                 </Col>
               </Row>
@@ -733,17 +716,6 @@ class CustomTable extends React.Component {
                             </Form.Control>
                           </td>
                         </tr>
-                        {/*<tr>*/}
-                        {/*  <td>Comments</td>*/}
-                        {/*  <td>*/}
-                        {/*    <Form.Control*/}
-                        {/*        type="text"*/}
-                        {/*        onChange={e =>*/}
-                        {/*            this.setState({comment: e.target.value})*/}
-                        {/*        }*/}
-                        {/*    />*/}
-                        {/*  </td>*/}
-                        {/*</tr>*/}
                         </tbody>
                       </Table>
 

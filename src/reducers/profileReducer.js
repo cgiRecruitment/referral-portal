@@ -53,7 +53,6 @@ function profileReducer(state = initialState, action) {
                 }
 
             }
-          }
 
 
         case CREATE_PROFILE:

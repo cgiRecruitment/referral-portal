@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                             chartType="PieChart"
                             data={[
                                 ["status", "count"],
-                                ["Joined", joinerCount],
+                                ["Joined", joinerCount],                               
                                 ["Offer Made", offerProfilesCount],
                                 ["In Progress", inProgressProfilesCount]
                             ]}

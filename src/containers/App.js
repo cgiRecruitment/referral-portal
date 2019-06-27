@@ -7,6 +7,7 @@ import {getStatusList} from "../actions/prefillActions";
 import {createProfile} from "../actions/profileActions";
 import {logout} from "../actions/userActions";
 import {checkStatus} from "../utility/checkLoginStatus";
+import { stat } from "fs";
 
 checkStatus();
 
@@ -17,7 +18,6 @@ const mapStateToProps = state => ({
     loginStatus: state.userReducer.loginStatus,
     generalError: state.errorReducer.generalError,
     interviews: state.interviewReducer.interviews,
-    activeProfilesCount: state.profileReducer.activeProfilesCount,
     stats : state.profileReducer.stats,
 });
 

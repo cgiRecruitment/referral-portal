@@ -23,13 +23,22 @@ const initialState = {
 };
 
 const getAllButRejectedProfiles = profiles => {
+<<<<<<< HEAD
     return profiles.filter(profile => profile.status !== constants.REJECTED);
+=======
+    return profiles.filter(profile => profile.status != "Rejected");
+>>>>>>> 66f2a41300899a8afed47702ee8ac4fe21ede7e0
 }
 
 const applyPagination = (activePage, profiles) => {
     return getAllButRejectedProfiles(profiles).slice((activePage-1) * constants.pageSize,
        (constants.pageSize * activePage))
 }
+<<<<<<< HEAD
+=======
+
+const activeProfile = ["Application Received", "Interview Scheduled", "Offer Made", "On Hold"]
+>>>>>>> 66f2a41300899a8afed47702ee8ac4fe21ede7e0
 
 function profileReducer(state = initialState, action) {
     switch (action.type) {
@@ -39,7 +48,11 @@ function profileReducer(state = initialState, action) {
             profiles: action.data,
             paginatedProfiles : applyPagination(1,action.data),
             activeProfiles: action.data.filter(profile =>
+<<<<<<< HEAD
                 constants.ACTIVE_PROFILES.includes(profile.status)),
+=======
+                activeProfile.includes(profile.status)),
+>>>>>>> 66f2a41300899a8afed47702ee8ac4fe21ede7e0
             allButRejectedProfiles: getAllButRejectedProfiles(action.data),
             stats:{
               pieChart:{                

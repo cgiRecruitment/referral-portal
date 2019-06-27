@@ -35,7 +35,6 @@ class App extends React.Component {
                                 <Dashboard
                                     profiles={this.props.activeProfiles}
                                     statusList={this.props.statusList}
-                                    activeProfilesCount={this.props.activeProfilesCount}
                                     stats={this.props.stats}
                                 />
                             )}

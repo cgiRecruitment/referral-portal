@@ -3,6 +3,7 @@ export const GET_PROFILES = "GET_PROFILES";
 export const CREATE_PROFILE = "CREATE_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const CREATE_COMMENT = "CREATE_COMMENT";
+export const SET_STATS = "SET_STATS";
 
 export const setProfiles = data => {
     return {

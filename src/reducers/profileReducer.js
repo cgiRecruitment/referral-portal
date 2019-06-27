@@ -1,20 +1,23 @@
-import {CREATE_COMMENT, CREATE_PROFILE, SET_PROFILES, UPDATE_PROFILE} from "../actions/profileActions";
+
+import {CREATE_COMMENT, CREATE_PROFILE, SET_STATS, SET_PROFILES, UPDATE_PROFILE} from "../actions/profileActions";
+
 
 const initialState = {
     profiles: false,
     stats: {
-        pieChart:{
+
+        pieChart:{                
             offerProfilesCount: 0,
             inProgressProfilesCount: 0,
             joinerCount: 0,
-        },
+          },
         refChart:{
             referralCount : 0,
             notReferralCount : 0
-        },
+         },
         barChart:{
 
-        }
+         }
     }
 };
 
@@ -27,7 +30,6 @@ function profileReducer(state = initialState, action) {
             const activeProfiles = action.data.filter(profile =>
                 activeProfile.includes(profile.status));
             const allButRejectedProfiles = action.data.filter(profile => profile.status !== "Rejected CGI");
-
 
             return {
                 ...state,
@@ -49,7 +51,9 @@ function profileReducer(state = initialState, action) {
 
                     }
                 }
+
             }
+          }
 
 
         case CREATE_PROFILE:
@@ -69,6 +73,7 @@ function profileReducer(state = initialState, action) {
                 ...state,
                 comment: action.data
             }
+
         default: {
             return state;
         }

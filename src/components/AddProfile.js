@@ -41,8 +41,6 @@ class AddProfile extends React.Component {
 
         this.setState({validated: true});
         this.setState({displayNotification : true});
-
-        console.log(this.props.notification["name"])
     };
 
     renderRedirect = () => {

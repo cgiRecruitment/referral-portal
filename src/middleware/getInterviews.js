@@ -12,7 +12,7 @@ const getInterview = store => next => async action => {
     const dispatch = store.dispatch;
 
     try {
-        const data = await fetch(constants.host+"/interviews/")
+        const data = await fetch(`${constants.host}/interviews/`)
             .then(data => data.json())
             .then(response => {
                 return response;

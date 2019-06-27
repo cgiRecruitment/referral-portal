@@ -11,7 +11,7 @@ const getSkillSetList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(constants.host+"/candidates/skills")
+    const data = await fetch(`${constants.host}/candidates/skills`)
       .then(data => data.json())
       .then(response => {
         return response;

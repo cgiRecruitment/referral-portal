@@ -6,6 +6,7 @@ import Form from "react-bootstrap/es/Form";
 import Col from "react-bootstrap/es/Col";
 import Button from "react-bootstrap/es/Button";
 import { Redirect } from "react-router-dom";
+import Modal from "react-bootstrap/es/Modal";
 
 class AddProfile extends React.Component {
     state = {
@@ -17,6 +18,7 @@ class AddProfile extends React.Component {
         inNL: true,
         status: "",
         redirect:false,
+        displayNotification: false,
         memberId: sessionStorage.getItem("memberId")
     };
 
@@ -27,7 +29,6 @@ class AddProfile extends React.Component {
 
     addProfile = e => {
         const form = e.currentTarget;
-        console.log(form.checkValidity());
         if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
@@ -37,8 +38,11 @@ class AddProfile extends React.Component {
             const profile = JSON.stringify(this.state)
             this.props.createProfile(profile);
         }
+
         this.setState({validated: true});
-        this.setState({redirect: true});
+        this.setState({displayNotification : true});
+
+        console.log(this.props.notification["name"])
     };
 
     renderRedirect = () => {
@@ -281,6 +285,25 @@ class AddProfile extends React.Component {
                         </Card.Body>
                     </Card>
                 </Row>
+                <Modal
+                    size="lg"
+                    show={this.state.displayNotification}
+                    onHide={() => this.setState({ displayNotification: false, redirect: true })}
+                    aria-labelledby="example-modal-sizes-title-lg"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                            Candidate added
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Row>
+                            <Col>
+                                <h5>{this.props.notification["name"]} has been added as a candidate with status "{this.props.notification["status"]}"</h5>
+                            </Col>
+                        </Row>
+                    </Modal.Body>
+                </Modal>
             </Container>
         );
     }

@@ -12,7 +12,7 @@ const getMeetinRoomList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(constants.host+"/interviews/locations")
+    const data = await fetch(`${constants.host}/interviews/locations`)
       .then(data => data.json())
       .then(response => {
         return response;

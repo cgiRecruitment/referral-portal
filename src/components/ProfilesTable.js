@@ -48,7 +48,6 @@ class CustomTable extends React.Component {
 
   addInterview = e => {
     const form = e.currentTarget;
-    console.log(form.checkValidity());
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
@@ -57,14 +56,13 @@ class CustomTable extends React.Component {
       e.stopPropagation();
       this.props.createInterview(this.state)
           .then(() => {
-            this.setState({ makeAppointment: false })});
+            this.setState({ makeAppointment: false, })});
     }
     this.setState({validated: true});
   };
 
   addCandidateComment = e => {
     const form = e.currentTarget;
-    console.log(form.checkValidity());
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
@@ -86,7 +84,6 @@ class CustomTable extends React.Component {
       "Received Date",
       "Status",
       "Excel ID",
-     // "View",
       ...(this.props.scheduleInterview ? ["Add Interview"] :[]),
       ...(this.props.editUser ? ["Edit"] : [])
     ];
@@ -345,22 +342,6 @@ class CustomTable extends React.Component {
                     <Status>{item.status}</Status>
                   </td>
                   <td>{item.idFromExcel}</td>
-                  {/*<td>*/}
-                  {/*  <a*/}
-                  {/*    href="javascript:void(0)"*/}
-                  {/*    onClick={() =>*/}
-                  {/*      this.setState({*/}
-                  {/*        showProfile: true,*/}
-                  {/*        selectedProfile: this.props.profiles.filter(*/}
-                  {/*          profile => profile.id === item.id*/}
-                  {/*        )*/}
-                  {/*      })*/}
-                  {/*    }*/}
-                  {/*  >*/}
-                  {/*    {" "}*/}
-                  {/*    <FontAwesomeIcon icon="eye" />*/}
-                  {/*  </a>{" "}*/}
-                  {/*</td>*/}
                     {this.props.scheduleInterview && <td>
                       <a
                           href="javascript:void(0)"

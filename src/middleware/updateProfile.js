@@ -12,8 +12,7 @@ const updateProfile = store => next => async action => {
     const dispatch = store.dispatch;
 
     try {
-        console.log(action.profile.selectedProfile[0]["id"])
-        const data = await fetch(constants.host+"/candidates/candidate/"+action.profile.selectedProfile[0]["id"], {
+        const data = await fetch(`${constants.host}/candidates/candidate/${action.profile.selectedProfile[0]["id"]}`, {
             headers: {
                 "Content-Type": "application/json"
             },

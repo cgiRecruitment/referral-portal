@@ -13,7 +13,7 @@ const loginUser = store => next => async action => {
 
   try {
 
-    const data = await fetch(constants.host + "/login", {
+    const data = await fetch(`${constants.host}/login/`, {
       headers: {
         "Content-Type": "application/json"
       },
@@ -28,7 +28,6 @@ const loginUser = store => next => async action => {
     if (data) {
       if (data.loginStatus) {
         sessionStorage.setItem("referralPortal-loginStatus", data.loginStatus);
-        console.log(data)
         sessionStorage.setItem("memberId", data.memberId);
         sessionStorage.setItem("memberName", data.memberName);
         window.location = "/";

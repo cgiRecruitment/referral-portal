@@ -1,5 +1,6 @@
 import {CREATE_PROFILE} from "../actions/profileActions";
 import {constants} from "../utility/constants";
+import {setNotification} from "../actions/notificiationActions";
 
 const createProfile = store => next => async action => {
     next(action);
@@ -11,15 +12,22 @@ const createProfile = store => next => async action => {
     const dispatch = store.dispatch;
 
     try {
-        console.log(action.profile)
-        const data = await fetch(constants.host +"/candidates", {
+        const data = await fetch(`${constants.host}/candidates`, {
             headers: {
                 "Content-Type": "application/json",
                 "Accept" : "application/json"
             },
             method: "POST",
             body: action.profile,
-        });
+        })
+            .then(data => data.json())
+            .then(response => {
+                return response;
+            });
+
+        if (data) {
+            dispatch(setNotification(data))
+        }
 
     } catch (e) {
         console.error(e);

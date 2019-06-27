@@ -1,4 +1,6 @@
 import {CREATE_PROFILE, SET_PROFILES, SET_STATS} from "../actions/profileActions";
+import {APPLY_PAGINATION} from "../actions/paginationActions";
+import {constants} from "../utility/constants";
 
 const initialState = {
     profiles: false,
@@ -15,8 +17,19 @@ const initialState = {
         barChart:{
 
          }
-    }
+    },
+    paginatedProfiles:[],
+    startIndex:0
 };
+
+const getAllButRejectedProfiles = profiles => {
+    return profiles.filter(profile => profile.status != "Rejected");
+}
+
+const applyPagination = (activePage, profiles) => {
+    return getAllButRejectedProfiles(profiles).slice((activePage-1) * constants.pageSize,
+       (constants.pageSize * activePage))
+}
 
 const activeProfile = ["Application Received", "Interview Scheduled", "Offer Made", "On Hold"]
 
@@ -26,9 +39,10 @@ function profileReducer(state = initialState, action) {
         return {
             ...state,
             profiles: action.data,
+            paginatedProfiles : applyPagination(1,action.data),
             activeProfiles: action.data.filter(profile =>
                 activeProfile.includes(profile.status)),
-            allButRejectedProfiles: action.data.filter(profile => profile.status != "Rejected"),
+            allButRejectedProfiles: getAllButRejectedProfiles(action.data),
             stats:{
               pieChart:{                
                 offerProfilesCount: action.data.filter(profile => profile.status == "Offer Made").length,
@@ -50,6 +64,13 @@ function profileReducer(state = initialState, action) {
             return {
                 ...state,
                 profile: action.data
+            }
+
+        case APPLY_PAGINATION:
+             return {
+                ...state,
+                startIndex:(action.payload)-1,
+                paginatedProfiles : applyPagination(action.payload,state.profiles)
             }
 
         default: {

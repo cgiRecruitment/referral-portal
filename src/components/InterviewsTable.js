@@ -124,10 +124,6 @@ class CustomTable extends React.Component {
                                             <td>Status</td>
                                             <td>{this.state.selectedInterview[0]["status"]}</td>
                                         </tr>
-                                        {/*<tr>*/}
-                                        {/*    <td>Comment</td>*/}
-                                        {/*    <td>{this.state.selectedInterview[0]["comments"]}</td>*/}
-                                        {/*</tr>*/}
                                         <tr>
                                             <td>Last update</td>
                                             <td>

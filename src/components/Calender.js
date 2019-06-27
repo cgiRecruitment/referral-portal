@@ -8,7 +8,6 @@ import Form from "react-bootstrap/es/Form";
 import Tabs from "react-bootstrap/es/Tabs";
 import Tab from "react-bootstrap/Tab";
 import InterviewsTable from "./InterviewsTable";
-import Button from "react-bootstrap/es/Button";
 
 class AddProfile extends React.Component {
   componentWillMount() {
@@ -126,9 +125,6 @@ class AddProfile extends React.Component {
                   }
               />
             </Col>
-            {/*<Col md="3">*/}
-            {/*  <Button type="submit">Schedule Interview</Button>*/}
-            {/*</Col>*/}
           </Row>
           </Form>
           <hr />

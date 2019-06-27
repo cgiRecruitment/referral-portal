@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import {Chart} from "react-google-charts";
 import ProfilesTable from "./ProfilesTable";
 import {checkStatus} from "../utility/checkLoginStatus";
+import {constants} from "../utility/constants";
 
 class Dashboard extends React.Component {
     componentWillMount() {
@@ -20,16 +21,16 @@ class Dashboard extends React.Component {
             pieHole: 0.6,
             slices: [
                 {
-                    color: "#4d974d"
+                    color: constants.green
                 },
                 {
-                    color: "#3079ff"
+                    color: constants.blue
                 },
                 {
-                    color: "#e9d613"
+                    color: constants.yellow
                 },
                 {
-                    color: "#e9a227"
+                    color: constants.orange
                 }
             ],
             legend: {

@@ -5,6 +5,8 @@ import Card from "react-bootstrap/es/Card";
 import Form from "react-bootstrap/es/Form";
 import Col from "react-bootstrap/es/Col";
 import Button from "react-bootstrap/es/Button";
+import { Redirect } from "react-router-dom";
+import Modal from "react-bootstrap/es/Modal";
 
 class AddProfile extends React.Component {
     state = {
@@ -14,10 +16,10 @@ class AddProfile extends React.Component {
         referred: false,
         referredBy: "",
         inNL: true,
-        skillSet: "",
         status: "",
-        comment: "",
-        validated: false
+        redirect:false,
+        displayNotification: false,
+        memberId: sessionStorage.getItem("memberId")
     };
 
     componentDidMount() {
@@ -27,21 +29,31 @@ class AddProfile extends React.Component {
 
     addProfile = e => {
         const form = e.currentTarget;
-        console.log(form.checkValidity());
         if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
         } else {
             e.preventDefault();
             e.stopPropagation();
-            this.props.createProfile(JSON.stringify(this.state));
+            const profile = JSON.stringify(this.state)
+            this.props.createProfile(profile);
         }
+
         this.setState({validated: true});
+        this.setState({displayNotification : true});
     };
+
+    renderRedirect = () => {
+        if (this.state.redirect){
+            return <Redirect to='/' />
+}
+    }
 
     render() {
         return (
+
             <Container>
+                {this.renderRedirect()}
                 <Row>
                     <h1>Add Profile</h1>
                 </Row>
@@ -155,22 +167,6 @@ class AddProfile extends React.Component {
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    {/*<Col xs="12" md="4">*/}
-                                    {/*   <Form.Group controlId="profilePhone" as={Row}>*/}
-                                    {/*     <Form.Label column sm="8" md="12">*/}
-                                    {/*       Upload Resume*/}
-                                    {/*     </Form.Label>*/}
-                                    {/*     <Col sm="10">*/}
-                                    {/*       <Form.Control*/}
-                                    {/*         //required*/}
-                                    {/*         type="file"*/}
-                                    {/*         onChange={e => {*/}
-                                    {/*           this.setState({ file: e.target.files[0] });*/}
-                                    {/*         }}*/}
-                                    {/*       />*/}
-                                    {/*     </Col>*/}
-                                    {/*   </Form.Group>*/}
-                                    {/* </Col>*/}
                                 </Row>
                                 <h5>Referral Info</h5>
                                 <hr/>
@@ -255,7 +251,7 @@ class AddProfile extends React.Component {
                                                 as="textarea"
                                                 rows="3"
                                                 onChange={e =>
-                                                    this.setState({comments: e.target.value})
+                                                    this.setState({comment: e.target.value})
                                                 }
                                             />
                                         </Form.Group>
@@ -271,6 +267,25 @@ class AddProfile extends React.Component {
                         </Card.Body>
                     </Card>
                 </Row>
+                <Modal
+                    size="lg"
+                    show={this.state.displayNotification}
+                    onHide={() => this.setState({ displayNotification: false, redirect: true })}
+                    aria-labelledby="example-modal-sizes-title-lg"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                            Candidate added
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Row>
+                            <Col>
+                                <h5>{this.props.notification["name"]} has been added as a candidate with status "{this.props.notification["status"]}"</h5>
+                            </Col>
+                        </Row>
+                    </Modal.Body>
+                </Modal>
             </Container>
         );
     }

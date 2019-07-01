@@ -2,8 +2,6 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import Login from "../components/Login";
 import {login, logout} from "../actions/userActions";
-import {createProfile, getProfiles, setProfiles} from "../actions/profileActions";
-import {getStatusList} from "../actions/prefillActions";
 import {setGeneralError} from "../actions/errorActions";
 
 const mapStateToProps = state => ({

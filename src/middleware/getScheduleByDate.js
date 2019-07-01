@@ -14,13 +14,8 @@ const getScheduleByDate = store => next => async action => {
 
   try {
     const data = await fetch("api/schedule.json", {
-      /*method:"POST",
-      body:JSON.stringify({date: action.date})*/
     })
-      .then(data => data.json())
-      .then(response => {
-        return response;
-      });
+      .then(data => data.json());
 
     if (data) {
       dispatch(storeScheduleForDate(data));

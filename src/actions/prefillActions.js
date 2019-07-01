@@ -6,6 +6,8 @@ export const GET_MEETING_ROOM_LIST = "GET_MEETING_ROOM_LIST";
 export const SET_MEETING_ROOM_LIST = "SET_MEETING_ROOM_LIST";
 export const GET_INTERVIEWER_LIST = "GET_INTERVIEWER_LIST";
 export const SET_INTERVIEWER_LIST = "SET_INTERVIEWER_LIST";
+export const GET_INTERVIEW_TYPE_LIST =  "GET_INTERVIEW_TYPE_LIST";
+export const SET_INTERVIEW_TYPE_LIST = "SET_INTERVIEW_TYPE_LIST"
 
 export const getSkillSetList = () => {
   return {
@@ -40,6 +42,7 @@ export const getMeetingRoomList = data => {
   };
 };
 
+
 export const setMeetingRoomList = data => {
   return {
     type: SET_MEETING_ROOM_LIST,
@@ -57,6 +60,20 @@ export const getInterviewerList = data => {
 export const setInterviewerList = data => {
   return {
     type: SET_INTERVIEWER_LIST,
+    data
+  };
+};
+
+export const getInterviewTypeList = data => {
+  return{
+    type: GET_INTERVIEW_TYPE_LIST,
+    data
+  };
+};
+
+export const setInterviewTypeList = data => {
+  return{
+    type: SET_INTERVIEW_TYPE_LIST,
     data
   };
 };

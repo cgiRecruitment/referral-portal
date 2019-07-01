@@ -1,5 +1,5 @@
 import { GET_STATUS_LIST, setStatusList } from "../actions/prefillActions";
-import {constants} from "../utility/constants";
+import { constants } from "../utility/constants";
 
 const getStatusList = store => next => async action => {
   next(action);
@@ -11,11 +11,9 @@ const getStatusList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(constants.host+"/candidates/status")
-      .then(data => data.json())
-      .then(response => {
-        return response;
-      });
+    const data = await fetch(`${constants.host}/candidates/status`).then(data =>
+      data.json()
+    );
 
     if (data) {
       dispatch(setStatusList(data));

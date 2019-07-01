@@ -1,4 +1,11 @@
-import { SET_SKILL_SET_LIST, SET_STATUS_LIST, SET_MEETING_ROOM_LIST, SET_INTERVIEWER_LIST } from "../actions/prefillActions";
+import {
+  SET_LOCATION_LIST,
+  SET_SKILL_SET_LIST,
+  SET_STATUS_LIST,
+  SET_MEETING_ROOM_LIST,
+  SET_INTERVIEWER_LIST,
+  SET_INTERVIEW_TYPE_LIST
+} from "../actions/prefillActions";
 
 const initialState = {
   skillSet: [],
@@ -24,10 +31,15 @@ function prefillReducer(state = initialState, action) {
         ...state,
         meetingRooms:action.data
       };
-      case SET_INTERVIEWER_LIST:
+    case SET_INTERVIEWER_LIST:
       return {
         ...state,
         interviewers:action.data
+      };
+    case SET_INTERVIEW_TYPE_LIST:
+      return {
+        ...state,
+        interviewTypes:action.data
       };
     default: {
       return state;

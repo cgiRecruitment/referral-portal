@@ -21,6 +21,9 @@ class Header extends React.Component {
               <Nav.Link href="#/calender">Interview Calender</Nav.Link>
             </Nav>
             <Nav>
+              Welcome&nbsp;{sessionStorage.getItem("memberName")}&nbsp;
+            </Nav>
+            <Nav>
               <a href="javascript:void(0)" onClick={() => this.props.logout()}>
                 Logout
               </a>

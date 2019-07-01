@@ -7,8 +7,11 @@ import PaginationComponent from "./PaginationComponent";
 class ViewProfiles extends React.Component {
   componentWillMount() {
     this.props.getStatusList();
+    this.props.getSkillSetList();
     this.props.getMeetingRoomList();
     this.props.getInterviewerList();
+    this.props.getInterviewTypeList();
+    this.props.getProfiles();
   }
 
   render() {
@@ -21,7 +24,15 @@ class ViewProfiles extends React.Component {
             meetingRooms={this.props.meetingRooms}
             profiles={this.props.paginatedProfiles}
             statusList={this.props.statusList}
+            skillSets={this.props.skillSets}
             editUser={true}
+            scheduleInterview={true}
+            createInterview={this.props.createInterview}
+            updateProfile={this.props.updateProfile}
+            interviewTypes={this.props.interviewTypes}
+            paginationList={true}
+            createComment={this.props.createComment}
+            getProfiles={this.props.getProfiles}
             startIndex={this.props.startIndex}
           />
           <PaginationComponent

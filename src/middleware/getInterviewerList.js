@@ -11,10 +11,7 @@ const getInterviewerList = store => next => async action => {
 
   try {
     const data = await fetch("api/interviewers.json")
-      .then(data => data.json())
-      .then(response => {
-        return response;
-      });
+      .then(data => data.json());
 
     if (data) {
       dispatch(setInterviewerList(data));

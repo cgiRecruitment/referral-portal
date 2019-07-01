@@ -1,5 +1,5 @@
 import { GET_SKILL_SET_LIST, setSkillSetList } from "../actions/prefillActions";
-import {constants} from "../utility/constants";
+import { constants } from "../utility/constants";
 
 const getSkillSetList = store => next => async action => {
   next(action);
@@ -11,11 +11,9 @@ const getSkillSetList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/candidates/skills`)
-      .then(data => data.json())
-      .then(response => {
-        return response;
-      });
+    const data = await fetch(`${constants.host}/candidates/skills`).then(data =>
+      data.json()
+    );
 
     if (data) {
       dispatch(setSkillSetList(data));

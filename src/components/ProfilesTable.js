@@ -9,6 +9,7 @@ import { faEye, faEdit, faCalendarPlus } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
+import {getProfiles} from "../actions/profileActions";
 library.add(faEye);
 library.add(faEdit);
 library.add(faCalendarPlus)
@@ -26,9 +27,12 @@ class CustomTable extends React.Component {
     candidateId:""
   };
 
-  componentWillMount() {
 
+  componentWillMount() {
+  getProfiles()
   }
+
+
 
   update = e => {
     const form = e.currentTarget;
@@ -87,7 +91,14 @@ class CustomTable extends React.Component {
       ...(this.props.scheduleInterview ? ["Add Interview"] :[]),
       ...(this.props.editUser ? ["Edit"] : [])
     ];
-    return (
+
+
+    const {name, inNL, email, skill, referred, referredBy, receivedDate,
+      status, statusLastUpdated, comments, interviews, phone} =
+        this.state && this.state.selectedProfile ? this.state.selectedProfile[0] : {}
+
+
+return (
       <React.Fragment>
         {this.state.selectedProfile && (
           <Modal
@@ -98,7 +109,7 @@ class CustomTable extends React.Component {
           >
             <Modal.Header closeButton>
               <Modal.Title id="example-modal-sizes-title-lg">
-                {this.state.selectedProfile[0]["name"]}
+                {name}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -109,19 +120,19 @@ class CustomTable extends React.Component {
                     <tbody>
                       <tr>
                         <td>Name</td>
-                        <td>{this.state.selectedProfile[0]["name"]}</td>
+                        <td>{name}</td>
                       </tr>
                       <tr>
                         <td>In Netherlands</td>
-                        <td>{this.state.selectedProfile[0]["inNL"] ? 'Yes' : 'No'}</td>
+                        <td>{inNL ? 'Yes' : 'No'}</td>
                       </tr>
                       <tr>
                         <td>Email</td>
-                        <td>{this.state.selectedProfile[0]["email"]}</td>
+                        <td>{email}</td>
                       </tr>
                       <tr>
                         <td>Skills</td>
-                        <td>{this.state.selectedProfile[0]["skill"]}</td>
+                        <td>{skill}</td>
                       </tr>
                     </tbody>
                   </Table>
@@ -134,16 +145,16 @@ class CustomTable extends React.Component {
                     <tbody>
                       <tr>
                         <td>Has been referred</td>
-                        <td>{this.state.selectedProfile[0]["referred"] ? 'Yes' : 'No'}</td>
+                        <td>{referred ? 'Yes' : 'No'}</td>
                       </tr>
                       <tr>
                         <td>Referred by</td>
-                        <td>{this.state.selectedProfile[0]["referredBy"]}</td>
+                        <td>{referredBy}</td>
                       </tr>
                       <tr>
                         <td>Received Date</td>
                         <td>
-                          {this.state.selectedProfile[0]["receivedDate"]}
+                          {receivedDate}
                         </td>
                       </tr>
                     </tbody>
@@ -157,12 +168,12 @@ class CustomTable extends React.Component {
                     <tbody>
                       <tr>
                         <td>Status</td>
-                        <td>{this.state.selectedProfile[0]["status"]}</td>
+                        <td>{status}</td>
                       </tr>
                       <tr>
                         <td>Last update</td>
                         <td>
-                          {this.state.selectedProfile[0]["statusLastUpdated"]}
+                          {statusLastUpdated}
                         </td>
                       </tr>
                     </tbody>
@@ -174,8 +185,7 @@ class CustomTable extends React.Component {
                   <h5>Comments</h5>
                   <Table striped bordered hover>
                     <tbody>
-                    {this.state.selectedProfile[0].comments &&
-                    this.state.selectedProfile[0].comments.map(details =>
+                    {comments && comments.map(details =>
                         <tr>
                           <td>{details.comment}</td>
                           <td>{details.memberName}</td>
@@ -191,8 +201,8 @@ class CustomTable extends React.Component {
                         <h5>Interview Info</h5>
                         <Table striped bordered hover>
                             <tbody>
-                            {this.state.selectedProfile[0].interviews &&
-                            this.state.selectedProfile[0].interviews.map(interview =>
+                            {interviews &&
+                            interviews.map(interview =>
                                 <tr>
                                     <td>{interview.date}</td>
                                     <td>{interview.type}</td>
@@ -231,7 +241,7 @@ class CustomTable extends React.Component {
             >
               <Modal.Header closeButton>
                 <Modal.Title id="example-modal-sizes-title-lg">
-                  {this.state.selectedProfile[0]["name"]}
+                  {name}
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -240,8 +250,8 @@ class CustomTable extends React.Component {
                   <h5>Earlier Comments</h5>
                   <Table striped bordered hover>
                     <tbody>
-                    {this.state.selectedProfile[0].comments &&
-                    this.state.selectedProfile[0].comments.map(details =>
+                    {comments &&
+                    comments.map(details =>
                         <tr>
                           <td>{details.comment}</td>
                           <td>{details.memberName}</td>
@@ -386,7 +396,7 @@ class CustomTable extends React.Component {
           >
             <Modal.Header closeButton>
               <Modal.Title id="example-modal-sizes-title-lg">
-                {this.state.selectedProfile[0]["name"]}
+                {name}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -407,7 +417,7 @@ class CustomTable extends React.Component {
                             <Form.Control
                                 as="textarea"
                                 rows="1"
-                                defaultValue={this.state.selectedProfile[0]["name"]}
+                                defaultValue={name}
                                 required
                                 onChange={e =>
                                     this.setState({ name: e.target.value })
@@ -423,7 +433,7 @@ class CustomTable extends React.Component {
                             <Form.Control
                                 as="textarea"
                                 rows="1"
-                                defaultValue={this.state.selectedProfile[0]["email"]}
+                                defaultValue={email}
                                 required
                                 onChange={e =>
                                     this.setState({ email: e.target.value })
@@ -439,7 +449,7 @@ class CustomTable extends React.Component {
                             <Form.Control
                                 as="textarea"
                                 rows="1"
-                                defaultValue={this.state.selectedProfile[0]["phone"]}
+                                defaultValue={phone}
                                 required
                                 onChange={e =>
                                     this.setState({ phone: e.target.value })
@@ -453,7 +463,7 @@ class CustomTable extends React.Component {
                         <td>
                           <Form.Control
                               as="select"
-                              defaultValue={this.state.selectedProfile[0]["skill"]}
+                              defaultValue={skill}
                               onChange={e =>
                                   this.setState({ skill: e.target.value })
                               }
@@ -474,7 +484,7 @@ class CustomTable extends React.Component {
                           <td>
                             <Form.Control
                               as="select"
-                              defaultValue={this.state.selectedProfile[0]["status"]}
+                              defaultValue={status}
                               onChange={e =>
                                 this.setState({ status: e.target.value })
                               }
@@ -537,7 +547,7 @@ class CustomTable extends React.Component {
                             <Form.Control
                                 required
                                 type="text"
-                                defaultValue={this.state.selectedProfile[0]["referredBy"]}
+                                defaultValue={referredBy}
                                 onChange={e =>
                                     this.setState({referredBy: e.target.value})
                                 }
@@ -632,7 +642,7 @@ class CustomTable extends React.Component {
               <Modal.Body>
                 <Row>
                   <Col>
-                    <h5>{this.state.selectedProfile[0]["name"]}</h5>
+                    <h5>{name}</h5>
                     <Form
                         noValidate
                         validated={this.state.validated}

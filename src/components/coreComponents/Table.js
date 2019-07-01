@@ -3,7 +3,9 @@ import Table from "react-bootstrap/Table";
 
 class CustomTable extends React.Component {
   state = {
-    tableData: {}
+    tableData: {head: {}},
+      interviews: {body: {}},
+      profiles: {body: {}}
   };
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -15,15 +17,11 @@ class CustomTable extends React.Component {
       <Table striped bordered hover>
         <thead>
           <tr>
-            {this.state.tableData &&
-              this.state.tableData.head &&
-              this.state.tableData.head.map(head => <th>{head}</th>)}
+            {this.state.tableData.head.map(head => <th>{head}</th>)}
           </tr>
         </thead>
         <tbody>
-          {this.state.profiles &&
-            this.state.profiles.body &&
-            this.state.profiles.body.map(item => (
+          {this.state.profiles.body.map(item => (
               <tr>
                 {item.map(data => (
                   <td>{data}</td>
@@ -32,9 +30,7 @@ class CustomTable extends React.Component {
             ))}
         </tbody>
           <tbody>
-          {this.state.interviews &&
-          this.state.interviews.body &&
-          this.state.interviews.body.map(item => (
+          {this.state.interviews.body.map(item => (
               <tr>
                   {item.map(data => (
                       <td>{data}</td>

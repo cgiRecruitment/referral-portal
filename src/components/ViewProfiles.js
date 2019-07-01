@@ -9,9 +9,8 @@ class ViewProfiles extends React.Component {
     this.props.getSkillSetList();
     this.props.getMeetingRoomList();
     this.props.getInterviewerList();
-    this.props.updateProfile();
-    this.props.createInterview();
     this.props.getInterviewTypeList();
+    this.props.getProfiles();
   }
 
   render() {
@@ -32,6 +31,7 @@ class ViewProfiles extends React.Component {
             interviewTypes={this.props.interviewTypes}
             paginationList={true}
             createComment={this.props.createComment}
+            getProfiles={this.props.getProfiles}
           />
         </Row>
       </Container>

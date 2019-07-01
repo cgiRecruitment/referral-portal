@@ -1,6 +1,5 @@
-
 import { GET_PROFILES, setProfiles } from "../actions/profileActions";
-import {constants} from "../utility/constants";
+import { constants } from "../utility/constants";
 
 const getProfile = store => next => async action => {
   next(action);
@@ -11,13 +10,10 @@ const getProfile = store => next => async action => {
 
   const dispatch = store.dispatch;
 
-
   try {
-    const data = await fetch(`${constants.host}/candidates/`)
-      .then(data => data.json())
-      .then(response => {
-        return response;
-      });
+    const data = await fetch(`${constants.host}/candidates/`).then(data =>
+      data.json()
+    );
 
     if (data) {
       dispatch(setProfiles(data));

@@ -167,22 +167,6 @@ class AddProfile extends React.Component {
                                             </Col>
                                         </Form.Group>
                                     </Col>
-                                    {/*<Col xs="12" md="4">*/}
-                                    {/*   <Form.Group controlId="profilePhone" as={Row}>*/}
-                                    {/*     <Form.Label column sm="8" md="12">*/}
-                                    {/*       Upload Resume*/}
-                                    {/*     </Form.Label>*/}
-                                    {/*     <Col sm="10">*/}
-                                    {/*       <Form.Control*/}
-                                    {/*         //required*/}
-                                    {/*         type="file"*/}
-                                    {/*         onChange={e => {*/}
-                                    {/*           this.setState({ file: e.target.files[0] });*/}
-                                    {/*         }}*/}
-                                    {/*       />*/}
-                                    {/*     </Col>*/}
-                                    {/*   </Form.Group>*/}
-                                    {/* </Col>*/}
                                 </Row>
                                 <h5>Referral Info</h5>
                                 <hr/>

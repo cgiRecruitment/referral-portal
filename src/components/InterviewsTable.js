@@ -56,6 +56,12 @@ class CustomTable extends React.Component {
             "CV",
             ...(this.props.editInterview ? ["Edit"] : [])
         ];
+
+
+        const {candidate, candidateId, inNL, receivedDate, skill, referred, referredBy,
+            status, statusLastUpdated, name, interviewer, location} =
+            this.state && this.state.selectedInterview ? this.state.Interview[0] : {}
+
         return (
             <React.Fragment>
                 {this.state.selectedInterview && (
@@ -67,7 +73,7 @@ class CustomTable extends React.Component {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                                {this.state.selectedInterview[0]["candidate"]}
+                                {candidate}
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -78,15 +84,15 @@ class CustomTable extends React.Component {
                                         <tbody>
                                         <tr>
                                             <td>Candidate</td>
-                                            <td>{this.state.selectedInterview[0]["candidateId"]}</td>
+                                            <td>{candidateId}</td>
                                         </tr>
                                         <tr>
                                             <td>In Netherlands</td>
-                                            <td>{this.state.selectedInterview[0]["inNL"] ? 'Yes' : 'No'}</td>
+                                            <td>{inNL ? 'Yes' : 'No'}</td>
                                         </tr>
                                         <tr>
                                             <td>Skills</td>
-                                            <td>{this.state.selectedInterview[0]["skill"]}</td>
+                                            <td>{skill}</td>
                                         </tr>
                                         </tbody>
                                     </Table>
@@ -99,16 +105,16 @@ class CustomTable extends React.Component {
                                         <tbody>
                                         <tr>
                                             <td>Has been referred</td>
-                                            <td>{this.state.selectedInterview[0]["referred"] ? 'Yes' : 'No'}</td>
+                                            <td>{referred ? 'Yes' : 'No'}</td>
                                         </tr>
                                         <tr>
                                             <td>Referred by</td>
-                                            <td>{this.state.selectedInterview[0]["referredBy"]}</td>
+                                            <td>{referredBy}</td>
                                         </tr>
                                         <tr>
                                             <td>Received Date</td>
                                             <td>
-                                                {this.state.selectedInterview[0]["receivedDate"]}
+                                                {receivedDate}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -122,12 +128,12 @@ class CustomTable extends React.Component {
                                         <tbody>
                                         <tr>
                                             <td>Status</td>
-                                            <td>{this.state.selectedInterview[0]["status"]}</td>
+                                            <td>{status}</td>
                                         </tr>
                                         <tr>
                                             <td>Last update</td>
                                             <td>
-                                                {this.state.selectedInterview[0]["statusLastUpdated"]}
+                                                {statusLastUpdated}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -185,7 +191,7 @@ class CustomTable extends React.Component {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-lg">
-                                {this.state.selectedInterview[0]["name"]}
+                                {name}
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -219,7 +225,7 @@ class CustomTable extends React.Component {
                                                         <Form.Control
                                                             as="textarea"
                                                             rows="2"
-                                                            placeholder={this.state.selectedInterview[0]["interviewer"]}
+                                                            placeholder={interviewer}
                                                             onChange={e =>
                                                                 this.setState({ interviewer: e.target.value })
                                                             }
@@ -246,7 +252,7 @@ class CustomTable extends React.Component {
                                                         <Form.Control
                                                             as="textarea"
                                                             rows="2"
-                                                            placeholder={this.state.selectedInterview[0]["location"]}
+                                                            placeholder={location}
                                                             onChange={e =>
                                                                 this.setState({ location: e.target.value })
                                                             }

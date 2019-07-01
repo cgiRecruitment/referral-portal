@@ -1,0 +1,16 @@
+.pagination {
+  margin: auto;
+}
+
+.pagination li {
+  width: 50px;
+  height: 50px;
+  padding: 10px 20px;
+  font-weight: bold
+}
+
+.pagination li.active {
+  background-color: #F0F8FF;
+  color: white;
+  border: 1px solid #87CEFA;
+}

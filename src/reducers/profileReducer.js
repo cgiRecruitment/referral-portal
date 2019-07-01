@@ -1,3 +1,4 @@
+
 import {
   CREATE_COMMENT,
   CREATE_PROFILE,
@@ -5,7 +6,8 @@ import {
   SET_PROFILES,
   UPDATE_PROFILE
 } from "../actions/profileActions";
-import { constants } from "../utility/constants";
+import {APPLY_PAGINATION} from "../actions/paginationActions";
+import {constants} from "../utility/constants";
 
 const initialState = {
   profiles: false,
@@ -20,75 +22,74 @@ const initialState = {
       notReferralCount: 0
     },
     barChart: {}
-  }
+  }, 
+  paginatedProfiles:[],
+    startIndex:0
 };
 
-const activeProfile = [
-  constants.profileStatus.applicationReceived,
-  constants.profileStatus.interviewScheduled,
-  constants.profileStatus.offerMade,
-  constants.profileStatus.onHold
-];
+const getAllButRejectedProfiles = profiles => {
+    return profiles.filter(profile => profile.status !== constants.REJECTED);
+}
+
+const applyPagination = (activePage, profiles) => {
+    return getAllButRejectedProfiles(profiles).slice((activePage-1) * constants.pageSize,
+       (constants.pageSize * activePage))
+}
 
 function profileReducer(state = initialState, action) {
-  switch (action.type) {
-    case SET_PROFILES:
-      const activeProfiles = action.data.filter(profile =>
-        activeProfile.includes(profile.status)
-      );
-      const allButRejectedProfiles = action.data.filter(
-        profile => profile.status !== constants.profileStatus.rejected
-      );
+    switch (action.type) {
+        case SET_PROFILES:
+        return {
+            ...state,
+            profiles: action.data,
+            paginatedProfiles : applyPagination(1,action.data),
+            activeProfiles: action.data.filter(profile =>
+                constants.ACTIVE_PROFILES.includes(profile.status)),
+            allButRejectedProfiles: getAllButRejectedProfiles(action.data),
+            stats:{
+              pieChart:{                
+                offerProfilesCount: action.data.filter(profile => profile.status === constants.OFFER_MADE).length,
+                inProgressProfilesCount: action.data.filter(profile =>
+                    constants.ACTIVE_PROFILES.includes(profile.status) && profile.status !== constants.OFFER_MADE).length,
+                joinerCount: action.data.filter(profile => profile.status === constants.JOINED).length,
+              },
+              refChart:{
+                referralCount : action.data.filter(profile => profile.referred).length,
+                notReferralCount : action.data.filter(profile => !profile.referred).length
+              },
+              barChart:{
+                
+              }
+            }
+          }
 
-      return {
-        ...state,
-        activeProfiles: activeProfiles,
-        allButRejectedProfiles: allButRejectedProfiles,
-        profiles: action.data,
-        stats: {
-          pieChart: {
-            offerProfilesCount: action.data.filter(
-              profile => profile.status == constants.profileStatus.offerMade
-            ).length,
-            inProgressProfilesCount: action.data.filter(
-              profile =>
-                activeProfile.includes(profile.status) &&
-                profile.status != constants.profileStatus.offerMade
-            ).length,
-            joinerCount: action.data.filter(
-              profile => profile.status == constants.profileStatus.joined
-            ).length
-          },
-          refChart: {
-            referralCount: action.data.filter(profile => profile.referred)
-              .length,
-            notReferralCount: action.data.filter(profile => !profile.referred)
-              .length
-          },
-          barChart: {}
-        }
-      };
+        case CREATE_PROFILE:
+            return {
+                ...state,
+                profile: action.data
+            }
 
-    case CREATE_PROFILE:
-      return {
-        ...state,
-        profile: action.data
-      };
-
-    case UPDATE_PROFILE:
-      return {
+        case APPLY_PAGINATION:
+             return {
+                ...state,
+                startIndex:(action.payload)-1,
+                paginatedProfiles : applyPagination(action.payload,state.profiles)
+            }
+        
+        case UPDATE_PROFILE:
+            return {
         ...state,
         profile: action.data
-      };
+      }
 
     case CREATE_COMMENT:
       return {
         ...state,
         comment: action.data
-      };
+      }
 
-    default: {
-      return state;
+        default: {
+            return state;
     }
   }
 }

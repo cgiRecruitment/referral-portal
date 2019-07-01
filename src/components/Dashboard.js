@@ -132,7 +132,7 @@ class Dashboard extends React.Component {
             profiles={this.props.profiles}
             statusList={this.props.statusList}
             editUser={false}
-            paginationList={false}
+            startIndex={0}
           />
         </Row>
       </Container>

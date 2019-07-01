@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
 import {getProfiles} from "../actions/profileActions";
+import {constants} from "../utility/constants";
 library.add(faEye);
 library.add(faEdit);
 library.add(faCalendarPlus)
@@ -327,9 +328,13 @@ return (
           </thead>
           <tbody>
             {this.props.profiles &&
-              this.props.profiles.map((item, i) => (
+                this.props.profiles.map((item, i)=>(
                 <tr key={item.id}>
-                  <td>{i + 1}</td>
+                  <td>{((this.props.startIndex*constants.pageSize)+i)+1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.referredBy}</td>
+                  <td>{item.skill}</td>
                   <td>
                     <a
                         href="javascript:void(0)"

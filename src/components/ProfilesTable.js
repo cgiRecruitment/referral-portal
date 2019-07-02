@@ -568,7 +568,9 @@ class CustomTable extends React.Component {
                                 type="text"
                                 defaultValue={referredBy}
                                 onChange={e =>
-                                  this.setState({ referredBy: e.target.value })
+                                  this.setState({
+                                    referredBy: e.target.value
+                                  })
                                 }
                               />
                             </Form.Group>
@@ -726,7 +728,6 @@ class CustomTable extends React.Component {
                             </Form.Control>
                           </td>
                         </tr>
-
                         <tr>
                           <td>Location</td>
                           <td>

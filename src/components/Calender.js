@@ -12,15 +12,17 @@ import InterviewsTable from "./InterviewsTable";
 class AddProfile extends React.Component {
   componentWillMount() {
     this.props.getAvailabilityOverview();
+    this.props.getMeetingRoomList();
+    this.props.getInterviewTypeList();
   }
 
   state = {
     key: "",
     candidateId: "",
-    date:"",
+    date: "",
     time: "",
     interviewer: "",
-    location: "",
+    location: ""
   };
 
   addInterview = e => {
@@ -33,7 +35,7 @@ class AddProfile extends React.Component {
       e.stopPropagation();
       this.props.createInterview(JSON.stringify(this.state));
     }
-    this.setState({validated: true});
+    this.setState({ validated: true });
   };
 
   render() {
@@ -64,76 +66,69 @@ class AddProfile extends React.Component {
         </Col>
         <Col md={9} className="calender">
           <Form
-              noValidate
-              validated={this.state.validated}
-              onSubmit={e => this.addInterview(e)}
+            noValidate
+            validated={this.state.validated}
+            onSubmit={e => this.addInterview(e)}
           >
-          <Row>
-            <Col md="2" />
-            <Col md="2">
-              <Form.Label column sm="4" md="12">
-                Candidate
-              </Form.Label>
-              <Form.Label column sm="4" md="12">
-                Date:
-              </Form.Label>
-              <Form.Label column sm="4" md="12">
-                Time
-              </Form.Label>
-              <Form.Label column sm="4" md="12">
-                Interviewers
-              </Form.Label>
-              <Form.Label column sm="4" md="12">
-                Location
-              </Form.Label>
-            </Col>
-            <Col md="3">
-              <Form.Control
+            <Row>
+              <Col md="2" />
+              <Col md="2">
+                <Form.Label column sm="4" md="12">
+                  Candidate
+                </Form.Label>
+                <Form.Label column sm="4" md="12">
+                  Date:
+                </Form.Label>
+                <Form.Label column sm="4" md="12">
+                  Time
+                </Form.Label>
+                <Form.Label column sm="4" md="12">
+                  Interviewers
+                </Form.Label>
+                <Form.Label column sm="4" md="12">
+                  Location
+                </Form.Label>
+              </Col>
+              <Col md="3">
+                <Form.Control
                   as="select"
                   required
-                  onChange={e =>
-                      this.setState({candidateId: e.target.value})
-                  }
-              >
-                {this.props.activeProfiles &&
-                this.props.activeProfiles.map((profiles) =>(
-                    <option value={profiles.id}>{profiles.name}</option>
-                ))}
-              </Form.Control>
-              <Form.Control
-                type="date"
-                onChange={e =>
-                    this.setState({date: e.target.value})
-                }
-              />
-              <Form.Control
+                  onChange={e => this.setState({ candidateId: e.target.value })}
+                >
+                  {this.props.activeProfiles &&
+                    this.props.activeProfiles.map(profiles => (
+                      <option value={profiles.id}>{profiles.name}</option>
+                    ))}
+                </Form.Control>
+                <Form.Control
+                  type="date"
+                  onChange={e => this.setState({ date: e.target.value })}
+                />
+                <Form.Control
                   type="time"
-                  onChange={e =>
-                      this.setState({time: e.target.value})
-                  }
-              />
-              <Form.Control
+                  onChange={e => this.setState({ time: e.target.value })}
+                />
+                <Form.Control
                   type="text"
-                  onChange={e =>
-                      this.setState({interviewer: e.target.value})
-                  }
-              />
-              <Form.Control
+                  onChange={e => this.setState({ interviewer: e.target.value })}
+                />
+                <Form.Control
                   type="text"
-                  onChange={e =>
-                      this.setState({location: e.target.value})
-                  }
-              />
-            </Col>
-          </Row>
+                  onChange={e => this.setState({ location: e.target.value })}
+                />
+              </Col>
+            </Row>
           </Form>
           <hr />
           <Row>
-              <InterviewsTable
-                  interviews={this.props.interviews}
-                  statusList={this.props.statusList}
-                  editInterview={false}
-              />
+            <InterviewsTable
+              interviews={this.props.interviews}
+              statusList={this.props.statusList}
+              updateInterview={this.props.updateInterview}
+              interviewTypes={this.props.interviewTypes}
+              meetingRooms={this.props.meetingRooms}
+              editInterview={true}
+            />
             <Col>
               {this.props.schedules && this.props.schedules.interviews && (
                 <Tabs
@@ -179,7 +174,6 @@ class AddProfile extends React.Component {
             </Col>
           </Row>
         </Col>
-
       </Container>
     );
   }

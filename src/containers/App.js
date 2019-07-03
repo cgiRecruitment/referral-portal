@@ -16,6 +16,7 @@ import { createProfile } from "../actions/profileActions";
 import { logout } from "../actions/userActions";
 import { checkStatus } from "../utility/checkLoginStatus";
 import { stat } from "fs";
+import {createComment} from "../actions/profileActions"
 
 checkStatus();
 
@@ -40,6 +41,7 @@ const mapDispatchToProps = dispatch =>
       updateProfile,
       getStatusList,
       createProfile,
+      createComment,
       logout
     },
     dispatch

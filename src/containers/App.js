@@ -11,11 +11,12 @@ import {
   getInterviews,
   createInterview
 } from "../actions/interviewActions";
-import { getStatusList } from "../actions/prefillActions";
+import { getStatusList, getSkillSetList } from "../actions/prefillActions";
 import { createProfile } from "../actions/profileActions";
 import { logout } from "../actions/userActions";
 import { checkStatus } from "../utility/checkLoginStatus";
 import { stat } from "fs";
+import { createComment } from "../actions/profileActions";
 
 checkStatus();
 
@@ -26,7 +27,8 @@ const mapStateToProps = state => ({
   loginStatus: state.userReducer.loginStatus,
   generalError: state.errorReducer.generalError,
   interviews: state.interviewReducer.interviews,
-  stats: state.profileReducer.stats
+  stats: state.profileReducer.stats,
+  skillSets: state.prefillReducer.skillSet
 });
 
 const mapDispatchToProps = dispatch =>
@@ -40,7 +42,9 @@ const mapDispatchToProps = dispatch =>
       updateProfile,
       getStatusList,
       createProfile,
-      logout
+      logout,
+      createComment,
+      getSkillSetList
     },
     dispatch
   );

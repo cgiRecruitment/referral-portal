@@ -133,6 +133,9 @@ class Dashboard extends React.Component {
             statusList={this.props.statusList}
             editUser={true}
             startIndex={0}
+            createComment={this.props.createComment}
+            skillSets={this.props.skillSets}
+            updateProfile={this.props.updateProfile}
           />
         </Row>
       </Container>

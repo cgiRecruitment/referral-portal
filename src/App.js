@@ -14,6 +14,7 @@ class App extends React.Component {
     this.props.getProfiles();
     this.props.getInterviews();
     this.props.getStatusList();
+    this.props.getSkillSetList();
   }
 
   render() {
@@ -38,6 +39,9 @@ class App extends React.Component {
                   profiles={this.props.activeProfiles}
                   statusList={this.props.statusList}
                   stats={this.props.stats}
+                  createComment={this.props.createComment}
+                  skillSets={this.props.skillSets}
+                  updateProfile={this.props.updateProfile}
                 />
               )}
             />

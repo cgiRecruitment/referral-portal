@@ -24,7 +24,8 @@
     "redux-sessionstorage": "^0.4.0",
     "redux-thunk": "^2.3.0",
     "object-hash": "latest",
-    "react-js-pagination": "^3.0.2"
+    "react-js-pagination": "^3.0.2",
+    "react-select": "^3.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

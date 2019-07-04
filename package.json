@@ -25,6 +25,7 @@
     "redux-thunk": "^2.3.0",
     "object-hash": "latest",
     "react-js-pagination": "^3.0.2",
+    "react-select": "^3.0.4",
     "draft-js": "latest"
   },
   "scripts": {

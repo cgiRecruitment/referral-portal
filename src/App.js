@@ -38,6 +38,7 @@ class App extends React.Component {
                   profiles={this.props.activeProfiles}
                   statusList={this.props.statusList}
                   stats={this.props.stats}
+                  createComment={this.props.createComment}
                 />
               )}
             />

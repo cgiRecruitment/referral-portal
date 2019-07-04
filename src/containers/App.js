@@ -16,7 +16,11 @@ import { createProfile } from "../actions/profileActions";
 import { logout } from "../actions/userActions";
 import { checkStatus } from "../utility/checkLoginStatus";
 import { stat } from "fs";
+<<<<<<< HEAD
 import { createComment } from "../actions/profileActions";
+=======
+import {createComment} from "../actions/profileActions"
+>>>>>>> 574d5283700381c1d042f7b56d6ece2acf5866c7
 
 checkStatus();
 

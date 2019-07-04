@@ -15,6 +15,9 @@ import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
 import { getProfiles } from "../actions/profileActions";
 import { constants } from "../utility/constants";
+import RichEditor from "./RichEditor";
+import RichTextDisplay from "./RichTextDisplay";
+import {getEditorState} from "../utility/RichTextHelper"
 library.add(faEye);
 library.add(faEdit);
 library.add(faCalendarPlus);
@@ -66,6 +69,7 @@ class CustomTable extends React.Component {
     this.setState({ validated: true });
   };
 
+
   addCandidateComment = e => {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -79,6 +83,10 @@ class CustomTable extends React.Component {
       });
     }
     this.setState({ validated: true });
+  };
+
+  setComment = comment => {
+    this.setState({ comment: comment });
   };
 
   render() {
@@ -197,7 +205,13 @@ class CustomTable extends React.Component {
                       {comments &&
                         comments.map(details => (
                           <tr>
-                            <td>{details.comment}</td>
+                            <td>
+                              <RichTextDisplay
+                                editorState={getEditorState(
+                                  details.comment
+                                )}
+                              />
+                            </td>
                             <td>{details.memberName}</td>
                             <td>{details.date}</td>
                           </tr>
@@ -263,7 +277,13 @@ class CustomTable extends React.Component {
                       {comments &&
                         comments.map(details => (
                           <tr>
-                            <td>{details.comment}</td>
+                            <td>
+                              <RichTextDisplay
+                                editorState={getEditorState(
+                                  details.comment
+                                )}
+                              />
+                            </td>
                             <td>{details.memberName}</td>
                             <td>{details.date}</td>
                           </tr>
@@ -283,14 +303,10 @@ class CustomTable extends React.Component {
                     <tr>
                       <td>
                         <Form.Group controlId="profileStatus" as={Row}>
-                          <Form.Control
-                            as="textarea"
-                            rows="2"
-                            cols="250"
-                            required
-                            onChange={e =>
-                              this.setState({ comment: e.target.value })
-                            }
+                          <RichEditor
+                            editorState={this.state.editorState}
+                            setContent={this.setComment}
+                            placeholder="Comments..."
                           />
                         </Form.Group>
                       </td>
@@ -304,9 +320,7 @@ class CustomTable extends React.Component {
                       <td>
                         <Form.Group controlId="profileStatus" as={Row}>
                           <Form.Control
-                            as="textarea"
-                            rows="2"
-                            cols="250"
+                            type="text"
                             required
                             onChange={e =>
                               this.setState({ memberName: e.target.value })

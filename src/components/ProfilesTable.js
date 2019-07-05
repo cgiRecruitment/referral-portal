@@ -552,15 +552,17 @@ class CustomTable extends React.Component {
                               inline
                               label="Yes"
                               type="radio"
-                              name={`isReferral`}
-                              onChange={e => this.setState({ referred: true })}
+                              defaultChecked={inNL}
+                              name={`inNL`}
+                              onChange={e => this.setState({ inNL: true })}
                             />
                             <Form.Check
                               inline
                               label="No"
                               type="radio"
-                              name={`isReferral`}
-                              onChange={e => this.setState({ referred: false })}
+                              defaultChecked={!inNL}
+                              name={`inNL`}
+                              onChange={e => this.setState({ inNL: false })}
                             />
                           </td>
                         </tr>
@@ -571,6 +573,7 @@ class CustomTable extends React.Component {
                               inline
                               label="Yes"
                               type="radio"
+                              defaultChecked={referred}
                               name={`isReferral`}
                               onChange={e => this.setState({ referred: true })}
                             />
@@ -578,6 +581,7 @@ class CustomTable extends React.Component {
                               inline
                               label="No"
                               type="radio"
+                              defaultChecked={!referred}
                               name={`isReferral`}
                               onChange={e => this.setState({ referred: false })}
                             />

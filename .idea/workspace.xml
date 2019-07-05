@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9387acff-0226-4138-b8fa-0346305db1eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProfilesTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfilesTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/createComment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/createComment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/createInterview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/createInterview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/createProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/createProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/updateInterview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/updateInterview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/updateProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/updateProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utility/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/constants.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -100,8 +93,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/ProfilesTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="337" column="20" lean-forward="true" selection-start-line="337" selection-start-column="20" selection-end-line="337" selection-end-column="20" />
+            <state relative-caret-position="108">
+              <caret line="551" column="36" lean-forward="true" selection-start-line="551" selection-start-column="36" selection-end-line="551" selection-end-column="36" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -139,8 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add in</find>
-      <find>add</find>
       <find>edit</find>
       <find>comment</find>
       <find>interv</find>
@@ -169,6 +160,8 @@
       <find>time</find>
       <find>interviewer</find>
       <find>referral</find>
+      <find>add comm</find>
+      <find>innl</find>
     </findStrings>
     <replaceStrings>
       <replace>sm=&quot;10&quot;</replace>
@@ -439,12 +432,12 @@
       <workItem from="1562159647343" duration="282000" />
       <workItem from="1562177714253" duration="512000" />
       <workItem from="1562312056912" duration="1123000" />
-      <workItem from="1562313816338" duration="1617000" />
+      <workItem from="1562313816338" duration="2149000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="264928000" />
+    <option name="totallyTimeSpent" value="265460000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -931,8 +924,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ProfilesTable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="337" column="20" lean-forward="true" selection-start-line="337" selection-start-column="20" selection-end-line="337" selection-end-column="20" />
+        <state relative-caret-position="108">
+          <caret line="551" column="36" lean-forward="true" selection-start-line="551" selection-start-column="36" selection-end-line="551" selection-end-column="36" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

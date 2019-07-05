@@ -1,4 +1,4 @@
-import { UPDATE_PROFILE } from "../actions/profileActions";
+import { getProfiles, UPDATE_PROFILE } from "../actions/profileActions";
 import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
@@ -29,6 +29,7 @@ const updateProfile = store => next => async action => {
       error =>
         dispatch(setGeneralError("Unable to update profile at this time"))
     );
+    dispatch(getProfiles());
   } catch (e) {
     console.error(e);
   }

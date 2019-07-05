@@ -1,4 +1,4 @@
-import { UPDATE_INTERVIEW } from "../actions/interviewActions";
+import { getInterviews, UPDATE_INTERVIEW } from "../actions/interviewActions";
 import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
@@ -29,6 +29,7 @@ const updateInterview = store => next => async action => {
       error =>
         dispatch(setGeneralError("Unable to update interview at this time"))
     );
+    dispatch(getInterviews());
   } catch (e) {
     console.error(e);
   }

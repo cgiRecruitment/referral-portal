@@ -1,4 +1,4 @@
-import { CREATE_COMMENT } from "../actions/profileActions";
+import { CREATE_COMMENT, getProfiles } from "../actions/profileActions";
 import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 
@@ -27,6 +27,7 @@ const createComment = store => next => async action => {
 
     if (data) {
       dispatch(setNotification(data));
+      dispatch(getProfiles());
     }
   } catch (e) {
     console.error(e);

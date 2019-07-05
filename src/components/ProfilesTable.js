@@ -337,7 +337,9 @@ class CustomTable extends React.Component {
               {this.props.scheduleInterview && (
                 <th>
                   <FilterComponent
-                    statusSelected={this.props.statusList}
+                    statusSelected={this.props.statusList.filter(
+                      status => constants.REJECTED !== status
+                    )}
                     filterProfiles={this.props.filterProfiles}
                   />
                 </th>

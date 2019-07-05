@@ -1,4 +1,4 @@
-import { CREATE_PROFILE } from "../actions/profileActions";
+import { CREATE_PROFILE, getProfiles } from "../actions/profileActions";
 import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 
@@ -23,6 +23,7 @@ const createProfile = store => next => async action => {
 
     if (data) {
       dispatch(setNotification(data));
+      dispatch(getProfiles());
     }
   } catch (e) {
     console.error(e);

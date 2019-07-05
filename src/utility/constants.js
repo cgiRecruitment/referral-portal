@@ -1,5 +1,5 @@
 export const constants = {
-  host: "http://localhost:8080",
+  host: "https://manage-candidates-test.cfapps.io",
 
   pageSize: 20,
   REJECTED: "Rejected",

@@ -32,7 +32,8 @@ class CustomTable extends React.Component {
     meetingRoom: "",
     interviewer: "",
     date: "",
-    candidateId: ""
+    candidateId: "",
+    memberId: sessionStorage.getItem("memberId")
   };
 
   componentWillMount() {
@@ -292,24 +293,6 @@ class CustomTable extends React.Component {
                             editorState={this.state.editorState}
                             setContent={this.setComment}
                             placeholder="Comments..."
-                          />
-                        </Form.Group>
-                      </td>
-                    </tr>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <h5>From:</h5>
-                    <tr>
-                      <td>
-                        <Form.Group controlId="profileStatus" as={Row}>
-                          <Form.Control
-                            type="text"
-                            required
-                            onChange={e =>
-                              this.setState({ memberName: e.target.value })
-                            }
                           />
                         </Form.Group>
                       </td>
@@ -592,7 +575,6 @@ class CustomTable extends React.Component {
                           <td>
                             <Form.Group controlId="profileStatus" as={Row}>
                               <Form.Control
-                                required
                                 type="text"
                                 defaultValue={referredBy}
                                 onChange={e =>

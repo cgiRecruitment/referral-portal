@@ -15,6 +15,7 @@ import { getStatusList } from "../actions/prefillActions";
 import { createProfile } from "../actions/profileActions";
 import { logout } from "../actions/userActions";
 import { checkStatus } from "../utility/checkLoginStatus";
+import { createComment } from "../actions/profileActions";
 
 checkStatus();
 
@@ -39,6 +40,7 @@ const mapDispatchToProps = dispatch =>
       updateProfile,
       getStatusList,
       createProfile,
+      createComment,
       logout
     },
     dispatch

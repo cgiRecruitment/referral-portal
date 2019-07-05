@@ -15,6 +15,7 @@ import {
   getProfiles
 } from "../actions/profileActions";
 import { createInterview } from "../actions/interviewActions";
+import { filterProfiles } from "../actions/FilterActions";
 
 const mapStateToProps = state => ({
   profiles: state.profileReducer.profiles,
@@ -25,7 +26,8 @@ const mapStateToProps = state => ({
   skillSets: state.prefillReducer.skillSet,
   interviewTypes: state.prefillReducer.interviewTypes,
   paginatedProfiles: state.profileReducer.paginatedProfiles,
-  startIndex: state.profileReducer.startIndex
+  startIndex: state.profileReducer.startIndex,
+  filteredProfiles: state.profileReducer.filteredProfiles
 });
 
 const mapDispatchToProps = dispatch =>
@@ -40,7 +42,8 @@ const mapDispatchToProps = dispatch =>
       getStatusList,
       getMeetingRoomList,
       getInterviewerList,
-      updateProfile
+      updateProfile,
+      filterProfiles
     },
     dispatch
   );

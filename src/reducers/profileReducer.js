@@ -7,6 +7,7 @@ import {
 } from "../actions/profileActions";
 import { APPLY_PAGINATION } from "../actions/paginationActions";
 import { constants } from "../utility/constants";
+import { FILTER_PROFILES } from "../actions/FilterActions";
 
 const initialState = {
   profiles: false,
@@ -37,6 +38,14 @@ const applyPagination = (activePage, profiles) => {
   );
 };
 
+const applyFiltering = (statusList, profiles) => {
+  return statusList === null
+    ? profiles
+    : profiles.filter(
+        profile => profile.status && statusList.includes(profile.status)
+      );
+};
+
 function profileReducer(state = initialState, action) {
   switch (action.type) {
     case SET_PROFILES:
@@ -44,6 +53,10 @@ function profileReducer(state = initialState, action) {
         ...state,
         profiles: action.data,
         paginatedProfiles: applyPagination(1, action.data),
+        filteredProfiles: applyFiltering(
+          null,
+          getAllButRejectedProfiles(action.data)
+        ),
         activeProfiles: action.data.filter(profile =>
           constants.ACTIVE_PROFILES.includes(profile.status)
         ),
@@ -82,7 +95,10 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         startIndex: action.payload - 1,
-        paginatedProfiles: applyPagination(action.payload, state.profiles)
+        paginatedProfiles: applyPagination(
+          action.payload,
+          state.filteredProfiles
+        )
       };
 
     case UPDATE_PROFILE:
@@ -95,6 +111,20 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         comment: action.data
+      };
+
+    case FILTER_PROFILES:
+      return {
+        ...state,
+        startIndex: 0,
+        filteredProfiles: applyFiltering(
+          action.payload,
+          state.allButRejectedProfiles
+        ),
+        paginatedProfiles: applyPagination(
+          1,
+          applyFiltering(action.payload, state.allButRejectedProfiles)
+        )
       };
 
     default: {

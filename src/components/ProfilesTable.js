@@ -15,6 +15,10 @@ import Form from "react-bootstrap/es/Form";
 import Button from "react-bootstrap/es/Button";
 import { getProfiles } from "../actions/profileActions";
 import { constants } from "../utility/constants";
+import FilterComponent from "./SelectFilter";
+import RichEditor from "./RichEditor";
+import RichTextDisplay from "./RichTextDisplay";
+import { getEditorState } from "../utility/RichTextHelper";
 library.add(faEye);
 library.add(faEdit);
 library.add(faCalendarPlus);
@@ -81,18 +85,11 @@ class CustomTable extends React.Component {
     this.setState({ validated: true });
   };
 
-  render() {
-    const head = [
-      "#",
-      "Name",
-      "Skills",
-      "Received Date",
-      "Status",
-      "Excel ID",
-      ...(this.props.scheduleInterview ? ["Add Interview"] : []),
-      ...(this.props.editUser ? ["Edit"] : [])
-    ];
+  setComment = comment => {
+    this.setState({ comment: comment });
+  };
 
+  render() {
     const {
       name,
       inNL,
@@ -197,7 +194,11 @@ class CustomTable extends React.Component {
                       {comments &&
                         comments.map(details => (
                           <tr>
-                            <td>{details.comment}</td>
+                            <td>
+                              <RichTextDisplay
+                                editorState={getEditorState(details.comment)}
+                              />
+                            </td>
                             <td>{details.memberName}</td>
                             <td>{details.date}</td>
                           </tr>
@@ -263,7 +264,11 @@ class CustomTable extends React.Component {
                       {comments &&
                         comments.map(details => (
                           <tr>
-                            <td>{details.comment}</td>
+                            <td>
+                              <RichTextDisplay
+                                editorState={getEditorState(details.comment)}
+                              />
+                            </td>
                             <td>{details.memberName}</td>
                             <td>{details.date}</td>
                           </tr>
@@ -283,14 +288,10 @@ class CustomTable extends React.Component {
                     <tr>
                       <td>
                         <Form.Group controlId="profileStatus" as={Row}>
-                          <Form.Control
-                            as="textarea"
-                            rows="2"
-                            cols="250"
-                            required
-                            onChange={e =>
-                              this.setState({ comment: e.target.value })
-                            }
+                          <RichEditor
+                            editorState={this.state.editorState}
+                            setContent={this.setComment}
+                            placeholder="Comments..."
                           />
                         </Form.Group>
                       </td>
@@ -304,9 +305,7 @@ class CustomTable extends React.Component {
                       <td>
                         <Form.Group controlId="profileStatus" as={Row}>
                           <Form.Control
-                            as="textarea"
-                            rows="2"
-                            cols="250"
+                            type="text"
                             required
                             onChange={e =>
                               this.setState({ memberName: e.target.value })
@@ -330,9 +329,32 @@ class CustomTable extends React.Component {
         <Table striped bordered hover responsive>
           <thead>
             <tr>
-              {head.map(head => (
-                <th key={head}>{head}</th>
-              ))}
+              <th key={"#"}>{"#"}</th>
+              <th key={"Name"}>{"Name"}</th>
+              <th key={"Skills"}>{"Skills"}</th>
+              <th key={"Received Date"}>{"Received Date"}</th>
+
+              {this.props.scheduleInterview && (
+                <th>
+                  <FilterComponent
+                    statusSelected={this.props.statusList}
+                    filterProfiles={this.props.filterProfiles}
+                  />
+                </th>
+              )}
+              {!this.props.scheduleInterview && (
+                <th key={"Status"}>{"Status"}</th>
+              )}
+
+              <th key={"Excel ID"}>{"Excel ID"}</th>
+              {this.props.scheduleInterview && (
+                <th key={"Add Interview"}>
+                  {this.props.scheduleInterview ? ["Add Interview"] : []}
+                </th>
+              )}
+              {this.props.editUser && (
+                <th>{this.props.editUser ? ["Edit"] : []}</th>
+              )}
             </tr>
           </thead>
           <tbody>

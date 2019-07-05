@@ -131,7 +131,8 @@ class Dashboard extends React.Component {
           <ProfilesTable
             profiles={this.props.profiles}
             statusList={this.props.statusList}
-            editUser={false}
+            editUser={true}
+            createComment={this.props.createComment}
             startIndex={0}
           />
         </Row>

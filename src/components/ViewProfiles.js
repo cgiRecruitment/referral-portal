@@ -30,17 +30,17 @@ class ViewProfiles extends React.Component {
             createInterview={this.props.createInterview}
             updateProfile={this.props.updateProfile}
             interviewTypes={this.props.interviewTypes}
-            paginationList={true}
             createComment={this.props.createComment}
             getProfiles={this.props.getProfiles}
             startIndex={this.props.startIndex}
+            filterProfiles={this.props.filterProfiles}
+            filteredProfiles={this.props.filteredProfiles}
           />
           <PaginationComponent
             applyPagination={this.props.applyPagination}
             activePage={this.props.startIndex + 1}
             totalItemsCount={
-              this.props.allButRejectedProfiles &&
-              this.props.allButRejectedProfiles.length
+              this.props.filteredProfiles && this.props.filteredProfiles.length
             }
           />
         </Row>

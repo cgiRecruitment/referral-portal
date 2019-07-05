@@ -7,6 +7,7 @@ import Col from "react-bootstrap/es/Col";
 import Button from "react-bootstrap/es/Button";
 import { Redirect } from "react-router-dom";
 import Modal from "react-bootstrap/es/Modal";
+import RichEditor from "./RichEditor";
 
 class AddProfile extends React.Component {
   state = {
@@ -47,6 +48,10 @@ class AddProfile extends React.Component {
     if (this.state.redirect) {
       return <Redirect to="/" />;
     }
+  };
+
+  setComment = comment => {
+    this.setState({ comment: comment });
   };
 
   render() {
@@ -240,18 +245,15 @@ class AddProfile extends React.Component {
                       </Col>
                     </Form.Group>
                   </Col>
-                  <Col xs="12" md="4">
+                  <Col xs="12" md="8">
                     <Form.Group controlId="profileStatus" as={Row}>
                       <Form.Label column sm="4" md="12">
                         Comment
                       </Form.Label>
-                      <Form.Control
-                        required
-                        as="textarea"
-                        rows="3"
-                        onChange={e =>
-                          this.setState({ comment: e.target.value })
-                        }
+                      <RichEditor
+                        editorState={this.state.editorState}
+                        setContent={this.setComment}
+                        placeholder="Comments..."
                       />
                     </Form.Group>
                   </Col>

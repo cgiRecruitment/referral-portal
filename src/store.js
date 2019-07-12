@@ -16,6 +16,7 @@ import { getInterview } from "./middleware/getInterviews";
 import { updateProfile } from "./middleware/updateProfile";
 import { getInterviewTypes } from "./middleware/getInterviewTypes";
 import { createComment } from "./middleware/createComment";
+import { updateInterview } from "./middleware/updateInterview";
 
 const initialState = {};
 const enhancers = [];
@@ -32,6 +33,7 @@ const middleware = [
   getInterview,
   createInterview,
   updateProfile,
+  updateInterview,
   getInterviewTypes,
   createComment,
   thunk,

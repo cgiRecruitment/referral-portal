@@ -12,7 +12,7 @@ const loginUser = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/login/`, {
+    const data = await fetch(`${constants.host}/login`, {
       headers: {
         "Content-Type": "application/json"
       },

@@ -18,7 +18,7 @@ import { constants } from "../utility/constants";
 import FilterComponent from "./SelectFilter";
 import RichEditor from "./RichEditor";
 import RichTextDisplay from "./RichTextDisplay";
-import {getEditorState} from "../utility/RichTextHelper";
+import { getEditorState } from "../utility/RichTextHelper";
 library.add(faEye);
 library.add(faEdit);
 library.add(faCalendarPlus);
@@ -32,7 +32,8 @@ class CustomTable extends React.Component {
     meetingRoom: "",
     interviewer: "",
     date: "",
-    candidateId: ""
+    candidateId: "",
+    memberId: sessionStorage.getItem("memberId")
   };
 
   componentWillMount() {
@@ -69,7 +70,6 @@ class CustomTable extends React.Component {
     }
     this.setState({ validated: true });
   };
-
 
   addCandidateComment = e => {
     const form = e.currentTarget;
@@ -197,9 +197,7 @@ class CustomTable extends React.Component {
                           <tr>
                             <td>
                               <RichTextDisplay
-                                editorState={getEditorState(
-                                  details.comment
-                                )}
+                                editorState={getEditorState(details.comment)}
                               />
                             </td>
                             <td>{details.memberName}</td>
@@ -269,9 +267,7 @@ class CustomTable extends React.Component {
                           <tr>
                             <td>
                               <RichTextDisplay
-                                editorState={getEditorState(
-                                  details.comment
-                                )}
+                                editorState={getEditorState(details.comment)}
                               />
                             </td>
                             <td>{details.memberName}</td>
@@ -304,24 +300,6 @@ class CustomTable extends React.Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <h5>From:</h5>
-                    <tr>
-                      <td>
-                        <Form.Group controlId="profileStatus" as={Row}>
-                          <Form.Control
-                            type="text"
-                            required
-                            onChange={e =>
-                              this.setState({ memberName: e.target.value })
-                            }
-                          />
-                        </Form.Group>
-                      </td>
-                    </tr>
-                  </Col>
-                </Row>
-                <Row>
                   <Col sm="9" />
                   <Col sm="3">
                     <Button type="submit">Add comment</Button>
@@ -342,7 +320,9 @@ class CustomTable extends React.Component {
               {this.props.scheduleInterview && (
                 <th>
                   <FilterComponent
-                    statusSelected={this.props.statusList}
+                    statusSelected={this.props.statusList.filter(
+                      status => constants.REJECTED !== status
+                    )}
                     filterProfiles={this.props.filterProfiles}
                   />
                 </th>
@@ -555,15 +535,17 @@ class CustomTable extends React.Component {
                               inline
                               label="Yes"
                               type="radio"
-                              name={`isReferral`}
-                              onChange={e => this.setState({ referred: true })}
+                              defaultChecked={inNL}
+                              name={`inNL`}
+                              onChange={e => this.setState({ inNL: true })}
                             />
                             <Form.Check
                               inline
                               label="No"
                               type="radio"
-                              name={`isReferral`}
-                              onChange={e => this.setState({ referred: false })}
+                              defaultChecked={!inNL}
+                              name={`inNL`}
+                              onChange={e => this.setState({ inNL: false })}
                             />
                           </td>
                         </tr>
@@ -574,6 +556,7 @@ class CustomTable extends React.Component {
                               inline
                               label="Yes"
                               type="radio"
+                              defaultChecked={referred}
                               name={`isReferral`}
                               onChange={e => this.setState({ referred: true })}
                             />
@@ -581,6 +564,7 @@ class CustomTable extends React.Component {
                               inline
                               label="No"
                               type="radio"
+                              defaultChecked={!referred}
                               name={`isReferral`}
                               onChange={e => this.setState({ referred: false })}
                             />
@@ -591,11 +575,12 @@ class CustomTable extends React.Component {
                           <td>
                             <Form.Group controlId="profileStatus" as={Row}>
                               <Form.Control
-                                required
                                 type="text"
                                 defaultValue={referredBy}
                                 onChange={e =>
-                                  this.setState({ referredBy: e.target.value })
+                                  this.setState({
+                                    referredBy: e.target.value
+                                  })
                                 }
                               />
                             </Form.Group>
@@ -753,7 +738,6 @@ class CustomTable extends React.Component {
                             </Form.Control>
                           </td>
                         </tr>
-
                         <tr>
                           <td>Location</td>
                           <td>

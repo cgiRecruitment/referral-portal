@@ -1,7 +1,6 @@
 import React from "react";
 import { Editor, EditorState } from "draft-js";
 
-
 class RichTextDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -9,8 +8,6 @@ class RichTextDisplay extends React.Component {
       editorState: this.props.editorState || EditorState.createEmpty()
     };
   }
-
-  
 
   render() {
     return (

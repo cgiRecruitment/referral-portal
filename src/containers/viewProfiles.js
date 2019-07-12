@@ -15,7 +15,7 @@ import {
   getProfiles
 } from "../actions/profileActions";
 import { createInterview } from "../actions/interviewActions";
-import {filterProfiles} from "../actions/FilterActions";
+import { filterProfiles } from "../actions/FilterActions";
 
 const mapStateToProps = state => ({
   profiles: state.profileReducer.profiles,

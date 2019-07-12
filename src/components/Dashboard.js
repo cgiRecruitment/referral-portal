@@ -132,7 +132,6 @@ class Dashboard extends React.Component {
             profiles={this.props.profiles}
             statusList={this.props.statusList}
             editUser={true}
-            createComment={this.props.createComment}
             startIndex={0}
             createComment={this.props.createComment}
             skillSets={this.props.skillSets}

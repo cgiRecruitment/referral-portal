@@ -1,4 +1,4 @@
-import { CREATE_INTERVIEW } from "../actions/interviewActions";
+import { CREATE_INTERVIEW, getInterviews } from "../actions/interviewActions";
 import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
@@ -25,6 +25,7 @@ const createInterview = store => next => async action => {
       error =>
         dispatch(setGeneralError("Unable to create interview at this time"))
     );
+    dispatch(getInterviews());
   } catch (e) {
     console.error(e);
   }

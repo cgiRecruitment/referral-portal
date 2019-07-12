@@ -1,12 +1,12 @@
-import { getProfiles, UPDATE_PROFILE } from "../actions/profileActions";
+import { getInterviews, UPDATE_INTERVIEW } from "../actions/interviewActions";
 import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
 
-const updateProfile = store => next => async action => {
+const updateInterview = store => next => async action => {
   next(action);
 
-  if (action.type !== UPDATE_PROFILE) {
+  if (action.type !== UPDATE_INTERVIEW) {
     return;
   }
 
@@ -14,25 +14,25 @@ const updateProfile = store => next => async action => {
 
   try {
     const data = await fetch(
-      `${constants.host}/candidates/candidate/${
-        action.profile.selectedProfile[0]["id"]
+      `${constants.host}/interviews/${
+        action.interview.selectedInterview[0]["id"]
       }`,
       {
         headers: {
           "Content-Type": "application/json"
         },
         method: "PUT",
-        body: JSON.stringify(action.profile)
+        body: JSON.stringify(action.interview)
       }
     ).then(
       data => dispatch(setNotification(data.json())),
       error =>
-        dispatch(setGeneralError("Unable to update profile at this time"))
+        dispatch(setGeneralError("Unable to update interview at this time"))
     );
-    dispatch(getProfiles());
+    dispatch(getInterviews());
   } catch (e) {
     console.error(e);
   }
 };
 
-export { updateProfile };
+export { updateInterview };

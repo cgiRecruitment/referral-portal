@@ -35,8 +35,7 @@ class AddProfile extends React.Component {
     if(files.length > 3) {
      
       alert('You cannot choose more that 3 files');
-      this.candidateDocuments.value = "";
-      event.stopPropagation();
+      this.refs.fileUpload.value = '';
     }else{
       this.candidateDocuments = files;
     }
@@ -194,6 +193,7 @@ class AddProfile extends React.Component {
                             <Form.Control
                               //required
                               type="file" 
+                              ref = "fileUpload"
                               onChange={e => this.onFileChange(e)}
                               multiple />
                           </Col>

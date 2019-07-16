@@ -23,9 +23,23 @@ class AddProfile extends React.Component {
     memberId: sessionStorage.getItem("memberId")
   };
 
+  candidateDocuments = [];
+
   componentDidMount() {
     this.props.getSkillSetList();
     this.props.getStatusList();
+  }
+
+  onFileChange(event) {
+    var files = event.target.files;
+    if(files.length > 3) {
+     
+      alert('You cannot choose more that 3 files');
+      this.candidateDocuments.value = "";
+      event.stopPropagation();
+    }else{
+      this.candidateDocuments = files;
+    }
   }
 
   addProfile = e => {
@@ -37,7 +51,7 @@ class AddProfile extends React.Component {
       e.preventDefault();
       e.stopPropagation();
       const profile = JSON.stringify(this.state);
-      this.props.createProfile(profile);
+      this.props.createProfile({ documents: this.candidateDocuments, details: profile});
     }
 
     this.setState({ validated: true });
@@ -170,6 +184,20 @@ class AddProfile extends React.Component {
                         />
                       </Col>
                     </Form.Group>
+                  </Col>
+                  <Col xs="12" md="4">
+                        <Form.Group controlId="profileDocument" as={Row}>
+                          <Form.Label column sm="8" md="12">
+                              Upload Documents
+                          </Form.Label>
+                          <Col sm="10">
+                            <Form.Control
+                              //required
+                              type="file" 
+                              onChange={e => this.onFileChange(e)}
+                              multiple />
+                          </Col>
+                        </Form.Group>
                   </Col>
                 </Row>
                 <h5>Referral Info</h5>

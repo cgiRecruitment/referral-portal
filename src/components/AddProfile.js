@@ -188,8 +188,7 @@ class AddProfile extends React.Component {
                           label="Yes"
                           type="radio"
                           name={`isReferral`}
-                          onChange={e => {this.setState({referred: true});
-                            this.setState({disabledRefferedBy:false});
+                          onChange={e => {this.setState({referred: true, disabledRefferedBy: false});
                           }}
                         />
                         <Form.Check
@@ -198,9 +197,7 @@ class AddProfile extends React.Component {
                           label="No"
                           type="radio"
                           name={`isReferral`}
-                          onChange={e => {this.setState({referred: false});
-                            this.setState({referredBy:null});        
-                            this.setState({disabledRefferedBy:true});
+                          onChange={e => {this.setState({referred: false, referredBy: null, disabledRefferedBy: true});
                           }}
                         />
                       </Col>

@@ -1,6 +1,7 @@
 import { CREATE_PROFILE, getProfiles } from "../actions/profileActions";
 import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
+import { endSpinner, loadSpinner } from "../actions/loadingSpinnerActions";
 
 const createProfile = store => next => async action => {
   next(action);
@@ -12,15 +13,25 @@ const createProfile = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/candidates`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
+    var formData = new FormData();
+    var candidateInformation = action.profile;
+
+    dispatch(loadSpinner());
+
+    Array.from(candidateInformation.documents).map((file) => {
+      formData.append("uploadingFiles", file);
+    });  
+
+    formData.append("candidate", candidateInformation.details);
+
+    const data = await fetch(`${constants.host}/candidates/create`, {
+     
       method: "POST",
-      body: action.profile
+      body: formData
     }).then(data => data.json());
 
+    dispatch(endSpinner());
+    
     if (data) {
       dispatch(setNotification(data));
       dispatch(getProfiles());

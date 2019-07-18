@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import AddProfile from "../components/AddProfile";
 import { getSkillSetList, getStatusList } from "../actions/prefillActions";
 import { createProfile, updateProfile } from "../actions/profileActions";
-import { setNotification } from "../actions/notificiationActions";
+import { setNotification, closeNotification } from "../actions/notificiationActions";
 
 const mapStateToProps = state => ({
   skillSets: state.prefillReducer.skillSet,
   statusList: state.prefillReducer.status,
-  notification: state.notificationReducer.notification
+  notification: state.notificationReducer.notification,
+  showNotification: state.notificationReducer.showNotification,
+  showSpinner: state.loadingSpinnerReducer.serviceCallStatus
 });
 
 const mapDispatchToProps = dispatch =>
@@ -18,7 +20,8 @@ const mapDispatchToProps = dispatch =>
       getStatusList,
       createProfile,
       updateProfile,
-      setNotification
+      setNotification,
+      closeNotification
     },
     dispatch
   );

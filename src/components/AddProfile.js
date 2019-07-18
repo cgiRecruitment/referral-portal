@@ -32,11 +32,10 @@ class AddProfile extends React.Component {
 
   onFileChange(event) {
     var files = event.target.files;
-    if(files.length > 3) {
-     
-      alert('You cannot choose more that 3 files');
-      this.refs.fileUpload.value = '';
-    }else{
+    if (files.length > 3) {
+      alert("You cannot choose more that 3 files");
+      this.refs.fileUpload.value = "";
+    } else {
       this.candidateDocuments = files;
     }
   }
@@ -50,23 +49,28 @@ class AddProfile extends React.Component {
       e.preventDefault();
       e.stopPropagation();
       const profile = JSON.stringify(this.state);
-      this.props.createProfile({ documents: this.candidateDocuments, details: profile});
+      this.props.createProfile({
+        documents: this.candidateDocuments,
+        details: profile
+      });
     }
 
     this.setState({ validated: true });
-
-    
   };
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to="/" />; 
+      return <Redirect to="/" />;
     }
   };
 
   setComment = comment => {
     this.setState({ comment: comment });
   };
+
+  redirectToHome() {
+    this.setState({ redirect: true });
+  }
 
   render() {
     return (
@@ -75,7 +79,11 @@ class AddProfile extends React.Component {
         <Row>
           <h1>Add Profile</h1>
         </Row>
-        {this.props.showSpinner && <Row><h1>Loading .....</h1></Row>}
+        {this.props.showSpinner && (
+          <Row>
+            <h1>Loading .....</h1>
+          </Row>
+        )}
         <Row>
           <Card style={{ width: "100%" }}>
             <Card.Body>
@@ -187,19 +195,20 @@ class AddProfile extends React.Component {
                     </Form.Group>
                   </Col>
                   <Col xs="12" md="4">
-                        <Form.Group controlId="profileDocument" as={Row} >
-                          <Form.Label column sm="8" md="12">
-                              Upload Documents
-                          </Form.Label>
-                          <Col sm="10">
-                            <Form.Control
-                              //required
-                              type="file" 
-                              ref = "fileUpload"
-                              onChange={e => this.onFileChange(e)}
-                              multiple />
-                          </Col>
-                        </Form.Group>
+                    <Form.Group controlId="profileDocument" as={Row}>
+                      <Form.Label column sm="8" md="12">
+                        Upload Documents
+                      </Form.Label>
+                      <Col sm="10">
+                        <Form.Control
+                          //required
+                          type="file"
+                          ref="fileUpload"
+                          onChange={e => this.onFileChange(e)}
+                          multiple
+                        />
+                      </Col>
+                    </Form.Group>
                   </Col>
                 </Row>
                 <h5>Referral Info</h5>
@@ -301,9 +310,12 @@ class AddProfile extends React.Component {
         <Modal
           size="lg"
           show={this.props.showNotification}
-          onHide={() =>
+          onHide={
+            () => {
+              this.props.closeNotification();
+              this.redirectToHome();
+            }
             //this.setState({ displayNotification: false, redirect: true })
-            this.props.closeNotification()
           }
           aria-labelledby="example-modal-sizes-title-lg"
         >

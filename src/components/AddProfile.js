@@ -54,12 +54,13 @@ class AddProfile extends React.Component {
     }
 
     this.setState({ validated: true });
-    this.setState({ displayNotification: true });
+
+    
   };
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to="/" />; 
     }
   };
 
@@ -74,6 +75,7 @@ class AddProfile extends React.Component {
         <Row>
           <h1>Add Profile</h1>
         </Row>
+        {this.props.showSpinner && <Row><h1>Loading .....</h1></Row>}
         <Row>
           <Card style={{ width: "100%" }}>
             <Card.Body>
@@ -185,7 +187,7 @@ class AddProfile extends React.Component {
                     </Form.Group>
                   </Col>
                   <Col xs="12" md="4">
-                        <Form.Group controlId="profileDocument" as={Row}>
+                        <Form.Group controlId="profileDocument" as={Row} >
                           <Form.Label column sm="8" md="12">
                               Upload Documents
                           </Form.Label>
@@ -298,9 +300,10 @@ class AddProfile extends React.Component {
         </Row>
         <Modal
           size="lg"
-          show={this.state.displayNotification}
+          show={this.props.showNotification}
           onHide={() =>
-            this.setState({ displayNotification: false, redirect: true })
+            //this.setState({ displayNotification: false, redirect: true })
+            this.props.closeNotification()
           }
           aria-labelledby="example-modal-sizes-title-lg"
         >

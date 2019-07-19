@@ -210,7 +210,7 @@ class AddProfile extends React.Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control
-                          required = {(this.state.disabledRefferedBy)? "true" : "false"}
+                          required = {(this.state.disabledRefferedBy)? true : false}
                           type="text"
                           placeholder="Enter Name"
                           disabled = {(this.state.disabledRefferedBy)? "disabled" : ""}

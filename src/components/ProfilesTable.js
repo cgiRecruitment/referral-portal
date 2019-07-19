@@ -591,7 +591,7 @@ class CustomTable extends React.Component {
                           <td>
                           <Form.Group controlId="referredBy" as={Row}>
                               <Form.Control
-                                required = {(this.state.disabledRefferedBy)? "true" : "false"}
+                                required = {(this.state.disabledRefferedBy)? true : false}
                                 type="text"
                                 defaultValue={referredBy}
                                 disabled = {(this.state.disabledRefferedBy)? "disabled" : ""}

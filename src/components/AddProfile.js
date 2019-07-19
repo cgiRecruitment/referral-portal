@@ -8,6 +8,7 @@ import Button from "react-bootstrap/es/Button";
 import { Redirect } from "react-router-dom";
 import Modal from "react-bootstrap/es/Modal";
 import RichEditor from "./RichEditor";
+import { constants } from "../utility/constants";
 
 class AddProfile extends React.Component {
   state = {
@@ -213,7 +214,7 @@ class AddProfile extends React.Component {
                           required = {(this.state.disabledRefferedBy)? true : false}
                           type="text"
                           placeholder="Enter Name"
-                          disabled = {(this.state.disabledRefferedBy)? "disabled" : ""}
+                          disabled = {(this.state.disabledRefferedBy)? constants.DISABLED : ""}
                           onChange={e =>
                             this.setState({ referredBy: e.target.value })
                           }

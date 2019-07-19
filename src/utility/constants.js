@@ -5,6 +5,7 @@ export const constants = {
   REJECTED: "Rejected",
   OFFER_MADE: "Offer Made",
   JOINED: "Joined",
+  DISABLED: "disabled",
   ACTIVE_PROFILES: [
     "Application Received",
     "Interview Scheduled",

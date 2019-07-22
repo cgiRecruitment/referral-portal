@@ -8,6 +8,7 @@ import Button from "react-bootstrap/es/Button";
 import { Redirect } from "react-router-dom";
 import Modal from "react-bootstrap/es/Modal";
 import RichEditor from "./RichEditor";
+import Spinner from "react-bootstrap/Spinner";
 import { constants } from "../utility/constants";
 
 class AddProfile extends React.Component {
@@ -81,11 +82,6 @@ class AddProfile extends React.Component {
         <Row>
           <h1>Add Profile</h1>
         </Row>
-        {this.props.showSpinner && (
-          <Row>
-            <h1>Loading .....</h1>
-          </Row>
-        )}
         <Row>
           <Card style={{ width: "100%" }}>
             <Card.Body>
@@ -320,7 +316,6 @@ class AddProfile extends React.Component {
               this.props.closeNotification();
               this.redirectToHome();
             }
-            //this.setState({ displayNotification: false, redirect: true })
           }
           aria-labelledby="example-modal-sizes-title-lg"
         >
@@ -338,6 +333,21 @@ class AddProfile extends React.Component {
                 </h5>
               </Col>
             </Row>
+          </Modal.Body>
+        </Modal>
+        <Modal size= "lg" 
+        show={this.props.showSpinner}
+        aria-labelledby="example-modal-sizes-title-lg"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-modal-sizes-title-lg"> Adding Candidate...</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="text-center">
+              <Spinner animation="border" variant="secondary" role="status"  >
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+          </div>
           </Modal.Body>
         </Modal>
       </Container>

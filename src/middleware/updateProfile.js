@@ -24,7 +24,7 @@ const updateProfile = store => next => async action => {
     if(res.data){
       dispatch(setNotification(res.data));
     }else{
-      dispatch(setGeneralError("Unable to update profile at this time"))
+      dispatch(setGeneralError(constants.UPDATE_PROFILE_ERROR))
     }
     dispatch(getProfiles());
   } catch (e) {

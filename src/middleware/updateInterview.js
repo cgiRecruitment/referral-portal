@@ -24,7 +24,7 @@ const updateInterview = store => next => async action => {
     if(res.data){
       dispatch(setNotification(res.data));
   }else{
-      dispatch(setGeneralError("Unable to update interview at this time"));
+      dispatch(setGeneralError(constants.UPDATE_INTERVIEW_ERROR));
   }
     dispatch(getInterviews());
   } catch (e) {

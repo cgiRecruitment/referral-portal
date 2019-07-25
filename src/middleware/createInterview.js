@@ -26,7 +26,7 @@ const createInterview = store => next => async action => {
       dispatch(setNotification(res.data));
       dispatch(getInterviews());
      }else{
-        dispatch(setGeneralError("Unable to create interview at this time"))
+        dispatch(setGeneralError(constants.CREATE_INTERVIEW_ERROR))
      }
   } catch (e) {
     console.error(e);

@@ -21,7 +21,7 @@ instance.interceptors.response.use(
     return response;
 }, function (error) {
     if (401 === error.response.status) {
-      store.dispatch(setGeneralError("Session Expired. Please login again."));
+      store.dispatch(setGeneralError(constants.SESSION_EXPIRED));
       store.dispatch(logout());
     } else {
         return Promise.reject(error);

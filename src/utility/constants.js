@@ -1,11 +1,12 @@
 export const constants = {
-  host: "http://localhost:8080",
+  host: "https://manage-candidates-test.cfapps.io",
 
   pageSize: 20,
   REJECTED: "Rejected",
   OFFER_MADE: "Offer Made",
   JOINED: "Joined",
   DISABLED: "disabled",
+  AUTH_TOKEN: "auth-token",
   ACTIVE_PROFILES: [
     "Application Received",
     "Interview Scheduled",

@@ -2,7 +2,7 @@ import {
   GET_MEETING_ROOM_LIST,
   setMeetingRoomList
 } from "../actions/prefillActions";
-import { constants } from "../utility/constants";
+import axiosClient from "../AxiosClient";
 
 const getMeetinRoomList = store => next => async action => {
   next(action);
@@ -14,12 +14,10 @@ const getMeetinRoomList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/interviews/locations`).then(
-      data => data.json()
-    );
+    const res = await axiosClient.get(`/interviews/locations`);
 
-    if (data) {
-      dispatch(setMeetingRoomList(data));
+    if (res.data) {
+      dispatch(setMeetingRoomList(res.data));
     }
   } catch (e) {
     console.error(e);

@@ -1,5 +1,5 @@
 import { GET_PROFILES, setProfiles } from "../actions/profileActions";
-import { constants } from "../utility/constants";
+import axiosClient from "../AxiosClient";
 
 const getProfile = store => next => async action => {
   next(action);
@@ -11,12 +11,10 @@ const getProfile = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/candidates/`).then(data =>
-      data.json()
-    );
+    const res = await axiosClient.get(`/candidates/`);
 
-    if (data) {
-      dispatch(setProfiles(data));
+    if (res.data) {
+      dispatch(setProfiles(res.data));
     }
   } catch (e) {
     console.error(e);

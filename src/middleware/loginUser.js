@@ -1,6 +1,6 @@
 import { LOGIN_USER, loginLogoutStatus } from "../actions/userActions";
 import { setGeneralError } from "../actions/errorActions";
-import { constants } from "../utility/constants";
+import axiosClient from "../AxiosClient";
 
 const loginUser = store => next => async action => {
   next(action);
@@ -12,24 +12,26 @@ const loginUser = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/login`, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify(action.user)
-    }).then(data => data.json());
+    const config = {
+      method: 'post',
+      url: '/login',
+      headers: { 'Content-Type': 'application/json' },
+      data : JSON.stringify(action.user)
+  }
 
-    if (data) {
-      if (data.loginStatus) {
-        sessionStorage.setItem("referralPortal-loginStatus", data.loginStatus);
-        sessionStorage.setItem("memberId", data.memberId);
-        sessionStorage.setItem("memberName", data.memberName);
+    const res = await axiosClient(config);
+    
+    if (res.data) {
+      if (res.data.loginStatus) {
+        sessionStorage.setItem("referralPortal-loginStatus", res.data.loginStatus);
+        sessionStorage.setItem("memberId", res.data.memberId);
+        sessionStorage.setItem("memberName", res.data.memberName);
+        sessionStorage.setItem("authToken", res.headers['auth-token']);
         window.location = "/";
       } else {
-        dispatch(setGeneralError(data.comment));
+        dispatch(setGeneralError(res.data.comment));
       }
-      dispatch(loginLogoutStatus(data.loginStatus));
+      dispatch(loginLogoutStatus(res.data.loginStatus));
     }
   } catch (e) {
     console.error(e);

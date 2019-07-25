@@ -1,5 +1,5 @@
 import { GET_SKILL_SET_LIST, setSkillSetList } from "../actions/prefillActions";
-import { constants } from "../utility/constants";
+import AxiosClient from "../AxiosClient";
 
 const getSkillSetList = store => next => async action => {
   next(action);
@@ -11,12 +11,10 @@ const getSkillSetList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/candidates/skills`).then(data =>
-      data.json()
-    );
+    const res = await AxiosClient.get('/candidates/skills');
 
-    if (data) {
-      dispatch(setSkillSetList(data));
+    if (res.data) {
+      dispatch(setSkillSetList(res.data));
     }
   } catch (e) {
     console.error(e);

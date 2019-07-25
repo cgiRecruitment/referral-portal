@@ -1,5 +1,5 @@
 import { GET_STATUS_LIST, setStatusList } from "../actions/prefillActions";
-import { constants } from "../utility/constants";
+import axiosClient from "../AxiosClient";
 
 const getStatusList = store => next => async action => {
   next(action);
@@ -11,12 +11,10 @@ const getStatusList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/candidates/status`).then(data =>
-      data.json()
-    );
+    const res = await axiosClient.get(`/candidates/status`);
 
-    if (data) {
-      dispatch(setStatusList(data));
+    if (res.data) {
+      dispatch(setStatusList(res.data));
     }
   } catch (e) {
     console.error(e);

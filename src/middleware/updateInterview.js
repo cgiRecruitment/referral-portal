@@ -1,7 +1,7 @@
 import { getInterviews, UPDATE_INTERVIEW } from "../actions/interviewActions";
-import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
+import axiosClient from "../AxiosClient";
 
 const updateInterview = store => next => async action => {
   next(action);
@@ -13,22 +13,20 @@ const updateInterview = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(
-      `${constants.host}/interviews/${
+    const config = {
+      method: 'put',
+      url: `/interviews/${
         action.interview.selectedInterview[0]["id"]
       }`,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "PUT",
-        body: JSON.stringify(action.interview)
-      }
-    ).then(
-      data => dispatch(setNotification(data.json())),
-      error =>
-        dispatch(setGeneralError("Unable to update interview at this time"))
-    );
+      headers: { 'Content-Type': 'application/json' },
+      data : JSON.stringify(action.interview)
+    }
+    const res = await axiosClient(config);
+    if(res.data){
+      dispatch(setNotification(res.data));
+  }else{
+      dispatch(setGeneralError("Unable to update interview at this time"));
+  }
     dispatch(getInterviews());
   } catch (e) {
     console.error(e);

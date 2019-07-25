@@ -2,7 +2,7 @@ import {
   GET_INTERVIEW_TYPE_LIST,
   setInterviewTypeList
 } from "../actions/prefillActions";
-import { constants } from "../utility/constants";
+import axiosClient from "../AxiosClient";
 
 const getInterviewTypes = store => next => async action => {
   next(action);
@@ -14,12 +14,10 @@ const getInterviewTypes = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/interviews/types`).then(data =>
-      data.json()
-    );
+    const res = await axiosClient.get(`/interviews/types`);
 
-    if (data) {
-      dispatch(setInterviewTypeList(data));
+    if (res.data) {
+      dispatch(setInterviewTypeList(res.data));
     }
   } catch (e) {
     console.error(e);

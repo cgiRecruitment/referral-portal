@@ -1,5 +1,5 @@
 import { GET_INTERVIEWS, setInterviews } from "../actions/interviewActions";
-import { constants } from "../utility/constants";
+import axiosClient from "../AxiosClient";
 
 const getInterview = store => next => async action => {
   next(action);
@@ -11,12 +11,10 @@ const getInterview = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(`${constants.host}/interviews/`).then(data =>
-      data.json()
-    );
+    const res = await axiosClient.get(`/interviews/`);
 
-    if (data) {
-      dispatch(setInterviews(data));
+    if (res.data) {
+      dispatch(setInterviews(res.data));
     }
   } catch (e) {
     console.error(e);

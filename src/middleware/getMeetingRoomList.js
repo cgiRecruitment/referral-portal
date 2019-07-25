@@ -3,6 +3,7 @@ import {
   setMeetingRoomList
 } from "../actions/prefillActions";
 import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const getMeetinRoomList = store => next => async action => {
   next(action);
@@ -14,7 +15,7 @@ const getMeetinRoomList = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const res = await axiosClient.get(`/interviews/locations`);
+    const res = await axiosClient.get(constants.URLS.INTERVIEW_LOCATION);
 
     if (res.data) {
       dispatch(setMeetingRoomList(res.data));

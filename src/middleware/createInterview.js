@@ -2,6 +2,7 @@ import { CREATE_INTERVIEW, getInterviews } from "../actions/interviewActions";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
 import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const createInterview = store => next => async action => {
   next(action);
@@ -16,7 +17,7 @@ const createInterview = store => next => async action => {
     action.interview.candidateId = action.interview.selectedProfile[0]["id"];
     const config = {
       method: 'post',
-      url: `/interviews`, 
+      url: constants.URLS.INTERVIEW, 
       headers: { 'Content-Type': 'application/json' },
       data : JSON.stringify(action.interview)
     }

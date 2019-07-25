@@ -2,6 +2,7 @@ import { CREATE_PROFILE, getProfiles } from "../actions/profileActions";
 import { setNotification } from "../actions/notificiationActions";
 import { endSpinner, loadSpinner } from "../actions/loadingSpinnerActions";
 import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const createProfile = store => next => async action => {
   next(action);
@@ -26,7 +27,7 @@ const createProfile = store => next => async action => {
 
     const config = {
       method: 'post',
-      url: `/candidates/create`,
+      url: constants.URLS.CREATE_PROFILE,
       headers: { 'Content-Type': 'application/json' },
       data : formData
     }

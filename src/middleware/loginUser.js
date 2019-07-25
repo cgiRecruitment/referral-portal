@@ -1,6 +1,7 @@
 import { LOGIN_USER, loginLogoutStatus } from "../actions/userActions";
 import { setGeneralError } from "../actions/errorActions";
 import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const loginUser = store => next => async action => {
   next(action);
@@ -14,7 +15,7 @@ const loginUser = store => next => async action => {
   try {
     const config = {
       method: 'post',
-      url: '/login',
+      url: constants.URLS.LOGIN,
       headers: { 'Content-Type': 'application/json' },
       data : JSON.stringify(action.user)
   }

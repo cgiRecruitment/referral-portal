@@ -3,6 +3,8 @@ import {
   setInterviewTypeList
 } from "../actions/prefillActions";
 import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
+
 
 const getInterviewTypes = store => next => async action => {
   next(action);
@@ -14,7 +16,7 @@ const getInterviewTypes = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const res = await axiosClient.get(`/interviews/types`);
+    const res = await axiosClient.get(constants.URLS.INTERVIEW_TYPE);
 
     if (res.data) {
       dispatch(setInterviewTypeList(res.data));

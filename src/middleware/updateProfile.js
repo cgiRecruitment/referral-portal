@@ -2,6 +2,7 @@ import { getProfiles, UPDATE_PROFILE } from "../actions/profileActions";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
 import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const updateProfile = store => next => async action => {
   next(action);
@@ -15,9 +16,7 @@ const updateProfile = store => next => async action => {
   try {
     const config = {
       method: 'put',
-      url: `/candidates/candidate/${
-        action.profile.selectedProfile[0]["id"]
-      }`,
+      url: constants.URLS.UPDATE_PROFILE.replace('%PATH_PARAM%', action.profile.selectedProfile[0]["id"]),
       headers: { 'Content-Type': 'application/json' },
       data : action.profile
     }

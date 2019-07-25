@@ -27,7 +27,7 @@ const loginUser = store => next => async action => {
         sessionStorage.setItem("referralPortal-loginStatus", res.data.loginStatus);
         sessionStorage.setItem("memberId", res.data.memberId);
         sessionStorage.setItem("memberName", res.data.memberName);
-        sessionStorage.setItem("authToken", res.headers['auth-token']);
+        sessionStorage.setItem(constants.AUTH_TOKEN, res.headers[constants.AUTH_TOKEN]);
         window.location = "/";
       } else {
         dispatch(setGeneralError(res.data.comment));

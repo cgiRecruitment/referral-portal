@@ -9,7 +9,7 @@ const instance = axios.create({
   });
 
 instance.interceptors.request.use((config)=>{
-    const token = sessionStorage.getItem("authToken");
+    const token = sessionStorage.getItem(constants.AUTH_TOKEN);
     if(token){
       config.headers[constants.AUTH_TOKEN] = token;
     }

@@ -39,7 +39,7 @@ const applyPagination = (activePage, profiles) => {
 };
 
 const applyFiltering = (statusList, profiles) => {
-  return statusList === null
+  return (statusList === null || statusList.length ===0)
     ? profiles
     : profiles.filter(
         profile => profile.status && statusList.includes(profile.status)

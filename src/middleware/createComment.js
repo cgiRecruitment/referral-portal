@@ -1,6 +1,7 @@
 import { CREATE_COMMENT, getProfiles } from "../actions/profileActions";
-import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
+import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const createComment = store => next => async action => {
   next(action);
@@ -12,21 +13,16 @@ const createComment = store => next => async action => {
   const dispatch = store.dispatch;
 
   try {
-    const data = await fetch(
-      `${constants.host}/candidates/candidate/${
-        action.comment.selectedProfile[0]["id"]
-      }/comments`,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "POST",
-        body: JSON.stringify(action.comment)
-      }
-    ).then(data => data.json());
+    const config = {
+      method: 'post',
+      url: constants.URLS.CREATE_COMMENT.replace('%PATH_PARAM%',action.comment.selectedProfile[0]["id"]),
+      headers: { 'Content-Type': 'application/json' },
+      data : JSON.stringify(action.comment)
+    }
 
-    if (data) {
-      dispatch(setNotification(data));
+    const res = await axiosClient(config);
+    if (res.data) {
+      dispatch(setNotification(res.data));
       dispatch(getProfiles());
     }
   } catch (e) {

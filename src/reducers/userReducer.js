@@ -18,6 +18,7 @@ function userReducer(state = initialState, action) {
       };
     case LOGOUT_USER:
       window.sessionStorage.removeItem("referralPortal-loginStatus");
+      window.sessionStorage.removeItem("authToken");
       return {
         loginStatus: false
       };

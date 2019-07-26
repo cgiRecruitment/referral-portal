@@ -8,7 +8,7 @@ import Button from "react-bootstrap/es/Button";
 
 class Login extends React.Component {
   state = {
-    email: "",
+    username: "",
     password: ""
   };
 
@@ -23,7 +23,7 @@ class Login extends React.Component {
       e.preventDefault();
       e.stopPropagation();
       this.props.login({
-        email: this.state.email,
+        username: this.state.username,
         password: hash(this.state.password)
       });
     }
@@ -55,7 +55,7 @@ class Login extends React.Component {
                       type="email"
                       placeholder="Ex: user@cgi.com"
                       required
-                      onChange={e => this.setState({ email: e.target.value })}
+                      onChange={e => this.setState({ username: e.target.value })}
                     />
                   </Form.Group>
                   <Form.Group controlId="username" as={Row}>

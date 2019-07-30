@@ -350,9 +350,10 @@ class AddProfile extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div className="text-center">
-            <Spinner animation="border" variant="secondary" role="status"  >
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+              <Spinner animation="border" variant="secondary" role="status"  >
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+
           </div>
           </Modal.Body>
         </Modal>

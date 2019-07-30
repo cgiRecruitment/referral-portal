@@ -1,7 +1,8 @@
 import { CREATE_PROFILE, getProfiles } from "../actions/profileActions";
-import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 import { endSpinner, loadSpinner } from "../actions/loadingSpinnerActions";
+import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const createProfile = store => next => async action => {
   next(action);
@@ -24,16 +25,18 @@ const createProfile = store => next => async action => {
 
     formData.append("candidate", candidateInformation.details);
 
-    const data = await fetch(`${constants.host}/candidates/create`, {
-     
-      method: "POST",
-      body: formData
-    }).then(data => data.json());
+    const config = {
+      method: 'post',
+      url: constants.URLS.CREATE_PROFILE,
+      headers: { 'Content-Type': 'application/json' },
+      data : formData
+    }
+    const res = await axiosClient(config);
 
     dispatch(endSpinner());
     
-    if (data) {
-      dispatch(setNotification(data));
+    if (res.data) {
+      dispatch(setNotification(res.data));
       dispatch(getProfiles());
     }
   } catch (e) {

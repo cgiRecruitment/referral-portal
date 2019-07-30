@@ -5,8 +5,6 @@ import {login, logout} from "../actions/userActions";
 import {setGeneralError} from "../actions/errorActions";
 
 const mapStateToProps = state => ({
-    skillSets: state.prefillReducer.skillSet,
-    statusList: state.prefillReducer.status,
     generalError: state.errorReducer.generalError
 });
 

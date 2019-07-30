@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, HashRouter } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./containers/dashboard";
 import ViewProfiles from "./containers/viewProfiles";
 import AddProfile from "./containers/addProfile";
 import Calender from "./containers/calender";
@@ -10,12 +10,6 @@ import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
 
 class App extends React.Component {
-  componentWillMount() {
-    this.props.getProfiles();
-    this.props.getInterviews();
-    this.props.getStatusList();
-    this.props.getSkillSetList();
-  }
 
   render() {
     return (
@@ -31,20 +25,7 @@ class App extends React.Component {
 
         {this.props.loginStatus ? (
           <HashRouter>
-            <Route
-              path="/"
-              exact
-              render={() => (
-                <Dashboard
-                  profiles={this.props.activeProfiles}
-                  statusList={this.props.statusList}
-                  stats={this.props.stats}
-                  createComment={this.props.createComment}
-                  skillSets={this.props.skillSets}
-                  updateProfile={this.props.updateProfile}
-                />
-              )}
-            />
+            <Route path="/" exact render={() => <Dashboard />} />
             <Route exact path="/profiles/" render={() => <ViewProfiles />} />
             <Route exact path="/add-profile/" render={() => <AddProfile />} />
             <Route

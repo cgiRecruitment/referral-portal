@@ -1,7 +1,8 @@
 import { CREATE_INTERVIEW, getInterviews } from "../actions/interviewActions";
-import { constants } from "../utility/constants";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
+import axiosClient from "../AxiosClient";
+import { constants } from "../utility/constants";
 
 const createInterview = store => next => async action => {
   next(action);
@@ -14,18 +15,19 @@ const createInterview = store => next => async action => {
 
   try {
     action.interview.candidateId = action.interview.selectedProfile[0]["id"];
-    await fetch(`${constants.host}/interviews`, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify(action.interview)
-    }).then(
-      data => dispatch(setNotification(data.json())),
-      error =>
-        dispatch(setGeneralError("Unable to create interview at this time"))
-    );
-    dispatch(getInterviews());
+    const config = {
+      method: 'post',
+      url: constants.URLS.INTERVIEW, 
+      headers: { 'Content-Type': 'application/json' },
+      data : JSON.stringify(action.interview)
+    }
+    const res = await axiosClient(config);
+     if(res.data){
+      dispatch(setNotification(res.data));
+      dispatch(getInterviews());
+     }else{
+        dispatch(setGeneralError(constants.CREATE_INTERVIEW_ERROR))
+     }
   } catch (e) {
     console.error(e);
   }

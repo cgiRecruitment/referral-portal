@@ -24,7 +24,7 @@ export const constants = {
     STATUS: "/candidates/status",
     LOGIN: "/login",
     UPDATE_INTERVIEW: "/interviews/%PATH_PARAM%",
-    UPDATE_PROFILE: "/candidates/candidate/"
+    UPDATE_PROFILE: "/candidates/candidate/%PATH_PARAM%"
   },
   SESSION_EXPIRED: "Session Expired. Please login again",
   UPDATE_INTERVIEW_ERROR: "Unable to update interview at this time",

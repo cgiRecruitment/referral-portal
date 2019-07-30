@@ -1,6 +1,5 @@
 ---
 applications:
 - name: referral-portal
-  memory: 1024M
-  command: npm start
-  timeout: 60
+  path: build
+  buildpack: staticfile_buildpack

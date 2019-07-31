@@ -24,7 +24,7 @@ export const constants = {
     STATUS: "/candidates/status",
     LOGIN: "/login",
     UPDATE_INTERVIEW: "/interviews/%PATH_PARAM%",
-    UPDATE_PROFILE: "/candidates/candidate/%PATH_PARAM%"
+    UPDATE_PROFILE: "/candidates/candidate/%PATH_PARAM%",
     GET_FILE_DOWNLOAD_LINK: "/candidates/download/%PATH_PARAM%"
   },
   SESSION_EXPIRED: "Session Expired. Please login again",

@@ -17,6 +17,7 @@ import { updateProfile } from "./middleware/updateProfile";
 import { getInterviewTypes } from "./middleware/getInterviewTypes";
 import { createComment } from "./middleware/createComment";
 import { updateInterview } from "./middleware/updateInterview";
+import { getFileDownloadLink } from "./middleware/downloadFile";
 
 const initialState = {};
 const enhancers = [];
@@ -36,6 +37,7 @@ const middleware = [
   updateInterview,
   getInterviewTypes,
   createComment,
+  getFileDownloadLink,
   thunk,
   routerMiddleware()
 ];

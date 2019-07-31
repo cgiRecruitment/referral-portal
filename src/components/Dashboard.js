@@ -136,6 +136,7 @@ class Dashboard extends React.Component {
             createComment={this.props.createComment}
             skillSets={this.props.skillSets}
             updateProfile={this.props.updateProfile}
+            getFileDownloadLink={this.props.getFileDownloadLink}
           />
         </Row>
       </Container>

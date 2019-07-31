@@ -335,8 +335,10 @@ class AddProfile extends React.Component {
             </Row>
           </Modal.Body>
         </Modal>
+        
         <Modal size= "lg" 
         show={this.props.showSpinner}
+        onHide={() => this.props.closeNotification()}
         aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Header closeButton>
@@ -347,6 +349,7 @@ class AddProfile extends React.Component {
               <Spinner animation="border" variant="secondary" role="status"  >
                 <span className="sr-only">Loading...</span>
               </Spinner>
+
           </div>
           </Modal.Body>
         </Modal>

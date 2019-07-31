@@ -25,9 +25,11 @@ export const constants = {
     LOGIN: "/login",
     UPDATE_INTERVIEW: "/interviews/%PATH_PARAM%",
     UPDATE_PROFILE: "/candidates/candidate/%PATH_PARAM%"
+    GET_FILE_DOWNLOAD_LINK: "/candidates/download/%PATH_PARAM%"
   },
   SESSION_EXPIRED: "Session Expired. Please login again",
   UPDATE_INTERVIEW_ERROR: "Unable to update interview at this time",
   UPDATE_PROFILE_ERROR: "Unable to update profile at this time",
   CREATE_INTERVIEW_ERROR: "Unable to create interview at this time",
+  FILE_DOWNLOAD_ERROR: "Unable to download file"
 };

@@ -5,17 +5,13 @@ const initialState = {
 };
 
 export default function downloadFileReducer( state = initialState, action ) {
-    switch(action.type) {
 
-        case FILE_DOWNLOAD_LINK: {
-            return state = {
-                ...state,
-                downloadFile: true
-            }
+    if(action.type ===  FILE_DOWNLOAD_LINK) {
+        return state = {
+            ...state,
+            downloadFile: true
         }
-
-        default: {
-            return state;
-        }
+    }else{
+        return state;
     }
 }

@@ -338,11 +338,7 @@ class AddProfile extends React.Component {
         
         <Modal size= "lg" 
         show={this.props.showSpinner}
-        onHide={
-          () => {
-            this.props.closeNotification();
-          }
-        }
+        onHide={() => this.props.closeNotification()}
         aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Header closeButton>

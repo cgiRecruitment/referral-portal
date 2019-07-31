@@ -33,6 +33,7 @@ class CustomTable extends React.Component {
     interviewer: "",
     date: "",
     candidateId: "",
+    downloadFile: "",
     memberId: sessionStorage.getItem("memberId")
   };
 
@@ -90,6 +91,10 @@ class CustomTable extends React.Component {
     this.setState({ comment: comment });
   };
 
+  downloadFiles = (files) => {
+    this.props.getFileDownloadLink(files)
+  };
+
   render() {
     const {
       name,
@@ -103,7 +108,8 @@ class CustomTable extends React.Component {
       statusLastUpdated,
       comments,
       interviews,
-      phone
+      phone,
+      filesInformation
     } =
       this.state && this.state.selectedProfile
         ? this.state.selectedProfile[0]
@@ -144,7 +150,21 @@ class CustomTable extends React.Component {
                       <tr>
                         <td>Skills</td>
                         <td>{skill}</td>
-                      </tr>
+                      </tr> 
+                      <tr>
+                        <td>Documents</td>
+                        <td>
+                      {filesInformation &&
+                        filesInformation.map(files => (
+                          <tr>
+                            <td> <a
+                      href="javascript:void(0)"
+                      onClick={() => this.downloadFiles(files)}>{files.fileName}</a></td>
+                          </tr>
+                        ))}  
+                                                            
+                  </td>
+                      </tr> 
                     </tbody>
                   </Table>
                 </Col>

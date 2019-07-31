@@ -17,6 +17,7 @@ import { logout } from "../actions/userActions";
 import { checkStatus } from "../utility/checkLoginStatus";
 import { stat } from "fs";
 import { createComment } from "../actions/profileActions";
+import { getFileDownloadLink } from "../actions/downloadFileActions";
 
 checkStatus();
 
@@ -27,7 +28,8 @@ const mapStateToProps = state => ({
   loginStatus: state.userReducer.loginStatus,
   interviews: state.interviewReducer.interviews,
   stats: state.profileReducer.stats,
-  skillSets: state.prefillReducer.skillSet
+  skillSets: state.prefillReducer.skillSet,
+  downloadFile: state.downloadFileReducer.downloadFile
 });
 
 const mapDispatchToProps = dispatch =>
@@ -43,7 +45,8 @@ const mapDispatchToProps = dispatch =>
       createProfile,
       logout,
       createComment,
-      getSkillSetList
+      getSkillSetList,
+      getFileDownloadLink
     },
     dispatch
   );

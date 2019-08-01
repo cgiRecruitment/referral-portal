@@ -34,7 +34,8 @@ class CustomTable extends React.Component {
     date: "",
     candidateId: "",
     downloadFile: "",
-    memberId: sessionStorage.getItem("memberId")
+    memberId: sessionStorage.getItem("memberId"),
+      enableAddCommentButton: false
   };
 
   componentWillMount() {
@@ -74,7 +75,7 @@ class CustomTable extends React.Component {
 
   addCandidateComment = e => {
     const form = e.currentTarget;
-    if (form.checkValidity() === false) {
+    if (form.checkValidity() === false || !this.state.comment) {
       e.preventDefault();
       e.stopPropagation();
     } else {
@@ -84,7 +85,7 @@ class CustomTable extends React.Component {
         this.setState({ addComment: false });
       });
     }
-    this.setState({ validated: true });
+    this.setState({ validated: true, comment: null});
   };
 
   setComment = comment => {
@@ -322,7 +323,7 @@ class CustomTable extends React.Component {
                 <Row>
                   <Col sm="9" />
                   <Col sm="3">
-                    <Button type="submit">Add comment</Button>
+                    <Button type="submit" disabled={this.state.editorState && !this.state.editorState.getCurrentContent().hasText()}>Add comment</Button>
                   </Col>
                 </Row>
               </Form>

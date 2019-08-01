@@ -12,9 +12,13 @@ class RichEditor extends React.Component {
     this.focus = () => this.refs.editor.focus();
     this.onChange = editorState => {
       this.setState({ editorState });
+      if (editorState.getCurrentContent().hasText())  {
       this.props.setContent(
         JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
-      );
+      );  }
+      else {
+          this.props.setContent(null)
+      }
     };
 
     this.handleKeyCommand = command => this._handleKeyCommand(command);

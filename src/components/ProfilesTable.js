@@ -34,8 +34,7 @@ class CustomTable extends React.Component {
     date: "",
     candidateId: "",
     downloadFile: "",
-    memberId: sessionStorage.getItem("memberId"),
-      enableAddCommentButton: false
+    memberId: sessionStorage.getItem("memberId")
   };
 
   componentWillMount() {
@@ -323,7 +322,7 @@ class CustomTable extends React.Component {
                 <Row>
                   <Col sm="9" />
                   <Col sm="3">
-                    <Button type="submit" disabled={this.state.editorState && !this.state.editorState.getCurrentContent().hasText()}>Add comment</Button>
+                    <Button type="submit">Add comment</Button>
                   </Col>
                 </Row>
               </Form>

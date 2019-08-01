@@ -132,7 +132,7 @@ class CustomTable extends React.Component {
             <Modal.Body>
               <Row>
                 <Col>
-                  <h5>Personal Information</h5>
+                  <h5>Profile Information</h5>
                   <Table striped bordered hover>
                     <tbody>
                       <tr>

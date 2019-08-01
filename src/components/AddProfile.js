@@ -90,7 +90,7 @@ class AddProfile extends React.Component {
                 validated={this.state.validated}
                 onSubmit={e => this.addProfile(e)}
               >
-                <h5>Personal Information</h5>
+                <h5>Profile Information</h5>
                 <hr />
                 <Row>
                   <Col xs="12" md="4">

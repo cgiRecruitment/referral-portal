@@ -90,7 +90,7 @@ class AddProfile extends React.Component {
                 validated={this.state.validated}
                 onSubmit={e => this.addProfile(e)}
               >
-                <h5>Personal Info</h5>
+                <h5>Personal Information</h5>
                 <hr />
                 <Row>
                   <Col xs="12" md="4">
@@ -168,6 +168,27 @@ class AddProfile extends React.Component {
                     </Form.Group>
                   </Col>
                   <Col xs="12" md="4">
+                    <Form.Group controlId="profileStatus" as={Row}>
+                      <Form.Label column sm="4" md="12">
+                        Status
+                      </Form.Label>
+                      <Col sm="10">
+                        <Form.Control
+                          required
+                          as="select"
+                          onChange={e =>
+                            this.setState({ status: e.target.value })
+                          }
+                        >
+                          <option />
+                          {this.props.statusList.map(status => (
+                            <option value={status}>{status}</option>
+                          ))}
+                        </Form.Control>
+                      </Col>
+                    </Form.Group>
+                  </Col>
+                  <Col xs="12" md="4">
                     <Form.Group controlId="profileInNetherlands" as={Row}>
                       <Form.Label column sm="8" md="12">
                         Available in NL
@@ -209,7 +230,7 @@ class AddProfile extends React.Component {
                     </Form.Group>
                   </Col>
                 </Row>
-                <h5>Referral Info</h5>
+                <h5>Referral Information</h5>
                 <hr />
                 <Row>
                   <Col xs="12" md="4">
@@ -261,30 +282,9 @@ class AddProfile extends React.Component {
                   <Col />
                 </Row>
                 <Row />
-                <h5>Status Info</h5>
+                <h5>Comments</h5>
                 <hr />
                 <Row>
-                  <Col xs="12" md="4">
-                    <Form.Group controlId="profileStatus" as={Row}>
-                      <Form.Label column sm="4" md="12">
-                        Status
-                      </Form.Label>
-                      <Col sm="10">
-                        <Form.Control
-                          required
-                          as="select"
-                          onChange={e =>
-                            this.setState({ status: e.target.value })
-                          }
-                        >
-                          <option />
-                          {this.props.statusList.map(status => (
-                            <option value={status}>{status}</option>
-                          ))}
-                        </Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
                   <Col xs="12" md="8">
                     <Form.Group controlId="profileStatus" as={Row}>
                       <Form.Label column sm="4" md="12">

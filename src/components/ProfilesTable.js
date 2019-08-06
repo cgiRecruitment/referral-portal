@@ -74,17 +74,14 @@ class CustomTable extends React.Component {
 
   addCandidateComment = e => {
     const form = e.currentTarget;
-    if (form.checkValidity() === false || !this.state.comment) {
-      e.preventDefault();
-      e.stopPropagation();
-    } else {
-      e.preventDefault();
-      e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
+    if (form.checkValidity() && this.state.comment) {
       this.props.createComment(this.state).then(() => {
         this.setState({ addComment: false });
       });
     }
-    this.setState({ validated: true, comment: null});
+    this.setState({ validated: true, comment: ""});
   };
 
   setComment = comment => {

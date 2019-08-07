@@ -2,7 +2,6 @@ import { EditorState, ContentState, convertFromRaw } from "draft-js";
 import { isNull, isUndefined } from "util";
 
 export function getEditorState(comment) {
-  console.log(comment);
   if (isNull(comment) || isUndefined(comment)) {
     return EditorState.createEmpty();
   }

@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 class Header extends React.Component {
   render() {
     return (
-      <NavBar bg="dark" variant="dark" expand="lg">
+      <NavBar bg="dark" variant="dark" expand="lg" data-test="headerComponent">
         <Container>
           <NavBar.Brand href="#/">
             <img alt="Cgi" src={logo} height={"70"} />
@@ -15,16 +15,26 @@ class Header extends React.Component {
           <NavBar.Toggle aria-controls="basic-navbar-nav" />
           <NavBar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#/">Dashboard</Nav.Link>
-              <Nav.Link href="#/profiles">View Profiles</Nav.Link>
-              <Nav.Link href="#/add-profile">Add Profiles</Nav.Link>
-              <Nav.Link href="#/calender">Interview Calender</Nav.Link>
+              <Nav.Link href="#/" data-test="headerLinks">
+                Dashboard
+              </Nav.Link>
+              <Nav.Link href="#/profiles" data-test="headerLinks">
+                View Profiles
+              </Nav.Link>
+              <Nav.Link href="#/add-profile" data-test="headerLinks">
+                Add Profiles
+              </Nav.Link>
+              <Nav.Link href="#/calender" data-test="headerLinks">
+                Interview Calender
+              </Nav.Link>
             </Nav>
+            <Nav>Welcome&nbsp;{sessionStorage.getItem("memberName")}&nbsp;</Nav>
             <Nav>
-              Welcome&nbsp;{sessionStorage.getItem("memberName")}&nbsp;
-            </Nav>
-            <Nav>
-              <a href="javascript:void(0)" onClick={() => this.props.logout()}>
+              <a
+                href="javascript:void(0)"
+                onClick={() => this.props.logout()}
+                data-test="logout"
+              >
                 Logout
               </a>
             </Nav>

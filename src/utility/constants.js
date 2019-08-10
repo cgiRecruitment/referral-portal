@@ -1,5 +1,5 @@
 export const constants = {
-  host: "https://manage-candidates-test.cfapps.io",
+  host: "http://ec2-34-240-233-198.eu-west-1.compute.amazonaws.com/api",
 
   pageSize: 20,
   REJECTED: "Rejected",
@@ -13,9 +13,9 @@ export const constants = {
     "Offer Made",
     "On Hold"
   ],
-  URLS:{
+  URLS: {
     CREATE_COMMENT: "/candidates/candidate/%PATH_PARAM%/comments",
-    INTERVIEW:"/interviews",
+    INTERVIEW: "/interviews",
     CREATE_PROFILE: "/candidates/create",
     INTERVIEW_TYPE: "/interviews/types",
     INTERVIEW_LOCATION: "/interviews/locations",

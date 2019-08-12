@@ -3,7 +3,8 @@ import {
   CREATE_PROFILE,
   SET_STATS,
   SET_PROFILES,
-  UPDATE_PROFILE
+  UPDATE_PROFILE,
+  UPDATE_PROFILE_STORE
 } from "../actions/profileActions";
 import { APPLY_PAGINATION } from "../actions/paginationActions";
 import { constants } from "../utility/constants";
@@ -126,6 +127,30 @@ function profileReducer(state = initialState, action) {
           applyFiltering(action.payload, state.allButRejectedProfiles)
         )
       };
+
+    case UPDATE_PROFILE_STORE:
+        return {
+          ...state,
+          profiles: state.profiles.map((profile, index) => {
+            if(profile.id === action.profile.id) {
+              return action.profile;
+            }
+            return profile;
+          }),
+          paginatedProfiles: state.paginatedProfiles && state.paginatedProfiles.map((profile,index) => {
+            if(profile.id === action.profile.id) {
+              return action.profile;
+            }
+            return profile;
+          }),
+          filteredProfiles : state.filteredProfiles && state.filteredProfiles.map((profile,index) => {
+            if(profile.id === action.profile.id) {
+              return action.profile;
+            }
+            return profile;
+          })
+        };
+    
 
     default: {
       return state;

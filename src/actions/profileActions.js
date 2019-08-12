@@ -4,6 +4,7 @@ export const CREATE_PROFILE = "CREATE_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const CREATE_COMMENT = "CREATE_COMMENT";
 export const SET_STATS = "SET_STATS";
+export const UPDATE_PROFILE_STORE = "UPDATE_PROFILE_STORE";
 
 export const setProfiles = data => {
     return {
@@ -37,5 +38,12 @@ export const createComment = comment => {
     return {
         type: CREATE_COMMENT,
         comment
-    }
-}
+    };
+};
+
+export const updateProfileStore = profile =>{
+    return{
+        type: UPDATE_PROFILE_STORE,
+        profile
+    };
+};

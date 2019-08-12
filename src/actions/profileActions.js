@@ -41,8 +41,8 @@ export const createComment = comment => {
     };
 };
 
-export const updateProfileStore = profile =>{
-    return{
+export const updateProfileStore = profile => {
+    return {
         type: UPDATE_PROFILE_STORE,
         profile
     };

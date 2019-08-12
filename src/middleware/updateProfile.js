@@ -22,11 +22,11 @@ const updateProfile = store => next => async action => {
     }
     const res = await axiosClient(config);
     if(res.data){
+      dispatch(updateProfileStore(res.data));
       dispatch(setNotification(res.data));
     }else{
       dispatch(setGeneralError(constants.UPDATE_PROFILE_ERROR))
     }
-    dispatch(updateProfileStore(res.data));
   } catch (e) {
     console.error(e);
   }

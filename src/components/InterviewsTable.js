@@ -1,13 +1,13 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import Modal from "react-bootstrap/es/Modal";
+import Modal from "react-bootstrap/Modal";
 import { Row } from "react-bootstrap";
-import Col from "react-bootstrap/es/Col";
+import Col from "react-bootstrap/Col";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Form from "react-bootstrap/es/Form";
-import Button from "react-bootstrap/es/Button";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 library.add(faEye);
 library.add(faEdit);
 

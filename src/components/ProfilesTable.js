@@ -1,9 +1,9 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Status from "./Status";
-import Modal from "react-bootstrap/es/Modal";
+import Modal from "react-bootstrap/Modal";
 import { Row } from "react-bootstrap";
-import Col from "react-bootstrap/es/Col";
+import Col from "react-bootstrap/Col";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faEye,
@@ -11,8 +11,8 @@ import {
   faCalendarPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Form from "react-bootstrap/es/Form";
-import Button from "react-bootstrap/es/Button";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { getProfiles } from "../actions/profileActions";
 import { constants } from "../utility/constants";
 import FilterComponent from "./SelectFilter";
@@ -91,8 +91,8 @@ class CustomTable extends React.Component {
     this.setState({ comment: comment });
   };
 
-  downloadFiles = (files) => {
-    this.props.getFileDownloadLink(files)
+  downloadFiles = files => {
+    this.props.getFileDownloadLink(files);
   };
 
   render() {
@@ -158,21 +158,26 @@ class CustomTable extends React.Component {
                       <tr>
                         <td>Last update</td>
                         <td>{statusLastUpdated}</td>
-                      </tr> 
+                      </tr>
                       <tr>
                         <td>Documents</td>
                         <td>
-                      {filesInformation &&
-                        filesInformation.map(files => (
-                          <tr>
-                            <td> <a
-                      href="javascript:void(0)"
-                      onClick={() => this.downloadFiles(files)}>{files.fileName}</a></td>
-                          </tr>
-                        ))}  
-                                                            
-                  </td>
-                      </tr> 
+                          {filesInformation &&
+                            filesInformation.map(files => (
+                              <tr>
+                                <td>
+                                  {" "}
+                                  <a
+                                    href="javascript:void(0)"
+                                    onClick={() => this.downloadFiles(files)}
+                                  >
+                                    {files.fileName}
+                                  </a>
+                                </td>
+                              </tr>
+                            ))}
+                        </td>
+                      </tr>
                     </tbody>
                   </Table>
                 </Col>
@@ -436,9 +441,10 @@ class CustomTable extends React.Component {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <Row>
+              <Row>
                 <Col sm="9">
-                  <h5>Edit Candidate</h5></Col>
+                  <h5>Edit Candidate</h5>
+                </Col>
                 <Col sm="3">
                   <a
                     href="javascript:void(0)"
@@ -600,12 +606,18 @@ class CustomTable extends React.Component {
                         <tr>
                           <td>Referred by</td>
                           <td>
-                          <Form.Group controlId="referredBy" as={Row}>
+                            <Form.Group controlId="referredBy" as={Row}>
                               <Form.Control
-                                required = {(this.state.disabledRefferedBy)? true : false}
+                                required={
+                                  this.state.disabledRefferedBy ? true : false
+                                }
                                 type="text"
                                 defaultValue={referredBy}
-                                disabled = {(this.state.disabledRefferedBy)? "disabled" : ""}
+                                disabled={
+                                  this.state.disabledRefferedBy
+                                    ? "disabled"
+                                    : ""
+                                }
                                 onChange={e =>
                                   this.setState({ referredBy: e.target.value })
                                 }

@@ -1,10 +1,10 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Card from "react-bootstrap/es/Card";
-import Form from "react-bootstrap/es/Form";
-import Col from "react-bootstrap/es/Col";
-import Button from "react-bootstrap/es/Button";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 class Login extends React.Component {
   state = {
@@ -12,10 +12,9 @@ class Login extends React.Component {
     password: ""
   };
 
-
   login = e => {
     const form = e.currentTarget;
-    let hash = require('object-hash')
+    let hash = require("object-hash");
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
@@ -55,7 +54,9 @@ class Login extends React.Component {
                       type="email"
                       placeholder="Ex: user@cgi.com"
                       required
-                      onChange={e => this.setState({ username: e.target.value })}
+                      onChange={e =>
+                        this.setState({ username: e.target.value })
+                      }
                     />
                   </Form.Group>
                   <Form.Group controlId="username" as={Row}>

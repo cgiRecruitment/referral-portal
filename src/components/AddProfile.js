@@ -1,12 +1,12 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Card from "react-bootstrap/es/Card";
-import Form from "react-bootstrap/es/Form";
-import Col from "react-bootstrap/es/Col";
-import Button from "react-bootstrap/es/Button";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
-import Modal from "react-bootstrap/es/Modal";
+import Modal from "react-bootstrap/Modal";
 import RichEditor from "./RichEditor";
 import Spinner from "react-bootstrap/Spinner";
 import { constants } from "../utility/constants";
@@ -245,7 +245,11 @@ class AddProfile extends React.Component {
                           label="Yes"
                           type="radio"
                           name={`isReferral`}
-                          onChange={e => {this.setState({referred: true, disabledRefferedBy: false});
+                          onChange={e => {
+                            this.setState({
+                              referred: true,
+                              disabledRefferedBy: false
+                            });
                           }}
                         />
                         <Form.Check
@@ -254,7 +258,12 @@ class AddProfile extends React.Component {
                           label="No"
                           type="radio"
                           name={`isReferral`}
-                          onChange={e => {this.setState({referred: false, referredBy: null, disabledRefferedBy: true});
+                          onChange={e => {
+                            this.setState({
+                              referred: false,
+                              referredBy: null,
+                              disabledRefferedBy: true
+                            });
                           }}
                         />
                       </Col>
@@ -267,10 +276,16 @@ class AddProfile extends React.Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control
-                          required = {(this.state.disabledRefferedBy)? true : false}
+                          required={
+                            this.state.disabledRefferedBy ? true : false
+                          }
                           type="text"
                           placeholder="Enter Name"
-                          disabled = {(this.state.disabledRefferedBy)? constants.DISABLED : ""}
+                          disabled={
+                            this.state.disabledRefferedBy
+                              ? constants.DISABLED
+                              : ""
+                          }
                           onChange={e =>
                             this.setState({ referredBy: e.target.value })
                           }
@@ -311,12 +326,10 @@ class AddProfile extends React.Component {
         <Modal
           size="lg"
           show={this.props.showNotification}
-          onHide={
-            () => {
-              this.props.closeNotification();
-              this.redirectToHome();
-            }
-          }
+          onHide={() => {
+            this.props.closeNotification();
+            this.redirectToHome();
+          }}
           aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Header closeButton>
@@ -335,22 +348,25 @@ class AddProfile extends React.Component {
             </Row>
           </Modal.Body>
         </Modal>
-        
-        <Modal size= "lg" 
-        show={this.props.showSpinner}
-        onHide={() => this.props.closeNotification()}
-        aria-labelledby="example-modal-sizes-title-lg"
+
+        <Modal
+          size="lg"
+          show={this.props.showSpinner}
+          onHide={() => this.props.closeNotification()}
+          aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Header closeButton>
-            <Modal.Title id="example-modal-sizes-title-lg"> Adding Candidate...</Modal.Title>
+            <Modal.Title id="example-modal-sizes-title-lg">
+              {" "}
+              Adding Candidate...
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="text-center">
-              <Spinner animation="border" variant="secondary" role="status"  >
+              <Spinner animation="border" variant="secondary" role="status">
                 <span className="sr-only">Loading...</span>
               </Spinner>
-
-          </div>
+            </div>
           </Modal.Body>
         </Modal>
       </Container>

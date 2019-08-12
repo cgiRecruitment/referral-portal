@@ -1,11 +1,11 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/es/Col";
+import Col from "react-bootstrap/Col";
 import "./calenderStyle.css";
 import Table from "react-bootstrap/Table";
-import Row from "react-bootstrap/es/Row";
-import Form from "react-bootstrap/es/Form";
-import Tabs from "react-bootstrap/es/Tabs";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import InterviewsTable from "./InterviewsTable";
 

@@ -1,4 +1,4 @@
-import { getProfiles, UPDATE_PROFILE } from "../actions/profileActions";
+import { updateProfileStore, UPDATE_PROFILE } from "../actions/profileActions";
 import { setNotification } from "../actions/notificiationActions";
 import { setGeneralError } from "../actions/errorActions";
 import axiosClient from "../AxiosClient";
@@ -22,11 +22,11 @@ const updateProfile = store => next => async action => {
     }
     const res = await axiosClient(config);
     if(res.data){
+      dispatch(updateProfileStore(res.data));
       dispatch(setNotification(res.data));
     }else{
       dispatch(setGeneralError(constants.UPDATE_PROFILE_ERROR))
     }
-    dispatch(getProfiles());
   } catch (e) {
     console.error(e);
   }

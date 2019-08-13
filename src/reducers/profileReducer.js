@@ -148,6 +148,12 @@ function profileReducer(state = initialState, action) {
               return action.profile;
             }
             return profile;
+          }),
+          activeProfiles: state.activeProfiles && state.activeProfiles.map((profile,index) => {
+            if(profile.id === action.profile.id) {
+              return action.profile;
+            }
+            return profile;
           })
         };
     

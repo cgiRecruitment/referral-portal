@@ -34,7 +34,8 @@ class CustomTable extends React.Component {
     date: "",
     candidateId: "",
     downloadFile: "",
-    memberId: sessionStorage.getItem("memberId")
+    memberId: sessionStorage.getItem("memberId"),
+    disabledRefferedBy: false
   };
 
   componentWillMount() {
@@ -410,7 +411,8 @@ class CustomTable extends React.Component {
                             editProfile: true,
                             selectedProfile: this.props.profiles.filter(
                               profile => profile.id === item.id
-                            )
+                            ),
+                            disabledRefferedBy: !item.referred
                           })
                         }
                       >
@@ -585,7 +587,7 @@ class CustomTable extends React.Component {
                               type="radio"
                               defaultChecked={referred}
                               name={`isReferral`}
-                              onChange={e => this.setState({ referred: true })}
+                              onChange={e => this.setState({ referred: true, disabledRefferedBy: false })}
                             />
                             <Form.Check
                               inline
@@ -593,7 +595,7 @@ class CustomTable extends React.Component {
                               type="radio"
                               defaultChecked={!referred}
                               name={`isReferral`}
-                              onChange={e => this.setState({ referred: false })}
+                              onChange={e => this.setState({ referred: false, referredBy: null, disabledRefferedBy: true })}
                             />
                           </td>
                         </tr>
@@ -604,8 +606,8 @@ class CustomTable extends React.Component {
                               <Form.Control
                                 required = {(this.state.disabledRefferedBy)? true : false}
                                 type="text"
-                                defaultValue={referredBy}
-                                disabled = {(this.state.disabledRefferedBy)? "disabled" : ""}
+                                defaultValue={(this.state.disabledRefferedBy) ? "" : referredBy}
+                                disabled = {this.state.disabledRefferedBy === true ? constants.DISABLED : ""}
                                 onChange={e =>
                                   this.setState({ referredBy: e.target.value })
                                 }

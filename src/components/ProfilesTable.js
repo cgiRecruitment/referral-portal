@@ -595,7 +595,7 @@ class CustomTable extends React.Component {
                               type="radio"
                               defaultChecked={!referred}
                               name={`isReferral`}
-                              onChange={e => this.setState({ referred: false, referredBy: null, disabledRefferedBy: true })}
+                              onChange={e => this.setState({ referred: false, referredBy: '', disabledRefferedBy: true })}
                             />
                           </td>
                         </tr>
@@ -604,9 +604,9 @@ class CustomTable extends React.Component {
                           <td>
                           <Form.Group controlId="referredBy" as={Row}>
                               <Form.Control
-                                required = {(this.state.disabledRefferedBy)? true : false}
+                                required = {this.state.disabledRefferedBy === false? true : false}
                                 type="text"
-                                defaultValue={(this.state.disabledRefferedBy) ? "" : referredBy}
+                                defaultValue={referredBy || ''}
                                 disabled = {this.state.disabledRefferedBy === true ? constants.DISABLED : ""}
                                 onChange={e =>
                                   this.setState({ referredBy: e.target.value })

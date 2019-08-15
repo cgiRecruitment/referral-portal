@@ -131,30 +131,14 @@ function profileReducer(state = initialState, action) {
     case UPDATE_PROFILE_STORE:
         return {
           ...state,
-          profiles: state.profiles.map((profile, index) => {
-            if(profile.id === action.profile.id) {
-              return action.profile;
-            }
-            return profile;
-          }),
-          paginatedProfiles: state.paginatedProfiles && state.paginatedProfiles.map((profile,index) => {
-            if(profile.id === action.profile.id) {
-              return action.profile;
-            }
-            return profile;
-          }),
-          filteredProfiles : state.filteredProfiles && state.filteredProfiles.map((profile,index) => {
-            if(profile.id === action.profile.id) {
-              return action.profile;
-            }
-            return profile;
-          }),
-          activeProfiles: state.activeProfiles && state.activeProfiles.map((profile,index) => {
-            if(profile.id === action.profile.id) {
-              return action.profile;
-            }
-            return profile;
-          })
+          profiles: state.profiles && [action.profile]
+            .concat(state.profiles.filter((profile) => profile.id !== action.profile.id)),
+          paginatedProfiles: state.paginatedProfiles && [action.profile]
+            .concat(state.paginatedProfiles.filter((profile) => profile.id !== action.profile.id)),
+          filteredProfiles : state.filteredProfiles && [action.profile]
+            .concat(state.filteredProfiles.filter((profile) => profile.id !== action.profile.id)),
+          activeProfiles: state.activeProfiles && [action.profile]
+            .concat(state.activeProfiles.filter((profile) => profile.id !== action.profile.id)),
         };
     
 

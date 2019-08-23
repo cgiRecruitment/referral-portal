@@ -19,6 +19,7 @@ class Header extends React.Component {
               <Nav.Link href="#/profiles">View Profiles</Nav.Link>
               <Nav.Link href="#/add-profile">Add Profiles</Nav.Link>
               <Nav.Link href="#/calender">Interview Calender</Nav.Link>
+              <Nav.Link href="#/new-joiners">New Joiners</Nav.Link>
             </Nav>
             <Nav>
               Welcome&nbsp;{sessionStorage.getItem("memberName")}&nbsp;

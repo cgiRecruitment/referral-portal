@@ -34,7 +34,14 @@ class CustomTable extends React.Component {
     date: "",
     candidateId: "",
     downloadFile: "",
-    memberId: sessionStorage.getItem("memberId")
+    memberId: sessionStorage.getItem("memberId"),
+    disabledRefferedBy: false,
+    disableJoinersPanel: false,
+    joinerDetails:{
+      id:"",
+      joiningDate:"",
+      dcsName:""
+    }
   };
 
   componentWillMount() {
@@ -49,6 +56,14 @@ class CustomTable extends React.Component {
     } else {
       e.preventDefault();
       e.stopPropagation();
+      console.log(this.state);
+      if( this.state && this.state.selectedProfile && this.state.selectedProfile[0].joinerDetails){
+      this.state.selectedProfile[0].joinerDetails.joiningDate = this.state.joinerDetails.joiningDate;
+      this.state.selectedProfile[0].joinerDetails.dcsName = this.state.joinerDetails.dcsName;
+      }
+      else{
+        this.state.selectedProfile[0].joinerDetails = this.state.joinerDetails;
+      }
       this.props.updateProfile(this.state).then(() => {
         this.setState({ editProfile: false });
       });
@@ -95,6 +110,13 @@ class CustomTable extends React.Component {
     this.props.getFileDownloadLink(files)
   };
 
+  handleStatusChange =(e) => {
+      this.setState({
+        status: e.target.value,
+        disableJoinersPanel: e.target.value !== constants.OFFER_ACCEPTED ? true : false
+      })
+  }
+
   render() {
     const {
       name,
@@ -109,7 +131,8 @@ class CustomTable extends React.Component {
       comments,
       interviews,
       phone,
-      filesInformation
+      filesInformation,
+      joinerDetails
     } =
       this.state && this.state.selectedProfile
         ? this.state.selectedProfile[0]
@@ -326,8 +349,9 @@ class CustomTable extends React.Component {
               <th key={"#"}>{"#"}</th>
               <th key={"Name"}>{"Name"}</th>
               <th key={"Skills"}>{"Skills"}</th>
+              {!this.props.newJoiner && (
               <th key={"Received Date"}>{"Received Date"}</th>
-
+              )}
               {this.props.scheduleInterview && (
                 <th>
                   <FilterComponent
@@ -342,7 +366,9 @@ class CustomTable extends React.Component {
                 <th key={"Status"}>{"Status"}</th>
               )}
 
-              <th key={"Excel ID"}>{"Excel ID"}</th>
+              {!this.props.newJoiner && (
+                 <th key={"Excel ID"}>{"Excel ID"}</th>
+              )}
               {this.props.scheduleInterview && (
                 <th key={"Add Interview"}>
                   {this.props.scheduleInterview ? ["Add Interview"] : []}
@@ -350,6 +376,12 @@ class CustomTable extends React.Component {
               )}
               {this.props.editUser && (
                 <th>{this.props.editUser ? ["Edit"] : []}</th>
+              )}
+              {this.props.newJoiner && (
+                <th key={"Date Of Joining"}>{"Date Of Joining"}</th>
+              )}
+              {this.props.newJoiner && (
+                <th key={"DCS Name"}>{"DCS Name"}</th>
               )}
             </tr>
           </thead>
@@ -375,14 +407,16 @@ class CustomTable extends React.Component {
                     </a>{" "}
                   </td>
                   <td>{item.skill}</td>
+                  {!this.props.newJoiner && (
                   <td>
                     {item.receivedDate && item.receivedDate.substring(0, 10)}
                   </td>
+                  )}
 
                   <td>
                     <Status>{item.status}</Status>
                   </td>
-                  <td>{item.idFromExcel}</td>
+                  {!this.props.newJoiner && (<td>{item.idFromExcel}</td>)}
                   {this.props.scheduleInterview && (
                     <td>
                       <a
@@ -410,7 +444,10 @@ class CustomTable extends React.Component {
                             editProfile: true,
                             selectedProfile: this.props.profiles.filter(
                               profile => profile.id === item.id
-                            )
+                            ),
+                            disableJoinersPanel: item.status !== constants.OFFER_ACCEPTED
+                            ? true : false,
+                            disabledRefferedBy: !item.referred
                           })
                         }
                       >
@@ -418,6 +455,16 @@ class CustomTable extends React.Component {
                         <FontAwesomeIcon icon="edit" />
                       </a>
                     </td>
+                  )}
+                  {this.props.newJoiner && (
+                  <td>
+                    {item.joinerDetails.joiningDate && item.joinerDetails.joiningDate.substring(0, 10)}
+                  </td>
+                  )}
+                  {this.props.newJoiner && (
+                  <td>
+                    {item.joinerDetails.dcsName}
+                  </td>
                   )}
                 </tr>
               ))}
@@ -536,7 +583,7 @@ class CustomTable extends React.Component {
                               as="select"
                               defaultValue={status}
                               onChange={e =>
-                                this.setState({ status: e.target.value })
+                                this.handleStatusChange(e)
                               }
                               required
                             >
@@ -555,6 +602,50 @@ class CustomTable extends React.Component {
                             </Form.Control>
                           </td>
                         </tr>
+                        { !this.state.disableJoinersPanel &&
+                        <tr>
+                          <td>Date of Joining</td>
+                          <td>
+                          <Form.Group controlId="joiningDate" as={Row}>
+                              <Form.Control
+                                required = {this.state.disableJoinersPanel === true ? false : true}
+                                type="date"
+                                defaultValue={joinerDetails && joinerDetails.joiningDate}
+                                disabled = {this.state.disableJoinersPanel === true? constants.DISABLED: "" }
+                                onChange={e =>
+                                  this.setState({
+                                    joinerDetails: {
+                                      ...this.state.joinerDetails,
+                                      joiningDate:e.target.value
+                                    }})
+                                }
+                              />
+                            </Form.Group>
+                          </td>
+                        </tr>
+                         }
+                          { !this.state.disableJoinersPanel &&
+                        <tr>
+                          <td>Reporting DCS</td>
+                          <td>
+                          <Form.Group controlId="dcsName" as={Row}>
+                              <Form.Control
+                                required = {this.state.disableJoinersPanel === true ? false : true}
+                                type="text"
+                                defaultValue={joinerDetails && joinerDetails.dcsName}
+                                disabled = {this.state.disableJoinersPanel === true? constants.DISABLED: "" }
+                                onChange={e =>
+                                  this.setState({
+                                    joinerDetails: {
+                                      ...this.state.joinerDetails,
+                                      dcsName:e.target.value
+                                    }})
+                                }
+                              />
+                            </Form.Group>
+                          </td>
+                        </tr>
+                      }
                         <tr>
                           <td>In NL</td>
                           <td>
@@ -585,7 +676,7 @@ class CustomTable extends React.Component {
                               type="radio"
                               defaultChecked={referred}
                               name={`isReferral`}
-                              onChange={e => this.setState({ referred: true })}
+                              onChange={e => this.setState({ referred: true, disabledRefferedBy: false })}
                             />
                             <Form.Check
                               inline
@@ -593,7 +684,7 @@ class CustomTable extends React.Component {
                               type="radio"
                               defaultChecked={!referred}
                               name={`isReferral`}
-                              onChange={e => this.setState({ referred: false })}
+                              onChange={e => this.setState({ referred: false , referredBy: '', disabledRefferedBy: true})}
                             />
                           </td>
                         </tr>
@@ -602,10 +693,10 @@ class CustomTable extends React.Component {
                           <td>
                           <Form.Group controlId="referredBy" as={Row}>
                               <Form.Control
-                                required = {(this.state.disabledRefferedBy)? true : false}
+                                required = {this.state.disabledRefferedBy === false? true : false}
                                 type="text"
-                                defaultValue={referredBy}
-                                disabled = {(this.state.disabledRefferedBy)? "disabled" : ""}
+                                defaultValue={referredBy || ''}
+                                disabled = {this.state.disabledRefferedBy === true ? constants.DISABLED : ""}
                                 onChange={e =>
                                   this.setState({ referredBy: e.target.value })
                                 }

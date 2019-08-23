@@ -3,6 +3,7 @@ import { Route, HashRouter } from "react-router-dom";
 import Dashboard from "./containers/dashboard";
 import ViewProfiles from "./containers/viewProfiles";
 import AddProfile from "./containers/addProfile";
+import NewJoiners from "./containers/newJoiners";
 import Calender from "./containers/calender";
 import Header from "./components/Header";
 import Login from "./containers/login";
@@ -38,6 +39,7 @@ class App extends React.Component {
                 />
               )}
             />
+            <Route exact path="/new-joiners/" render={() => <NewJoiners />} />
             <Route exact path="/login/" render={() => <Login />} />
           </HashRouter>
         ) : (

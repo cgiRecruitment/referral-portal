@@ -5,6 +5,7 @@ export const constants = {
   REJECTED: "Rejected",
   OFFER_MADE: "Offer Made",
   JOINED: "Joined",
+  OFFER_ACCEPTED: "Offer Accepted",
   DISABLED: "disabled",
   AUTH_TOKEN: "auth-token",
   ACTIVE_PROFILES: [

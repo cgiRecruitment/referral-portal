@@ -23,7 +23,12 @@ class AddProfile extends React.Component {
     redirect: false,
     displayNotification: false,
     memberId: sessionStorage.getItem("memberId"),
-    disabledRefferedBy: false
+    disabledRefferedBy: false,
+    /*joinerDetails : {
+      joiningDate:"",
+      dcsName:""
+    },*/
+    disableJoinersPanel:true
   };
 
   candidateDocuments = [];
@@ -54,7 +59,8 @@ class AddProfile extends React.Component {
       const profile = JSON.stringify(this.state);
       this.props.createProfile({
         documents: this.candidateDocuments,
-        details: profile
+        details: profile,
+        joinerDetails:this.joinerDetails
       });
     }
 
@@ -74,6 +80,13 @@ class AddProfile extends React.Component {
   redirectToHome() {
     this.setState({ redirect: true });
   }
+
+  handleStatusChange =(e) => {
+    this.setState({
+    status: e.target.value,
+    disableJoinersPanel: e.target.value !== constants.OFFER_ACCEPTED ? true : false
+  })
+}
 
   render() {
     return (
@@ -176,9 +189,7 @@ class AddProfile extends React.Component {
                         <Form.Control
                           required
                           as="select"
-                          onChange={e =>
-                            this.setState({ status: e.target.value })
-                          }
+                          onChange={ e => this.handleStatusChange(e) }
                         >
                           <option />
                           {this.props.statusList.map(status => (
@@ -188,6 +199,58 @@ class AddProfile extends React.Component {
                       </Col>
                     </Form.Group>
                   </Col>
+                  { !this.state.disableJoinersPanel &&
+                  <Col xs="12" md="4">
+                    <Form.Group controlId="dateOfJoining" as={Row}>
+                      <Form.Label column sm="4" md="12">
+                        Date of joining
+                      </Form.Label>
+                      <Col sm="10">
+                        <Form.Control
+                        required = {this.state.disableJoinersPanel === true ? false : true}
+                         // required
+                          type="date"
+                          disabled = {this.state.disableJoinersPanel === true? constants.DISABLED: "" }
+                          onChange={e =>
+                            this.setState({
+                              joinerDetails:{
+                                ...this.state.joinerDetails,
+                                joiningDate:e.target.value
+                              }
+                             })
+                          }
+                        >
+                        </Form.Control>
+                      </Col>
+                    </Form.Group>
+                  </Col>
+                  }
+                   { !this.state.disableJoinersPanel &&
+                  <Col xs="12" md="4">
+                    <Form.Group controlId="dcsName" as={Row}>
+                      <Form.Label column sm="4" md="12">
+                        DCS Name
+                      </Form.Label>
+                      <Col sm="10">
+                        <Form.Control
+                        required = {this.state.disableJoinersPanel === true ? false : true}
+                       //   required
+                          type="text"
+                          disabled = {this.state.disableJoinersPanel === true? constants.DISABLED: "" }
+                          onChange={e =>
+                            this.setState({
+                              joinerDetails:{
+                                ...this.state.joinerDetails,
+                                dcsName:e.target.value
+                              }
+                             })
+                          }
+                        >
+                        </Form.Control>
+                      </Col>
+                    </Form.Group>
+                  </Col>
+                   }
                   <Col xs="12" md="4">
                     <Form.Group controlId="profileInNetherlands" as={Row}>
                       <Form.Label column sm="8" md="12">

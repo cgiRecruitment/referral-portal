@@ -8,7 +8,7 @@ import errorReducer from "./errorReducer";
 import interviewReducer from "./interviewReducer";
 import notificationReducer from "./notificationReducer";
 import loadingSpinnerReducer from "./loadingSpinnerReducer";
-import downloadFileReducer from "./downloadFileReducer";
+import documentReducer from "./documentReducer";
 
 export default combineReducers({
   routing: routerReducer,
@@ -20,5 +20,5 @@ export default combineReducers({
   notificationReducer,
   interviewReducer,
   loadingSpinnerReducer,
-  downloadFileReducer
+  documentReducer
 });

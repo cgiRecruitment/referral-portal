@@ -16,7 +16,7 @@ import {
 } from "../actions/profileActions";
 import { createInterview } from "../actions/interviewActions";
 import { filterProfiles } from "../actions/FilterActions";
-import { getFileDownloadLink } from "../actions/downloadFileActions";
+import { getFileDownloadLink, deleteCandidateDocument, uploadCandidateDocument } from "../actions/documentAction";
 
 const mapStateToProps = state => ({
   profiles: state.profileReducer.profiles,
@@ -29,7 +29,9 @@ const mapStateToProps = state => ({
   paginatedProfiles: state.profileReducer.paginatedProfiles,
   startIndex: state.profileReducer.startIndex,
   filteredProfiles: state.profileReducer.filteredProfiles,
-  downloadFile: state.downloadFileReducer.downloadFile
+  downloadFile: state.documentReducer.downloadFile,
+  deleteDocument: state.documentReducer.deleteDocument,
+  uploadDocument: state.documentReducer.uploadDocument
 });
 
 const mapDispatchToProps = dispatch =>
@@ -46,7 +48,9 @@ const mapDispatchToProps = dispatch =>
       getInterviewerList,
       updateProfile,
       filterProfiles,
-      getFileDownloadLink
+      getFileDownloadLink,
+      deleteCandidateDocument,
+      uploadCandidateDocument
     },
     dispatch
   );

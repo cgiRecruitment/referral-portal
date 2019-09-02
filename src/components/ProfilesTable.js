@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import Image from 'react-bootstrap/Image';
 import Status from "./Status";
 import Modal from "react-bootstrap/es/Modal";
 import { Row } from "react-bootstrap";
@@ -8,7 +9,9 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faEye,
   faEdit,
-  faCalendarPlus
+  faCalendarPlus,
+  faFolderPlus,
+  faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/es/Form";
@@ -22,6 +25,8 @@ import { getEditorState } from "../utility/RichTextHelper";
 library.add(faEye);
 library.add(faEdit);
 library.add(faCalendarPlus);
+library.add(faFolderPlus);
+library.add(faTrashAlt);
 
 class CustomTable extends React.Component {
   state = {
@@ -36,6 +41,8 @@ class CustomTable extends React.Component {
     downloadFile: "",
     memberId: sessionStorage.getItem("memberId")
   };
+
+  candidateDocuments = [];
 
   componentWillMount() {
     getProfiles();
@@ -95,6 +102,30 @@ class CustomTable extends React.Component {
     this.props.getFileDownloadLink(files)
   };
 
+  deleteFiles = (uploadFileId) => {
+    
+    this.props.deleteCandidateDocument({
+      fileId: uploadFileId,
+      candidateId: this.state.selectedProfile[0]["id"]
+    });
+  };
+
+
+  uploadFiles = (files) => {
+
+    if (files.length > 3) {
+      alert("You cannot choose more that 3 files");
+      this.refs.fileUpload.value = "";
+    } else {
+      this.candidateDocuments = files;
+    }
+    
+    this.props.uploadCandidateDocument({
+      fileId: uploadFileId,
+      candidateId: this.state.selectedProfile[0]["id"]
+    });
+  };
+
   render() {
     const {
       name,
@@ -114,6 +145,9 @@ class CustomTable extends React.Component {
       this.state && this.state.selectedProfile
         ? this.state.selectedProfile[0]
         : {};
+
+
+        const showButton = filesInformation && (filesInformation.length < 3);
 
     return (
       <React.Fragment>
@@ -621,6 +655,36 @@ class CustomTable extends React.Component {
                               />
                             </Form.Group>
                           </td>
+                        </tr>
+                        <tr>
+                        <td>Documents</td>
+                        <td >
+                          <Row>
+                          <Col sm="10">
+                              {filesInformation &&
+                                filesInformation.map(files => (
+                                <tr>
+                                  <td><a
+                                      href="javascript:void(0)"
+                                      onClick={() => this.downloadFiles(files)}>{files.fileName}</a>
+                                  </td>
+                                  <td><a  href="javascript.void(0)" 
+                                      onClick={() => {this.deleteFiles(files.uploadFileId)}}>
+                                        <FontAwesomeIcon icon="trash-alt"/></a>                                
+                                  </td>
+                                </tr>
+                              ))}     
+                              </Col>
+                              <Col sm="2">
+                                { 
+                                  
+                                  filesInformation && (filesInformation.length < 3) ? 
+                                  <div><a  href="javascript.void(0)" onClick={() => {this.uploadFiles(files)}} ></a>
+                                  <FontAwesomeIcon icon="folder-plus" /> </div>
+                                  : (null)}
+                              </Col>                                   
+                            </Row>
+                        </td>
                         </tr>
 
                         {this.state.status === "scheduled" && (

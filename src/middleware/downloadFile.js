@@ -1,4 +1,4 @@
-import { FILE_DOWNLOAD_LINK } from "../actions/downloadFileActions";
+import { FILE_DOWNLOAD_LINK } from "../actions/documentAction";
 import { constants } from "../utility/constants";
 import axiosClient from "../AxiosClient";
 import downloadFile from "../utility/downloadFileHelper";

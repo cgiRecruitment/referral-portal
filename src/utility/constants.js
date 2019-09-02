@@ -1,5 +1,7 @@
 export const constants = {
-  host: "https://manage-candidates-test.cfapps.io",
+  //host: "https://manage-candidates-test.cfapps.io",
+
+  host: "http://localhost:8080",
 
   pageSize: 20,
   REJECTED: "Rejected",
@@ -25,7 +27,9 @@ export const constants = {
     LOGIN: "/login",
     UPDATE_INTERVIEW: "/interviews/%PATH_PARAM%",
     UPDATE_PROFILE: "/candidates/candidate/%PATH_PARAM%",
-    GET_FILE_DOWNLOAD_LINK: "/candidates/download/%PATH_PARAM%"
+    GET_FILE_DOWNLOAD_LINK: "/candidates/download/%PATH_PARAM%",
+    DELETE_CANDIDATE_DOCUMENT: "/candidates/delete/%PATH_PARAM%?fileId=%QUERY_PARAM%",
+    UPLOAD_CANDIDATE_DOCUMENT: "/candidates/upload/%PATH_PARAM%"
   },
   SESSION_EXPIRED: "Session Expired. Please login again",
   UPDATE_INTERVIEW_ERROR: "Unable to update interview at this time",

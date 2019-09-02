@@ -17,7 +17,7 @@ import { logout } from "../actions/userActions";
 import { checkStatus } from "../utility/checkLoginStatus";
 import { stat } from "fs";
 import { createComment } from "../actions/profileActions";
-import { getFileDownloadLink } from "../actions/downloadFileActions";
+import { getFileDownloadLink, deleteCandidateDocument, uploadCandidateDocument } from "../actions/documentAction";
 
 checkStatus();
 
@@ -29,7 +29,9 @@ const mapStateToProps = state => ({
   interviews: state.interviewReducer.interviews,
   stats: state.profileReducer.stats,
   skillSets: state.prefillReducer.skillSet,
-  downloadFile: state.downloadFileReducer.downloadFile
+  downloadFile: state.documentReducer.downloadFile,
+  deleteDocument: state.documentReducer.deleteDocument,
+  uploadDocument: state.documentReducer.uploadDocument
 });
 
 const mapDispatchToProps = dispatch =>
@@ -46,7 +48,9 @@ const mapDispatchToProps = dispatch =>
       logout,
       createComment,
       getSkillSetList,
-      getFileDownloadLink
+      getFileDownloadLink,
+      deleteCandidateDocument,
+      uploadCandidateDocument
     },
     dispatch
   );

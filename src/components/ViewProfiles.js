@@ -36,6 +36,8 @@ class ViewProfiles extends React.Component {
             filterProfiles={this.props.filterProfiles}
             filteredProfiles={this.props.filteredProfiles}
             getFileDownloadLink={this.props.getFileDownloadLink}
+            deleteCandidateDocument={this.props.deleteCandidateDocument}
+            uploadCandidateDocument={this.props.uploadCandidateDocument}
           />
           <PaginationComponent
             applyPagination={this.props.applyPagination}

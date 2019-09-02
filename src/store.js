@@ -18,6 +18,8 @@ import { getInterviewTypes } from "./middleware/getInterviewTypes";
 import { createComment } from "./middleware/createComment";
 import { updateInterview } from "./middleware/updateInterview";
 import { getFileDownloadLink } from "./middleware/downloadFile";
+import { deleteCandidateDocument } from "./middleware/deleteCandidateDocument";
+import { uploadCandidateDocument } from "./middleware/uploadCandidateDocument";
 
 const initialState = {};
 const enhancers = [];
@@ -38,6 +40,8 @@ const middleware = [
   getInterviewTypes,
   createComment,
   getFileDownloadLink,
+  deleteCandidateDocument,
+  uploadCandidateDocument,
   thunk,
   routerMiddleware()
 ];

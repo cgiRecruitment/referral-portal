@@ -24,7 +24,8 @@ class ReDirect extends React.Component {
                 skillSets={this.props.skillSets}
                 updateProfile={this.props.updateProfile}
                 getFileDownloadLink={this.props.getFileDownloadLink}
-
+                deleteCandidateDocument={this.props.deleteCandidateDocument}
+                uploadCandidateDocument={this.props.uploadCandidateDocument}
               />
             )}
           />
